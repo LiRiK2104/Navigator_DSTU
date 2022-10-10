@@ -6,6 +6,7 @@ public class PathFinder : MonoBehaviour
 {
     [SerializeField] private Transform _user;
     [SerializeField] private Transform _targetPoint;
+    [SerializeField] private LineRenderer _lineRenderer;
     
     private NavMeshPath _path;
 
@@ -17,8 +18,7 @@ public class PathFinder : MonoBehaviour
 
     private void Update()
     {
-        for (int i = 0; i < _path.corners.Length - 1; i++)
-            Debug.DrawLine(_path.corners[i], _path.corners[i+1], Color.red);
+        DrawPath();
     }
 
     private IEnumerator PathFinding()
@@ -29,6 +29,15 @@ public class PathFinder : MonoBehaviour
         {
             NavMesh.CalculatePath(_user.position, _targetPoint.position, NavMesh.AllAreas, _path);
             yield return new WaitForSeconds(updatingTime);
+        }
+    }
+
+    private void DrawPath()
+    {
+        for (int i = 0; i < _path.corners.Length - 1; i++)
+        {
+            _lineRenderer.positionCount = _path.corners.Length;
+            _lineRenderer.SetPositions(_path.corners);
         }
     }
 }
