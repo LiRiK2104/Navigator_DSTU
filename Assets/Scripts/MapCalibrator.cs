@@ -52,7 +52,6 @@ public class MapCalibrator : MonoBehaviour
         args.removed.ForEach(trackable => trackable.gameObject.SetActive(false));
         
         var markerName = GetMarkerName(args);
-        Debug.Log($"Marker name = \"{markerName}\"");
 
         if (TryFindMarker(out MarkerCursor markerCursor) && 
             _dataBase.TryGetPoint(markerName, out Point foundPoint))
@@ -75,18 +74,11 @@ public class MapCalibrator : MonoBehaviour
     private string GetMarkerName(ARTrackedImagesChangedEventArgs args)
     {
         if (args.updated.Count > 0)
-        {
-            Debug.Log($"a");
             return args.updated[0].referenceImage.name;
-        }
 
         if (args.added.Count > 0)
-        {
-            Debug.Log($"b");
             return args.added[0].referenceImage.name;
-        }
-
-        Debug.Log($"c");
+       
         return String.Empty;
     }
 
