@@ -62,7 +62,7 @@ public class Calibrator : MonoBehaviour
 
         var markerName = GetMarkerName(args);
 
-        if (_dataBase.TryGetPoint(markerName, out Point foundPoint))
+        if (_dataBase.TryGetMarkerPoint(markerName, out MarkerPoint foundPoint))
         {
             UpdateMarkerLocation(foundPoint.VirtualMarker);
             UpdateEnvironmentLocation(foundPoint.VirtualMarker);

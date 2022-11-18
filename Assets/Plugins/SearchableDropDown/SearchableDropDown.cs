@@ -3,13 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.EditorTools;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
-using Image = UnityEngine.UI.Image;
 
 public class SearchableDropDown : MonoBehaviour
 {
@@ -29,16 +25,12 @@ public class SearchableDropDown : MonoBehaviour
 
     public delegate void OnValueChangedDel(string val);
     public event OnValueChangedDel ValueChanged;
-
-    void Start()
-    {
-        //Init();
-    }
+    
 
     /// <summary>
     /// Initilize all the Fields
     /// </summary>
-    private void Init(List<string> optionsNames)
+    public void Initialize(List<string> optionsNames)
     {
         _ddButton = GetComponentInChildren<Button>();
         _scrollRect = GetComponentInChildren<ScrollRect>();

@@ -1,30 +1,38 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARSubsystems;
 
 public class PathFinder : MonoBehaviour
 {
     [SerializeField] private Transform _user;
-    [SerializeField] private Transform _targetPoint;
     [SerializeField] private LineRenderer _lineRenderer;
     
+    private Transform _targetPoint;
     private NavMeshPath _path;
 
+    
     private void Start()
     {
         _path = new NavMeshPath();
-        StartCoroutine(PathFinding());
     }
 
     private void Update()
     {
         DrawPath();
     }
+    
+
+    public void SetTarget(Transform targetPoint)
+    {
+        _targetPoint = targetPoint;
+        StartCoroutine(PathFinding());
+    }
 
     private IEnumerator PathFinding()
     {
+        if (_targetPoint == null)
+            yield break;
+        
         float updatingTime = 0.2f;
         
         while (true)
