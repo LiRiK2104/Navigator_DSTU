@@ -1,13 +1,11 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
 public class ARValidator : MonoBehaviour
 {
     [SerializeField] private UISetter _uiSetter;
-    [SerializeField] private MapCalibrator _calibrator;
+    [SerializeField] private Calibrator _calibrator;
 
 
     private void OnEnable()

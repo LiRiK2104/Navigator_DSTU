@@ -3,11 +3,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 
-public class MapCalibrator : MonoBehaviour
+public class Calibrator : MonoBehaviour
 {
     [SerializeField] private Button _calibrateButton;
     [SerializeField] private Button _recalibrateButton;
     [SerializeField] private DataBase _dataBase;
+    [SerializeField] private ARSession _arSession;
     [SerializeField] private ARCameraManager _arCameraManager;
     [SerializeField] private ARTrackedImageManager _arTrackedImageManager;
     [SerializeField] private GameObject _environment;
@@ -38,6 +39,7 @@ public class MapCalibrator : MonoBehaviour
 
     public void ResetCalibration()
     {
+        _arSession.Reset();
         _environment.SetActive(false);
         _isCalibrated = false;
         CalibrationReset?.Invoke();
