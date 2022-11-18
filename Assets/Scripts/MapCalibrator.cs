@@ -1,21 +1,21 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARSubsystems;
 
 public class MapCalibrator : MonoBehaviour
 {
-    [SerializeField] private Button _calibrationButton;
+    [SerializeField] private Button _calibrateButton;
+    [SerializeField] private Button _recalibrateButton;
     [SerializeField] private DataBase _dataBase;
-    [SerializeField] private ARSessionOrigin _arSessionOrigin;
+    [SerializeField] private ARCameraManager _arCameraManager;
     [SerializeField] private ARTrackedImageManager _arTrackedImageManager;
     [SerializeField] private GameObject _environment;
     
     private bool _isCalibrated;
+    private bool _shouldCalibrate;
 
-    public event Action ShouldCalibrating;
+    public event Action CalibrationReset;
     public event Action Calibrated;
     
     public bool IsCalibrated => _isCalibrated;
@@ -24,43 +24,50 @@ public class MapCalibrator : MonoBehaviour
     private void OnEnable()
     {
         _arTrackedImageManager.trackedImagesChanged += Calibrate;
-        _calibrationButton.onClick.AddListener(SetShouldCalibrate);
+        _recalibrateButton.onClick.AddListener(ResetCalibration);
+        _calibrateButton.onClick.AddListener(SetShouldCalibrate);
     }
 
     private void OnDisable()
     {
         _arTrackedImageManager.trackedImagesChanged -= Calibrate;
-        _calibrationButton.onClick.RemoveListener(SetShouldCalibrate);
+        _recalibrateButton.onClick.RemoveListener(ResetCalibration);
+        _calibrateButton.onClick.RemoveListener(SetShouldCalibrate);
     }
 
-    public void SetShouldCalibrate()
+
+    public void ResetCalibration()
     {
         _environment.SetActive(false);
         _isCalibrated = false;
-        ShouldCalibrating?.Invoke();
+        CalibrationReset?.Invoke();
+    }
+
+    private void SetShouldCalibrate()
+    {
+        if (_isCalibrated)
+            return;
+        
+        _shouldCalibrate = true;
     }
 
     private void Calibrate(ARTrackedImagesChangedEventArgs args)
     {
-        if (_isCalibrated)
+        if (_isCalibrated || _shouldCalibrate == false)
             return;
-
+        
         Debug.Log("Calibration started!");
-        
-        SetActiveOnlyTrackingTrackables(args.added);
-        SetActiveOnlyTrackingTrackables(args.updated);
-        args.removed.ForEach(trackable => trackable.gameObject.SetActive(false));
-        
+
         var markerName = GetMarkerName(args);
 
-        if (TryFindMarker(out MarkerCursor markerCursor) && 
-            _dataBase.TryGetPoint(markerName, out Point foundPoint))
+        if (_dataBase.TryGetPoint(markerName, out Point foundPoint))
         {
-            UpdateMarkerLocation(markerCursor, foundPoint.VirtualMarker);
+            UpdateMarkerLocation(foundPoint.VirtualMarker);
             UpdateEnvironmentLocation(foundPoint.VirtualMarker);
             _environment.SetActive(true);
             
             _isCalibrated = true;
+            _shouldCalibrate = false;
             Calibrated?.Invoke();
 
             Debug.Log("Calibration successfully!");
@@ -69,6 +76,25 @@ public class MapCalibrator : MonoBehaviour
         {
             Debug.Log("Calibration failed!");
         }
+    }
+
+    private void UpdateMarkerLocation(VirtualMarker virtualMarker)
+    {
+        float offsetDistance = 0.5f;
+        Quaternion halfTurn = new Quaternion(0, 180, 0, 0);
+        Transform userTransform = _arCameraManager.transform;
+        Vector3 offset = userTransform.forward * offsetDistance;
+
+        Quaternion targetRotation = userTransform.rotation * halfTurn;
+        targetRotation = new Quaternion(0, targetRotation.y, 0, targetRotation.w);
+        
+        virtualMarker.transform.SetPositionAndRotation(userTransform.position + offset, targetRotation);
+    }
+    
+    private void UpdateEnvironmentLocation(VirtualMarker virtualMarker)
+    {
+        _environment.transform.position = virtualMarker.transform.TransformPoint(virtualMarker.RelativePosition);
+        _environment.transform.rotation = virtualMarker.transform.rotation * virtualMarker.RelativeRotation;
     }
 
     private string GetMarkerName(ARTrackedImagesChangedEventArgs args)
@@ -80,36 +106,5 @@ public class MapCalibrator : MonoBehaviour
             return args.added[0].referenceImage.name;
        
         return String.Empty;
-    }
-
-    private void SetActiveOnlyTrackingTrackables(List<ARTrackedImage> trackables)
-    {
-        foreach (var trackable in trackables)
-            trackable.gameObject.SetActive(trackable.trackingState != TrackingState.None);
-    }
-
-    private bool TryFindMarker(out MarkerCursor markerCursor)
-    {
-        markerCursor = _arSessionOrigin.GetComponentInChildren<MarkerCursor>();
-        return markerCursor != null && markerCursor.gameObject.activeSelf;
-    }
-    
-    private void UpdateMarkerLocation(MarkerCursor markerCursor, VirtualMarker virtualMarker)
-    {
-        if(markerCursor == null)
-            Debug.LogError("markerCursor == null");
-        
-        Quaternion rotationOffsetX = Quaternion.Euler(90, 0, 0);
-        Quaternion rotationOffsetY = Quaternion.Euler(0, -180, 0);
-        Quaternion targetRotation = markerCursor.transform.rotation * rotationOffsetX * rotationOffsetY;
-        targetRotation = new Quaternion(0, targetRotation.y, 0, targetRotation.w);
-        
-        virtualMarker.transform.SetPositionAndRotation(markerCursor.transform.position, targetRotation);
-    }
-    
-    private void UpdateEnvironmentLocation(VirtualMarker virtualMarker)
-    {
-        _environment.transform.position = virtualMarker.transform.TransformPoint(virtualMarker.RelativePosition);
-        _environment.transform.rotation = virtualMarker.transform.rotation * virtualMarker.RelativeRotation;
     }
 }

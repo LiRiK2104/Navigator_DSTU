@@ -5,7 +5,8 @@ using UnityEngine;
 public class UISetter : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _infoText;
-    [SerializeField] private GameObject _calibrationButton;
+    [SerializeField] private GameObject _calibrateButton;
+    [SerializeField] private GameObject _recalibrateButton;
     [SerializeField] private GameObject _markerFrame;
     [SerializeField] private GameObject _loadingImage;
     [SerializeField] private GameObject _failImage;
@@ -47,11 +48,12 @@ public class UISetter : MonoBehaviour
     private void SetCalibrationState()
     {
         _markerFrame.SetActive(true);
+        _calibrateButton.SetActive(true);
     }
     
     private void SetCalibratedState()
     {
-        _calibrationButton.SetActive(true);
+        _recalibrateButton.SetActive(true);
     }
     
     private void SetFailedState()
@@ -66,7 +68,8 @@ public class UISetter : MonoBehaviour
 
     private void DeactivateAll()
     {
-        _calibrationButton.SetActive(false);
+        _calibrateButton.SetActive(false);
+        _recalibrateButton.SetActive(false);
         _markerFrame.SetActive(false);
         _loadingImage.SetActive(false);
         _failImage.SetActive(false);

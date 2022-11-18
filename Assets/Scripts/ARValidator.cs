@@ -20,14 +20,14 @@ public class ARValidator : MonoBehaviour
         
         ARSession.stateChanged += OnARSessionStateChanged;
         _calibrator.Calibrated += SuccessValidation;
-        _calibrator.ShouldCalibrating += StartMarkersFinding;
+        _calibrator.CalibrationReset += StartMarkersFinding;
     }
     
     private void OnDisable()
     {
         ARSession.stateChanged -= OnARSessionStateChanged;
         _calibrator.Calibrated -= SuccessValidation;
-        _calibrator.ShouldCalibrating -= StartMarkersFinding;
+        _calibrator.CalibrationReset -= StartMarkersFinding;
     }
 
     private void OnARSessionStateChanged(ARSessionStateChangedEventArgs obj)
@@ -58,7 +58,7 @@ public class ARValidator : MonoBehaviour
                 break;
             
             case ARSessionState.SessionInitializing:
-                _calibrator.SetShouldCalibrate();
+                _calibrator.ResetCalibration();
                 Debug.Log("Supported, apk installed. SessionInitializing...");
                 break;
             
