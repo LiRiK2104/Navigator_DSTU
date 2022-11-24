@@ -10,6 +10,20 @@ public class PathFinder : MonoBehaviour
     private Transform _targetPoint;
     private NavMeshPath _path;
 
+    public Vector3 NearestPoint
+    {
+        get
+        {
+            _path ??= new NavMeshPath();
+            int minLength = 2;
+
+            if (_path.corners.Length >= minLength)
+                return _path.corners[minLength - 1];
+
+            return Vector3.zero;
+        }
+    }
+
     
     private void Start()
     {
@@ -25,10 +39,10 @@ public class PathFinder : MonoBehaviour
     public void SetTarget(Transform targetPoint)
     {
         _targetPoint = targetPoint;
-        StartCoroutine(PathFinding());
+        StartCoroutine(FindPath());
     }
 
-    private IEnumerator PathFinding()
+    private IEnumerator FindPath()
     {
         if (_targetPoint == null)
             yield break;
