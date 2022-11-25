@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
+  m_Name: 1stCampusMarkersLibrary
+  m_EditorClassIdentifier: 
+  m_GuidLow: 4867332076911677241
+  m_GuidHigh: 12626217139412936880
+  m_Images:
+  - m_SerializedGuid:
+      m_GuidLow: 4806914132316477923
+      m_GuidHigh: 7846663304579415474
+    m_SerializedTextureGuid:
+      m_GuidLow: 13939814293060436282
+      m_GuidHigh: 13620339778597049976
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: 1-11
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5114794211151532621
+      m_GuidHigh: 851198787263111599
+    m_SerializedTextureGuid:
+      m_GuidLow: 3847265132749338117
+      m_GuidHigh: 15772001875042283368
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: 1-12
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5695833789353773992
+      m_GuidHigh: 13353453263718209926
+    m_SerializedTextureGuid:
+      m_GuidLow: 12169877779191114235
+      m_GuidHigh: 5024217142334666985
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: 1-13
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4998217399008559289
+      m_GuidHigh: 520563965038770587
+    m_SerializedTextureGuid:
+      m_GuidLow: 7287965888224802393
+      m_GuidHigh: 7259804269232470392
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: 1-14
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5126456108036751674
+      m_GuidHigh: 1177184891703137668
+    m_SerializedTextureGuid:
+      m_GuidLow: 7909460853469416996
+      m_GuidHigh: 6425451905088008745
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: 1-15
+    m_Texture: {fileID: 0}
