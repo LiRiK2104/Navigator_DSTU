@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
+  m_Name: TestLibrary
+  m_EditorClassIdentifier: 
+  m_GuidLow: 4683166646247886980
+  m_GuidHigh: 7558584994772390073
+  m_Images:
+  - m_SerializedGuid:
+      m_GuidLow: 5498112702924198862
+      m_GuidHigh: 17172480522159458464
+    m_SerializedTextureGuid:
+      m_GuidLow: 13939814293060436282
+      m_GuidHigh: 13620339778597049976
+    m_Size: {x: 0, y: 0}
+    m_SpecifySize: 0
+    m_Name: ar_marker
+    m_Texture: {fileID: 0}

@@ -6,6 +6,7 @@ public class PathFinder : MonoBehaviour
 {
     [SerializeField] private Transform _user;
     [SerializeField] private LineRenderer _lineRenderer;
+    [SerializeField] private Calibrator _calibrator;
     
     private Transform _targetPoint;
     private NavMeshPath _path;
@@ -24,7 +25,19 @@ public class PathFinder : MonoBehaviour
         }
     }
 
-    
+
+    private void OnEnable()
+    {
+        _calibrator.Calibrated += StartFinding;
+        _calibrator.CalibrationReset += StopFinding;
+    }
+
+    private void OnDisable()
+    {
+        _calibrator.Calibrated -= StartFinding;
+        _calibrator.CalibrationReset -= StopFinding;
+    }
+
     private void Start()
     {
         _path = new NavMeshPath();
@@ -39,9 +52,22 @@ public class PathFinder : MonoBehaviour
     public void SetTarget(Transform targetPoint)
     {
         _targetPoint = targetPoint;
-        StartCoroutine(FindPath());
+        
+        StopFinding();
+        StartFinding();
     }
 
+    private void StartFinding()
+    {
+        StartCoroutine(FindPath());
+    }
+    
+    private void StopFinding()
+    {
+        StopCoroutine(FindPath());
+        _path.ClearCorners();
+    }
+    
     private IEnumerator FindPath()
     {
         if (_targetPoint == null)

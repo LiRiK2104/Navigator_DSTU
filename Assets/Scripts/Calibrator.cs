@@ -23,28 +23,26 @@ public class Calibrator : MonoBehaviour
     public bool IsCalibrated => _isCalibrated;
 
 
+    private void Awake()
+    {
+        ARSession.stateChanged += OnAppStartCalibrate;
+    }
+
     private void OnEnable()
     {
-        _arTrackedImageManager.trackedImagesChanged += Calibrate;
+        _arTrackedImageManager.trackedImagesChanged += StartCalibration;
         _recalibrateButton.onClick.AddListener(ResetCalibration);
         _calibrateButton.onClick.AddListener(SetShouldCalibrate);
     }
 
     private void OnDisable()
     {
-        _arTrackedImageManager.trackedImagesChanged -= Calibrate;
+        _arTrackedImageManager.trackedImagesChanged -= StartCalibration;
         _recalibrateButton.onClick.RemoveListener(ResetCalibration);
         _calibrateButton.onClick.RemoveListener(SetShouldCalibrate);
+        ARSession.stateChanged -= OnAppStartCalibrate;
     }
 
-
-    public void ResetCalibration()
-    {
-        _arSession.Reset();
-        _environment.SetActive(false);
-        _isCalibrated = false;
-        CalibrationReset?.Invoke();
-    }
 
     public void Calibrate(VirtualMarker virtualMarker)
     {
@@ -60,6 +58,23 @@ public class Calibrator : MonoBehaviour
         _shouldCalibrate = false;
         Calibrated?.Invoke();
     }
+    
+    private void OnAppStartCalibrate(ARSessionStateChangedEventArgs obj)
+    {
+        if (obj.state == ARSessionState.SessionInitializing)
+        {
+            ARSession.stateChanged -= OnAppStartCalibrate;
+            ResetCalibration();
+        }
+    }
+    
+    private void ResetCalibration()
+    {
+        _arSession.Reset();
+        _environment.SetActive(false);
+        _isCalibrated = false;
+        CalibrationReset?.Invoke();
+    }
 
     private void SetShouldCalibrate()
     {
@@ -69,7 +84,7 @@ public class Calibrator : MonoBehaviour
         _shouldCalibrate = true;
     }
 
-    private void Calibrate(ARTrackedImagesChangedEventArgs args)
+    private void StartCalibration(ARTrackedImagesChangedEventArgs args)
     {
         if (_isCalibrated || _shouldCalibrate == false)
             return;

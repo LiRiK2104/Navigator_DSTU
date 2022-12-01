@@ -7,9 +7,11 @@ public class UISetter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _infoText;
     [SerializeField] private GameObject _calibrateButton;
     [SerializeField] private GameObject _recalibrateButton;
+    [SerializeField] private GameObject _searchableDropdown;
     [SerializeField] private GameObject _markerFrame;
     [SerializeField] private GameObject _loadingImage;
     [SerializeField] private GameObject _failImage;
+    [SerializeField] private GameObject _minimap;
 
     
     public void SetState(SessionStates state, string text = "")
@@ -54,6 +56,8 @@ public class UISetter : MonoBehaviour
     private void SetCalibratedState()
     {
         _recalibrateButton.SetActive(true);
+        _searchableDropdown.SetActive(true);
+        _minimap.SetActive(true);
     }
     
     private void SetFailedState()
@@ -70,9 +74,11 @@ public class UISetter : MonoBehaviour
     {
         _calibrateButton.SetActive(false);
         _recalibrateButton.SetActive(false);
+        _searchableDropdown.SetActive(false);
         _markerFrame.SetActive(false);
         _loadingImage.SetActive(false);
         _failImage.SetActive(false);
+        _minimap.SetActive(false);
     }
 }
 

@@ -6,7 +6,7 @@ public class ARValidator : MonoBehaviour
 {
     [SerializeField] private UISetter _uiSetter;
     [SerializeField] private Calibrator _calibrator;
-
+    
 
     private void OnEnable()
     {
@@ -56,7 +56,6 @@ public class ARValidator : MonoBehaviour
                 break;
             
             case ARSessionState.SessionInitializing:
-                _calibrator.ResetCalibration();
                 Debug.Log("Supported, apk installed. SessionInitializing...");
                 break;
             
@@ -75,7 +74,7 @@ public class ARValidator : MonoBehaviour
     private void StartMarkersFinding()
     {
         if (_calibrator.IsCalibrated == false)
-            _uiSetter.SetState(SessionStates.Calibration, "Поиск меток...");
+            _uiSetter.SetState(SessionStates.Calibration, "Найдите маркер и встаньте напротив него так, чтобы он ровно помещался в рамку. Затем откалибруйте.");
     }
 
     private void SuccessValidation()
