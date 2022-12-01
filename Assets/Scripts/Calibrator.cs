@@ -10,6 +10,7 @@ public class Calibrator : MonoBehaviour
     [SerializeField] private DataBase _dataBase;
     [SerializeField] private ARSession _arSession;
     [SerializeField] private ARCameraManager _arCameraManager;
+    [SerializeField] private ARSessionOrigin _arSessionOrigin;
     [SerializeField] private ARTrackedImageManager _arTrackedImageManager;
     [SerializeField] private GameObject _environment;
     
@@ -45,6 +46,21 @@ public class Calibrator : MonoBehaviour
         CalibrationReset?.Invoke();
     }
 
+    public void Calibrate(VirtualMarker virtualMarker)
+    {
+        if (_isCalibrated || _shouldCalibrate == false)
+            return;
+        
+        UpdateOrigin(virtualMarker);
+        UpdateMarkerLocation(virtualMarker);
+        UpdateEnvironmentLocation(virtualMarker);
+        _environment.SetActive(true);
+            
+        _isCalibrated = true;
+        _shouldCalibrate = false;
+        Calibrated?.Invoke();
+    }
+
     private void SetShouldCalibrate()
     {
         if (_isCalibrated)
@@ -59,25 +75,26 @@ public class Calibrator : MonoBehaviour
             return;
         
         Debug.Log("Calibration started!");
-
         var markerName = GetMarkerName(args);
 
         if (_dataBase.TryGetMarkerPoint(markerName, out MarkerPoint foundPoint))
         {
-            UpdateMarkerLocation(foundPoint.VirtualMarker);
-            UpdateEnvironmentLocation(foundPoint.VirtualMarker);
-            _environment.SetActive(true);
-            
-            _isCalibrated = true;
-            _shouldCalibrate = false;
-            Calibrated?.Invoke();
-
+            Calibrate(foundPoint.VirtualMarker);
             Debug.Log("Calibration successfully!");
         }
         else
         {
             Debug.Log("Calibration failed!");
         }
+    }
+
+    private void UpdateOrigin(VirtualMarker virtualMarker)
+    {
+        var cameraTransform = _arCameraManager.transform;
+        _arSessionOrigin.transform.position = virtualMarker.transform.position;
+        
+        _arCameraManager.transform.position = cameraTransform.position;
+        _arCameraManager.transform.rotation = cameraTransform.rotation;
     }
 
     private void UpdateMarkerLocation(VirtualMarker virtualMarker)
