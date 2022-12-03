@@ -23,5 +23,5 @@ MonoBehaviour:
       m_GuidHigh: 13620339778597049976
     m_Size: {x: 0, y: 0}
     m_SpecifySize: 0
-    m_Name: ar_marker
+    m_Name: high_marker
     m_Texture: {fileID: 0}
