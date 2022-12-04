@@ -62,6 +62,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Loading Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 594021919107481853, guid: 9eb1a12293071fa4883a11a0f9fb178f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1450844769902538851, guid: 9eb1a12293071fa4883a11a0f9fb178f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -259,6 +263,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Calibration Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7699941241716658397, guid: abe001dc37ab55740802ba49b5897e96, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abe001dc37ab55740802ba49b5897e96, type: 3}
 --- !u!224 &8087022873810769380 stripped
@@ -287,6 +295,10 @@ PrefabInstance:
     - target: {fileID: 2034399710079502772, guid: 7a6edc19bea6ce84d9ba7ac9fe84ff63, type: 3}
       propertyPath: m_Name
       value: Tracking Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2034399710079502772, guid: 7a6edc19bea6ce84d9ba7ac9fe84ff63, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2650579184597681133, guid: 7a6edc19bea6ce84d9ba7ac9fe84ff63, type: 3}
       propertyPath: m_Pivot.x
@@ -370,6 +382,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2650579184597681133, guid: 7a6edc19bea6ce84d9ba7ac9fe84ff63, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745860785407750197, guid: 7a6edc19bea6ce84d9ba7ac9fe84ff63, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745860785407750197, guid: 7a6edc19bea6ce84d9ba7ac9fe84ff63, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745860786840762791, guid: 7a6edc19bea6ce84d9ba7ac9fe84ff63, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745860786840762791, guid: 7a6edc19bea6ce84d9ba7ac9fe84ff63, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745860787172417675, guid: 7a6edc19bea6ce84d9ba7ac9fe84ff63, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -484,6 +516,10 @@ PrefabInstance:
     - target: {fileID: 7718457773994031142, guid: 2ae20f65e07a0d74fb9f248ca35da5b2, type: 3}
       propertyPath: m_Name
       value: Fail Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7718457773994031142, guid: 2ae20f65e07a0d74fb9f248ca35da5b2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ae20f65e07a0d74fb9f248ca35da5b2, type: 3}
