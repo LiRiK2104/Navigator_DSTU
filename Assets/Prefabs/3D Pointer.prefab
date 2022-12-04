@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1494527271532921757}
   - component: {fileID: 1849834496631877579}
-  - component: {fileID: 3122857300614009579}
+  - component: {fileID: 9139578668367910763}
   m_Layer: 0
   m_Name: 3D Pointer
   m_TagString: Untagged
@@ -52,7 +52,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3122857300614009579
+--- !u!114 &9139578668367910763
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

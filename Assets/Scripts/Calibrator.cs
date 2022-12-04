@@ -5,15 +5,6 @@ using UnityEngine.XR.ARFoundation;
 
 public class Calibrator : MonoBehaviour
 {
-    [SerializeField] private Button _calibrateButton;
-    [SerializeField] private Button _recalibrateButton;
-    [SerializeField] private DataBase _dataBase;
-    [SerializeField] private ARSession _arSession;
-    [SerializeField] private ARCameraManager _arCameraManager;
-    [SerializeField] private ARSessionOrigin _arSessionOrigin;
-    [SerializeField] private ARTrackedImageManager _arTrackedImageManager;
-    [SerializeField] private GameObject _environment;
-    
     private bool _isCalibrated;
     private bool _shouldCalibrate;
 
@@ -21,6 +12,15 @@ public class Calibrator : MonoBehaviour
     public event Action Calibrated;
     
     public bool IsCalibrated => _isCalibrated;
+    
+    private Button CalibrationButton => Global.Instance.UiSetter.CalibrationMenu.CalibrationButton;
+    private Button RecalibrationButton => Global.Instance.UiSetter.TrackingMenu.RecalibrationButton;
+    private DataBase DataBase => Global.Instance.DataBase;
+    private ARSession ArSession => Global.Instance.ArMain.Session;
+    private ARSessionOrigin ArSessionOrigin => Global.Instance.ArMain.SessionOrigin;
+    private ARCameraManager ArCameraManager => Global.Instance.ArMain.CameraManager;
+    private ARTrackedImageManager ArTrackedImageManager => Global.Instance.ArMain.TrackedImageManager;
+    private AREnvironment ArEnvironment => Global.Instance.ArEnvironment;
 
 
     private void Awake()
@@ -30,16 +30,16 @@ public class Calibrator : MonoBehaviour
 
     private void OnEnable()
     {
-        _arTrackedImageManager.trackedImagesChanged += StartCalibration;
-        _recalibrateButton.onClick.AddListener(ResetCalibration);
-        _calibrateButton.onClick.AddListener(SetShouldCalibrate);
+        ArTrackedImageManager.trackedImagesChanged += StartCalibration;
+        RecalibrationButton.onClick.AddListener(ResetCalibration);
+        CalibrationButton.onClick.AddListener(SetShouldCalibrate);
     }
 
     private void OnDisable()
     {
-        _arTrackedImageManager.trackedImagesChanged -= StartCalibration;
-        _recalibrateButton.onClick.RemoveListener(ResetCalibration);
-        _calibrateButton.onClick.RemoveListener(SetShouldCalibrate);
+        ArTrackedImageManager.trackedImagesChanged -= StartCalibration;
+        RecalibrationButton.onClick.RemoveListener(ResetCalibration);
+        CalibrationButton.onClick.RemoveListener(SetShouldCalibrate);
         ARSession.stateChanged -= OnAppStartCalibrate;
     }
 
@@ -52,7 +52,7 @@ public class Calibrator : MonoBehaviour
         UpdateOrigin(virtualMarker);
         UpdateMarkerLocation(virtualMarker);
         UpdateEnvironmentLocation(virtualMarker);
-        _environment.SetActive(true);
+        ArEnvironment.gameObject.SetActive(true);
             
         _isCalibrated = true;
         _shouldCalibrate = false;
@@ -70,8 +70,8 @@ public class Calibrator : MonoBehaviour
     
     private void ResetCalibration()
     {
-        _arSession.Reset();
-        _environment.SetActive(false);
+        ArSession.Reset();
+        ArEnvironment.gameObject.SetActive(false);
         _isCalibrated = false;
         CalibrationReset?.Invoke();
     }
@@ -92,7 +92,7 @@ public class Calibrator : MonoBehaviour
         Debug.Log("Calibration started!");
         var markerName = GetMarkerName(args);
 
-        if (_dataBase.TryGetMarkerPoint(markerName, out MarkerPoint foundPoint))
+        if (DataBase.TryGetMarkerPoint(markerName, out MarkerPoint foundPoint))
         {
             Calibrate(foundPoint.VirtualMarker);
             Debug.Log("Calibration successfully!");
@@ -105,18 +105,18 @@ public class Calibrator : MonoBehaviour
 
     private void UpdateOrigin(VirtualMarker virtualMarker)
     {
-        var cameraTransform = _arCameraManager.transform;
-        _arSessionOrigin.transform.position = virtualMarker.transform.position;
+        var cameraTransform = ArCameraManager.transform;
+        ArSessionOrigin.transform.position = virtualMarker.transform.position;
         
-        _arCameraManager.transform.position = cameraTransform.position;
-        _arCameraManager.transform.rotation = cameraTransform.rotation;
+        ArCameraManager.transform.position = cameraTransform.position;
+        ArCameraManager.transform.rotation = cameraTransform.rotation;
     }
 
     private void UpdateMarkerLocation(VirtualMarker virtualMarker)
     {
         float offsetDistance = 0.5f;
         Quaternion halfTurn = new Quaternion(0, 180, 0, 0);
-        Transform userTransform = _arCameraManager.transform;
+        Transform userTransform = ArCameraManager.transform;
         Vector3 offset = userTransform.forward * offsetDistance;
 
         Quaternion targetRotation = userTransform.rotation * halfTurn;
@@ -127,8 +127,8 @@ public class Calibrator : MonoBehaviour
     
     private void UpdateEnvironmentLocation(VirtualMarker virtualMarker)
     {
-        _environment.transform.position = virtualMarker.transform.TransformPoint(virtualMarker.RelativePosition);
-        _environment.transform.rotation = virtualMarker.transform.rotation * virtualMarker.RelativeRotation;
+        ArEnvironment.transform.position = virtualMarker.transform.TransformPoint(virtualMarker.RelativePosition);
+        ArEnvironment.transform.rotation = virtualMarker.transform.rotation * virtualMarker.RelativeRotation;
     }
 
     private string GetMarkerName(ARTrackedImagesChangedEventArgs args)

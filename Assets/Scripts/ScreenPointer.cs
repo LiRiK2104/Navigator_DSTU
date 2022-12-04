@@ -1,43 +1,50 @@
 using System.Collections;
+using Navigation;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
 public class ScreenPointer : MonoBehaviour
 {
     [SerializeField] private GameObject _arrow;
-    [SerializeField] private PathFinder _pathFinder;
-    [SerializeField] private DestinationSetter _destinationSetter;
-    [SerializeField] private ARCameraManager _cameraManager;
-    [SerializeField] private Calibrator _calibrator;
 
     private Camera _camera;
+    
+    private DestinationSetter DestinationSetter => Global.Instance.Navigator.DestinationSetter;
+    private ARCameraManager ArCameraManager => Global.Instance.ArMain.CameraManager;
+    private PathFinder PathFinder => Global.Instance.Navigator.PathFinder;
+    private Calibrator Calibrator => Global.Instance.Calibrator;
 
 
     private void Awake()
     {
-        _camera = _cameraManager.GetComponent<Camera>();
+        _camera = ArCameraManager.GetComponent<Camera>();
         Hide();
     }
 
     private void OnEnable()
     {
-        _destinationSetter.TargetSet += StartPoint;
-        _calibrator.Calibrated += StartPoint;
-        _calibrator.CalibrationReset += StopPoint;
+        DestinationSetter.TargetSet += StartPoint;
+        Calibrator.Calibrated += StartPoint;
+        Calibrator.CalibrationReset += StopPoint;
     }
 
     private void OnDisable()
     {
-        _destinationSetter.TargetSet -= StartPoint;
-        _calibrator.Calibrated -= StartPoint;
-        _calibrator.CalibrationReset -= StopPoint;
+        DestinationSetter.TargetSet -= StartPoint;
+        Calibrator.Calibrated -= StartPoint;
+        Calibrator.CalibrationReset -= StopPoint;
     }
 
+    
+    private void StartPoint(TargetPoint targetPoint)
+    {
+        StartPoint();
+    }
 
     private void StartPoint()
     {
-        if (_pathFinder.NearestPoint == Vector3.zero || 
-            _destinationSetter.HasDestination == false)
+        if (PathFinder.NearestPoint == Vector3.zero || 
+            DestinationSetter.HasDestination == false)
             return;
         
         StopPoint();
@@ -55,8 +62,8 @@ public class ScreenPointer : MonoBehaviour
     {
         while (true)
         {
-            var userPosition = _cameraManager.transform.position + _cameraManager.transform.forward;
-            var direction = _pathFinder.NearestPoint - userPosition;
+            var userPosition = ArCameraManager.transform.position + ArCameraManager.transform.forward;
+            var direction = PathFinder.NearestPoint - userPosition;
             float toTargetDistance = direction.magnitude;
         
             Ray ray = new Ray(userPosition, direction);
