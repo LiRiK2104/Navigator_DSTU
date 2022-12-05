@@ -58,7 +58,7 @@ public abstract class Point
 public class MarkerPoint : Point
 {
     [SerializeField] private VirtualMarker _virtualMarker;
-    
+
     public VirtualMarker VirtualMarker => _virtualMarker;
     public override Transform Transform => _virtualMarker.transform;
 }
