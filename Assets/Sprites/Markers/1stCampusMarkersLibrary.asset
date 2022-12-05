@@ -56,16 +56,6 @@ MonoBehaviour:
     m_Name: 1-14
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
-      m_GuidLow: 5126456108036751674
-      m_GuidHigh: 1177184891703137668
-    m_SerializedTextureGuid:
-      m_GuidLow: 7909460853469416996
-      m_GuidHigh: 6425451905088008745
-    m_Size: {x: 0, y: 0}
-    m_SpecifySize: 0
-    m_Name: 1-15
-    m_Texture: {fileID: 0}
-  - m_SerializedGuid:
       m_GuidLow: 5536290221717042557
       m_GuidHigh: 3302856000831446693
     m_SerializedTextureGuid:

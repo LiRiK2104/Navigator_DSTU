@@ -75,7 +75,7 @@ public class ARValidator : MonoBehaviour
     private void StartMarkersFinding()
     {
         if (Calibrator.IsCalibrated == false)
-            UISetter.SetState(SessionStates.Calibration, "Найдите маркер и встаньте напротив него так, чтобы он ровно помещался в рамку. Затем откалибруйте.");
+            UISetter.SetState(SessionStates.Calibration, "Найдите маркер и, поместив его в рамку, отклаибруйте");
     }
 
     private void SuccessValidation()

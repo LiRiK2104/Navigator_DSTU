@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using UI.Menus;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
@@ -15,6 +17,7 @@ public class Calibrator : MonoBehaviour
     
     private Button CalibrationButton => Global.Instance.UiSetter.CalibrationMenu.CalibrationButton;
     private Button RecalibrationButton => Global.Instance.UiSetter.TrackingMenu.RecalibrationButton;
+    private CalibrationMenu CalibrationMenu => Global.Instance.UiSetter.CalibrationMenu;
     private DataBase DataBase => Global.Instance.DataBase;
     private ARSession ArSession => Global.Instance.ArMain.Session;
     private ARSessionOrigin ArSessionOrigin => Global.Instance.ArMain.SessionOrigin;
@@ -80,8 +83,20 @@ public class Calibrator : MonoBehaviour
     {
         if (_isCalibrated)
             return;
+
+        StopCoroutine(WaitCalibration());
+        StartCoroutine(WaitCalibration());
+    }
+
+    private IEnumerator WaitCalibration()
+    {
+        float time = 5f;
         
+        CalibrationMenu.SetCalibrationState();
         _shouldCalibrate = true;
+        yield return new WaitForSeconds(time);
+        _shouldCalibrate = false;
+        CalibrationMenu.SetPointingState();
     }
 
     private void StartCalibration(ARTrackedImagesChangedEventArgs args)
