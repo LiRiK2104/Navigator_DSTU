@@ -1460,7 +1460,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22400762, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.011520386
+      value: -0.006881714
       objectReference: {fileID: 0}
     - target: {fileID: 22414360, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5493,7 +5493,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1466213841}
   - component: {fileID: 1466213842}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 1B1F (left wing) upd2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
