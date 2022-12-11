@@ -13,6 +13,8 @@ public class Global : Singleton<Global>
     [SerializeField] private DataBase _dataBase;
     [SerializeField] private UISetter _uiSetter;
     [SerializeField] private CameraContainer _cameraContainer;
+    [SerializeField] private BordersSetter _bordersSetter;
+    
 
     public ARMain ArMain => _arMain;
     public ARValidator Validator => _validator;
@@ -22,4 +24,5 @@ public class Global : Singleton<Global>
     public DataBase DataBase => _dataBase;
     public UISetter UiSetter => _uiSetter;
     public CameraContainer CameraContainer => _cameraContainer;
+    public BordersSetter BordersSetter => _bordersSetter;
 }
