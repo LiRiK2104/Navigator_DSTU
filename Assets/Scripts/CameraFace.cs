@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class CameraFace : MonoBehaviour
 {
-    private CameraFacePreset _preset;
+    protected CameraFacePreset Preset;
     
 
-    public void Update()
+    public virtual void Update()
     {
-        if (_preset.Camera == null)
+        if (Preset.Camera == null)
             return;
         
         RotateToCamera();
@@ -17,31 +17,36 @@ public class CameraFace : MonoBehaviour
 
     public void SetPreset(CameraFacePreset preset)
     {
-        _preset = preset;
+        Preset = preset;
+    }
+    
+    protected virtual void Scale()
+    {
+        var scale = CalculateScale();
+        transform.localScale = new Vector3(scale, scale, scale);
+    }
+    
+    protected float CalculateScale()
+    {
+        if (Preset.Camera == null)
+            return 1;
+
+        float scale = (CalculateCameraHeight() / Screen.width) * Preset.ScaleFactor;
+        return scale;
+    }
+
+    protected virtual float CalculateCameraHeight()
+    {
+        if (Preset.Camera.orthographic)
+            return Preset.Camera.orthographicSize * 2;
+        
+        float distanceToCamera = Vector3.Distance(Preset.Camera.transform.position, transform.position);
+        return 2.0f * distanceToCamera * Mathf.Tan(Mathf.Deg2Rad * (Preset.Camera.fieldOfView * 0.5f));
     }
 
     private void RotateToCamera()
     {
-        var cameraRotation = _preset.Camera.transform.rotation;
+        var cameraRotation = Preset.Camera.transform.rotation;
         transform.LookAt(transform.position + cameraRotation * Vector3.forward, cameraRotation * Vector3.up);
-    }
- 
-    private void Scale()
-    {
-        if (_preset.Camera != null)
-        {
-            float camHeight;
-            if (_preset.Camera.orthographic)
-            {
-                camHeight = _preset.Camera.orthographicSize * 2;
-            }
-            else
-            {
-                float distanceToCamera = Vector3.Distance(_preset.Camera.transform.position, transform.position);
-                camHeight = 2.0f * distanceToCamera * Mathf.Tan(Mathf.Deg2Rad * (_preset.Camera.fieldOfView * 0.5f));
-            }
-            float scale = (camHeight / Screen.width) * _preset.ScaleFactor;
-            transform.localScale = new Vector3(scale, scale, scale);
-        }
     }
 }

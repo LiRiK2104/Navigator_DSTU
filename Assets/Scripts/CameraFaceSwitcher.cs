@@ -2,10 +2,10 @@ using System;
 using UI.Menus;
 using UnityEngine;
 
-[RequireComponent(typeof(CameraFace))]
 public class CameraFaceSwitcher : MonoBehaviour
 {
-    private CameraFace _cameraFace;
+    [SerializeField] private CameraFace _cameraFace;
+    
     private CameraFacePreset _minimapPreset;
     private CameraFacePreset _mapPreset;
 
@@ -31,12 +31,7 @@ public class CameraFaceSwitcher : MonoBehaviour
             return _mapPreset;
         }
     }
-
-
-    private void Awake()
-    {
-        _cameraFace = GetComponent<CameraFace>();
-    }
+    
 
     private void OnEnable()
     {
