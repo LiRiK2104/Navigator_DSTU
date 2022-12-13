@@ -8,7 +8,7 @@ namespace Navigation
     {
         [SerializeField] private LineRenderer _lineRenderer;
 
-        private Transform _targetPoint;
+        private Vector3 _targetPosition;
         private NavMeshPath _path;
 
         private Calibrator Calibrator => Global.Instance.Calibrator;
@@ -52,9 +52,27 @@ namespace Navigation
         }
     
 
-        public void SetTarget(Transform targetPoint)
+        public NavMeshPath GetLocalPath(Vector3 targetPosition)
         {
-            _targetPoint = targetPoint;
+            var localPath = new NavMeshPath();
+            NavMesh.CalculatePath(UserTransform.position, targetPosition, NavMesh.AllAreas, localPath);
+
+            return localPath;
+        }
+
+        public float CalculatePathDistance(NavMeshPath path)
+        {
+            float distance = 0;
+
+            for (int i = 0; i < path.corners.Length - 1; i++)
+                distance += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+
+            return distance;
+        }
+        
+        public void SetTarget(Vector3 targetPosition)
+        {
+            _targetPosition = targetPosition;
         
             StopFinding();
             StartFinding();
@@ -73,14 +91,14 @@ namespace Navigation
     
         private IEnumerator FindPath()
         {
-            if (_targetPoint == null)
+            if (_targetPosition == null)
                 yield break;
         
             float updatingTime = 0.2f;
         
             while (true)
             {
-                NavMesh.CalculatePath(UserTransform.position, _targetPoint.position, NavMesh.AllAreas, _path);
+                NavMesh.CalculatePath(UserTransform.position, _targetPosition, NavMesh.AllAreas, _path);
                 yield return new WaitForSeconds(updatingTime);
             }
         }

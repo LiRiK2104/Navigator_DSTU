@@ -10,14 +10,14 @@ namespace UI
         private MinimapPointer _pointer;
 
 
-        protected override void SetPointer(TargetPoint targetPoint)
+        protected override void SetPointer(Vector3 targetPosition)
         {
             if (_pointer == null)
             {
                 _pointer = Instantiate(_pointerPrefab, Environment.transform);
             }
 
-            _pointer.transform.position = targetPoint.Transform.position;
+            _pointer.transform.position = targetPosition;
         }
     }
 }

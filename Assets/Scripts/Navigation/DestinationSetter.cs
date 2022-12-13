@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using TargetsSystem.Rooms;
 using UnityEngine;
 
 namespace Navigation
 {
     public class DestinationSetter : MonoBehaviour
     {
-        public event Action<TargetPoint> TargetSet;
+        public event Action<Vector3> TargetSet;
 
         public bool HasDestination { get; private set; }
         private DataBase DataBase => Global.Instance.DataBase;
@@ -34,11 +35,10 @@ namespace Navigation
         {
             var targetsNames = new List<string>();
         
-            foreach (var point in DataBase.TargetPoints)
-            {
-                targetsNames.Add(point.Id);
-                point.Aliases.ForEach(alias => targetsNames.Add(alias));
-            }
+            DataBase.Rooms.ForEach(room => targetsNames.Add(room.Id));
+            
+            foreach (var multiRoom in DataBase.MultiRooms)
+                multiRoom.GetAllIds().ForEach(id => targetsNames.Add(id));
         
             targetsNames.Sort();
             TargetsDropdown.Initialize(targetsNames);
@@ -46,11 +46,11 @@ namespace Navigation
 
         private void SetTarget(string targetName)
         {
-            if (DataBase.TryGetTargetPoint(targetName, out TargetPoint foundPoint))
+            if (DataBase.TryGetRoom(targetName, out AccessibleRoom room))
             {
-                PathFinder.SetTarget(foundPoint.Transform);
+                PathFinder.SetTarget(room.TargetPointPosition);
                 HasDestination = true;
-                TargetSet?.Invoke(foundPoint);
+                TargetSet?.Invoke(room.TargetPointPosition);
             }
         }
     }

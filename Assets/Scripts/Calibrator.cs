@@ -107,9 +107,9 @@ public class Calibrator : MonoBehaviour
         Debug.Log("Calibration started!");
         var markerName = GetMarkerName(args);
 
-        if (DataBase.TryGetMarkerPoint(markerName, out MarkerPoint foundPoint))
+        if (DataBase.TryGetVirtualMarker(markerName, out VirtualMarker virtualMarker))
         {
-            Calibrate(foundPoint.VirtualMarker);
+            Calibrate(virtualMarker);
             Debug.Log("Calibration successfully!");
         }
         else

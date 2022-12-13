@@ -1,21 +1,24 @@
 using System;
 using System.Collections.Generic;
+using TargetsSystem.Rooms;
 using UnityEngine;
 
 public class DataBase : MonoBehaviour
 {
-    [SerializeField] private List<MarkerPoint> _markerPoints;
-    [SerializeField] private List<TargetPoint> _targetPoints;
+    [SerializeField] private List<VirtualMarker> _virtualMarkers;
+    [SerializeField] private List<AccessibleRoom> _rooms;
+    [SerializeField] private List<MultiRoom> _multiRooms;
 
-    public List<MarkerPoint> MarkerPoints => new List<MarkerPoint>(_markerPoints);
-    public List<TargetPoint> TargetPoints => new List<TargetPoint>(_targetPoints);
+    public List<VirtualMarker> VirtualMarkers => new List<VirtualMarker>(_virtualMarkers);
+    public List<AccessibleRoom> Rooms => new List<AccessibleRoom>(_rooms);
+    public List<MultiRoom> MultiRooms => new List<MultiRoom>(_multiRooms);
 
 
-    public bool TryGetMarkerPoint(string name, out MarkerPoint foundPoint)
+    public bool TryGetVirtualMarker(string name, out VirtualMarker foundPoint)
     {
         foundPoint = null;
         
-        foreach (var point in _markerPoints)
+        foreach (var point in _virtualMarkers)
         {
             if (point.Id == name)
             {
@@ -27,17 +30,29 @@ public class DataBase : MonoBehaviour
         return false;
     }
     
-    public bool TryGetTargetPoint(string name, out TargetPoint foundPoint)
+    public bool TryGetRoom(string name, out AccessibleRoom foundRoom)
     {
-        foundPoint = null;
+        foundRoom = null;
         
-        foreach (var point in _targetPoints)
+        foreach (var room in _rooms)
         {
-            if (point.Id == name || point.Aliases.Contains(name))
+            if (room.Id == name)
             {
-                foundPoint = point;
+                foundRoom = room;
                 return true;
             }
+        }
+        
+        foreach (var multiRoom in _multiRooms)
+        {
+            if (multiRoom.CommonId == name)
+            {
+                foundRoom = multiRoom.GetNearestRoom();
+                return true;
+            }
+                
+            if (multiRoom.TryGetRoom(name, out foundRoom))
+                return true;
         }
 
         return false;
@@ -45,7 +60,7 @@ public class DataBase : MonoBehaviour
 }
 
 
-[Serializable]
+/*[Serializable]
 public abstract class Point
 {
     [SerializeField] private string _id;
@@ -64,11 +79,11 @@ public class MarkerPoint : Point
 }
 
 [Serializable]
-public class TargetPoint : Point
+public class TargetPointOld : Point
 {
     [SerializeField] private List<string> _aliases;
     [SerializeField] private Transform _transform;
     
     public List<string> Aliases => new List<string>(_aliases);
     public override Transform Transform => _transform;
-}
+}*/
