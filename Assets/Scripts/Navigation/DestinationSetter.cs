@@ -12,7 +12,7 @@ namespace Navigation
         public bool HasDestination { get; private set; }
         private DataBase DataBase => Global.Instance.DataBase;
         private PathFinder PathFinder => Global.Instance.Navigator.PathFinder;
-        private SearchableDropDown TargetsDropdown => Global.Instance.UiSetter.TrackingMenu.TargetsDropdown;
+        private SearchableDropDown TargetsDropdown => Global.Instance.UiSetter.TrackingMenu.SearchPanel.TargetsDropdown;
     
 
         private void OnEnable()

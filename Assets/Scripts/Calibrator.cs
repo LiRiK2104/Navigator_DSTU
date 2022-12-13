@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UI.Menus;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +17,7 @@ public class Calibrator : MonoBehaviour
     public bool IsCalibrated => _isCalibrated;
     
     private Button CalibrationButton => Global.Instance.UiSetter.CalibrationMenu.CalibrationButton;
-    private Button RecalibrationButton => Global.Instance.UiSetter.TrackingMenu.RecalibrationButton;
+    private List<Button> RecalibrationButtons => Global.Instance.UiSetter.TrackingMenu.RecalibrationButtons;
     private CalibrationMenu CalibrationMenu => Global.Instance.UiSetter.CalibrationMenu;
     private DataBase DataBase => Global.Instance.DataBase;
     private ARSession ArSession => Global.Instance.ArMain.Session;
@@ -24,30 +25,24 @@ public class Calibrator : MonoBehaviour
     private ARCameraManager ArCameraManager => Global.Instance.ArMain.CameraManager;
     private ARTrackedImageManager ArTrackedImageManager => Global.Instance.ArMain.TrackedImageManager;
     private AREnvironment ArEnvironment => Global.Instance.ArEnvironment;
-
-
-    private void Awake()
-    {
-        ARSession.stateChanged += OnAppStartCalibrate;
-    }
+    
 
     private void OnEnable()
     {
         ArTrackedImageManager.trackedImagesChanged += StartCalibration;
-        RecalibrationButton.onClick.AddListener(ResetCalibration);
+        RecalibrationButtons.ForEach(button => button.onClick.AddListener(ResetCalibration));
         CalibrationButton.onClick.AddListener(SetShouldCalibrate);
     }
 
     private void OnDisable()
     {
         ArTrackedImageManager.trackedImagesChanged -= StartCalibration;
-        RecalibrationButton.onClick.RemoveListener(ResetCalibration);
+        RecalibrationButtons.ForEach(button => button.onClick.RemoveListener(ResetCalibration));
         CalibrationButton.onClick.RemoveListener(SetShouldCalibrate);
-        ARSession.stateChanged -= OnAppStartCalibrate;
     }
 
 
-    public void Calibrate(VirtualMarker virtualMarker)
+    private void Calibrate(VirtualMarker virtualMarker)
     {
         if (_isCalibrated || _shouldCalibrate == false)
             return;
@@ -61,16 +56,7 @@ public class Calibrator : MonoBehaviour
         _shouldCalibrate = false;
         Calibrated?.Invoke();
     }
-    
-    private void OnAppStartCalibrate(ARSessionStateChangedEventArgs obj)
-    {
-        if (obj.state == ARSessionState.SessionInitializing)
-        {
-            ARSession.stateChanged -= OnAppStartCalibrate;
-            ResetCalibration();
-        }
-    }
-    
+
     private void ResetCalibration()
     {
         ArSession.Reset();
