@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 namespace Helpers
@@ -20,9 +21,12 @@ namespace Helpers
         {
             get
             {
+                if (Application.isEditor && EditorApplication.isPlaying == false)
+                    return null;
+                
                 if (IsQuitting)
                 {
-                    Debug.LogError("[Singleton] '" + typeof(T) + "' not returned cause application is quitting!");
+                    Debug.LogWarning("[Singleton] '" + typeof(T) + "' not returned cause application is quitting!");
                     return null;
                 }
 
