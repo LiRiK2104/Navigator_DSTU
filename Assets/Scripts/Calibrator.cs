@@ -8,13 +8,12 @@ using UnityEngine.XR.ARFoundation;
 
 public class Calibrator : MonoBehaviour
 {
-    private bool _isCalibrated;
     private bool _shouldCalibrate;
 
     public event Action CalibrationReset;
     public event Action Calibrated;
     
-    public bool IsCalibrated => _isCalibrated;
+    public bool IsCalibrated { get; private set; } = true;
     
     private Button CalibrationButton => Global.Instance.UiSetter.CalibrationMenu.CalibrationButton;
     private List<Button> RecalibrationButtons => Global.Instance.UiSetter.TrackingMenu.RecalibrationButtons;
@@ -25,6 +24,7 @@ public class Calibrator : MonoBehaviour
     private ARCameraManager ArCameraManager => Global.Instance.ArMain.CameraManager;
     private ARTrackedImageManager ArTrackedImageManager => Global.Instance.ArMain.TrackedImageManager;
     private AREnvironment ArEnvironment => Global.Instance.ArEnvironment;
+
     
 
     private void OnEnable()
@@ -44,7 +44,7 @@ public class Calibrator : MonoBehaviour
 
     private void Calibrate(VirtualMarker virtualMarker)
     {
-        if (_isCalibrated || _shouldCalibrate == false)
+        if (IsCalibrated || _shouldCalibrate == false)
             return;
         
         UpdateOrigin(virtualMarker);
@@ -52,7 +52,7 @@ public class Calibrator : MonoBehaviour
         UpdateEnvironmentLocation(virtualMarker);
         ArEnvironment.gameObject.SetActive(true);
             
-        _isCalibrated = true;
+        IsCalibrated = true;
         _shouldCalibrate = false;
         Calibrated?.Invoke();
     }
@@ -61,13 +61,13 @@ public class Calibrator : MonoBehaviour
     {
         ArSession.Reset();
         ArEnvironment.gameObject.SetActive(false);
-        _isCalibrated = false;
+        IsCalibrated = false;
         CalibrationReset?.Invoke();
     }
 
     private void SetShouldCalibrate()
     {
-        if (_isCalibrated)
+        if (IsCalibrated)
             return;
 
         StopCoroutine(WaitCalibration());
@@ -87,7 +87,7 @@ public class Calibrator : MonoBehaviour
 
     private void StartCalibration(ARTrackedImagesChangedEventArgs args)
     {
-        if (_isCalibrated || _shouldCalibrate == false)
+        if (IsCalibrated || _shouldCalibrate == false)
             return;
         
         Debug.Log("Calibration started!");

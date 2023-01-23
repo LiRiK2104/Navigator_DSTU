@@ -21,9 +21,12 @@ namespace Helpers
         {
             get
             {
+#if UNITY_EDITOR
+                
                 if (Application.isEditor && EditorApplication.isPlaying == false)
                     return null;
-                
+#endif
+
                 if (IsQuitting)
                 {
                     Debug.LogWarning("[Singleton] '" + typeof(T) + "' not returned cause application is quitting!");

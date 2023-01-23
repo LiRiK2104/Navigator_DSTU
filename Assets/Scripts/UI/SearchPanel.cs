@@ -25,7 +25,7 @@ namespace UI
 
         private void Close()
         {
-            gameObject.SetActive(true);
+            gameObject.SetActive(false);
         }
     }
 }

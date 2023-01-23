@@ -80,9 +80,8 @@ public class ARValidator : MonoBehaviour
 
     private void SuccessValidation()
     {
-        /*if (Calibrator.IsCalibrated)
-            UISetter.SetState(SessionStates.Tracking);*/
-        UISetter.SetState(SessionStates.Tracking);
+        if (Calibrator.IsCalibrated)
+            UISetter.SetState(SessionStates.Tracking);
     }
      
     private IEnumerator InstallARCoreApp()
