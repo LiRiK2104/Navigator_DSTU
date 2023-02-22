@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraFace: {fileID: 1043586815718622783}
+  _minimapScaleFactor: 4
+  _mapScaleFactor: 2
 --- !u!114 &1043586815718622783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,6 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a6fc558012edd4fb23a94c22918df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isRotateToCamera: 1
 --- !u!1 &1043586817451841225
 GameObject:
   m_ObjectHideFlags: 0

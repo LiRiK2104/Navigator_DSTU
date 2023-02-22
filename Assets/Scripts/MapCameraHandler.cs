@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Followers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,7 +10,7 @@ public class MapCameraHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
     private const int ZoomMax = 80;
     private const float ZoomSensitivity = 0.03f;
     
-    [SerializeField] private CameraFollower _cameraFollower;
+    [SerializeField] private FlyingFollower flyingFollower;
 
     private Camera Camera => Global.Instance?.CameraContainer.MapCamera;
     private BordersSetter BordersSetter => Global.Instance?.BordersSetter;
@@ -34,7 +35,7 @@ public class MapCameraHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
     
     public void OnPointerDown(PointerEventData eventData)
     {
-        _cameraFollower.StopFollow();
+        flyingFollower.StopFollow();
     }
 
     public void OnDrag(PointerEventData eventData)

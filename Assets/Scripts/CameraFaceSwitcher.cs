@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class CameraFaceSwitcher : MonoBehaviour
 {
+    private const float MinScaleFactor = 1;
+    private const float MaxScaleFactor = 5;
+    
     [SerializeField] private CameraFace _cameraFace;
+
+    [SerializeField] [Range(MinScaleFactor, MaxScaleFactor)] private float _minimapScaleFactor;
+    [SerializeField] [Range(MinScaleFactor, MaxScaleFactor)] private float _mapScaleFactor;
     
     private CameraFacePreset _minimapPreset;
     private CameraFacePreset _mapPreset;
@@ -15,7 +21,7 @@ public class CameraFaceSwitcher : MonoBehaviour
         get
         {
             if (_minimapPreset == null)
-                _minimapPreset = new CameraFacePreset(Global.Instance.CameraContainer.MinimapCamera, 4);
+                _minimapPreset = new CameraFacePreset(Global.Instance.CameraContainer.MinimapCamera, _minimapScaleFactor);
             
             return _minimapPreset;
         }
@@ -26,7 +32,7 @@ public class CameraFaceSwitcher : MonoBehaviour
         get
         {
             if (_mapPreset == null)
-                _mapPreset = new CameraFacePreset(Global.Instance.CameraContainer.MapCamera, 2);
+                _mapPreset = new CameraFacePreset(Global.Instance.CameraContainer.MapCamera, _mapScaleFactor);
             
             return _mapPreset;
         }

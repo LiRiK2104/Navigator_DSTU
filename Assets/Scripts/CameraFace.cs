@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CameraFace : MonoBehaviour
 {
+    [SerializeField] private bool _isRotateToCamera = true;
+    
     protected CameraFacePreset Preset;
     
 
@@ -10,7 +12,9 @@ public class CameraFace : MonoBehaviour
         if (Preset.Camera == null)
             return;
         
-        RotateToCamera();
+        if (_isRotateToCamera)
+            RotateToCamera();
+        
         Scale();
     }
 
