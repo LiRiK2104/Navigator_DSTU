@@ -134,7 +134,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 8
   m_TargetDisplay: 0
 --- !u!114 &1135720652877781309
 MonoBehaviour:
@@ -239,6 +239,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraFace: {fileID: 1135720654366378445}
+  _minimapScaleFactor: 2
+  _mapScaleFactor: 2.51
 --- !u!114 &1135720654366378445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,3 +253,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a6fc558012edd4fb23a94c22918df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isRotateToCamera: 1
