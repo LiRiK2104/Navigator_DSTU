@@ -6,8 +6,8 @@ using UnityEngine.EventSystems;
 
 public class MapCameraHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
 {
-    private const int ZoomMin = 10;
-    private const int ZoomMax = 80;
+    public const int ZoomMin = 10;
+    public const int ZoomMax = 120;
     private const float ZoomSensitivity = 0.03f;
     
     [SerializeField] private FlyingFollower flyingFollower;
