@@ -7,7 +7,6 @@ using Button = UnityEngine.UI.Button;
 
 public class SearchableDropDown : MonoBehaviour
 {
-    [SerializeField] private Button _blockerButton;
     [SerializeField] private Button _cleanButton;
     [SerializeField] private OptionsList _optionsList;
     [SerializeField] private TMP_InputField _inputField;
@@ -18,11 +17,6 @@ public class SearchableDropDown : MonoBehaviour
     
     public void Initialize(List<string> optionsNames)
     {
-        _blockerButton.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
-        _blockerButton.gameObject.SetActive(false);
-        _blockerButton.transform.SetParent(GetComponentInParent<Canvas>().transform);
-
-        _blockerButton.onClick.AddListener(OnBlockerButtClick);
         _cleanButton.onClick.AddListener(OnCleanButtonClick);
         _inputField.onValueChanged.AddListener(OnInputValueChange);
         _inputField.onEndEdit.AddListener(OnEndEditing);
@@ -75,7 +69,7 @@ public class SearchableDropDown : MonoBehaviour
         _inputField.text = option.name;
         
         _optionsList.ActivateAllOptions();
-        SetScrollActive(false);
+        _optionsList.HideScroll();
 
         StopAllCoroutines();
         StartCoroutine(CheckIfValidInput(option.name));
@@ -84,18 +78,7 @@ public class SearchableDropDown : MonoBehaviour
     private void OnCleanButtonClick()
     {
         ResetDropDown();
-        SetScrollActive(false);
+        _optionsList.HideScroll();
         _cleanButton.gameObject.SetActive(false);
-    }
-    
-    private void OnBlockerButtClick()
-    {
-        SetScrollActive(false);
-    }
-    
-    private void SetScrollActive(bool status)
-    {
-        _optionsList.SetScrollActive(status);
-        _blockerButton.gameObject.SetActive(status);
     }
 }

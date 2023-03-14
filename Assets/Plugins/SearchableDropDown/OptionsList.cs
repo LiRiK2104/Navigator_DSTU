@@ -100,13 +100,14 @@ public class OptionsList : MonoBehaviour
         Names.Clear();
     }
     
+    public void HideScroll()
+    {
+        _scrollRect.gameObject.SetActive(false);    
+    }
+    
     private void ShowScroll()
     {
         _scrollRect.gameObject.SetActive(true);    
     }
     
-    private void HideScroll()
-    {
-        _scrollRect.gameObject.SetActive(false);    
-    }
 }
