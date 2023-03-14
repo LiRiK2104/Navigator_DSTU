@@ -23,7 +23,15 @@ public class OptionsList : MonoBehaviour
         _scrollRect = GetComponentInChildren<ScrollRect>();
         _content = _scrollRect.content;
     }
-    
+
+
+    public void Initialize(List<string> options, OptionCallback callback)
+    {
+        _scrollRect = GetComponentInChildren<ScrollRect>();
+        _content = _scrollRect.content;
+        
+        Add(options, callback);
+    }
 
     public void Add(List<string> options, OptionCallback callback)
     {
@@ -70,14 +78,6 @@ public class OptionsList : MonoBehaviour
         SetScrollActive(count > 0);
     }
 
-    public void SetScrollActive(bool status)
-    {
-        if (status)
-            ShowScroll();
-        else
-            HideScroll();
-    }
-
     public void ActivateAllOptions()
     {
         foreach (var button in _initializedButtons)
@@ -98,6 +98,14 @@ public class OptionsList : MonoBehaviour
         
         _initializedButtons.Clear();
         Names.Clear();
+    }
+    
+    private void SetScrollActive(bool status)
+    {
+        if (status)
+            ShowScroll();
+        else
+            HideScroll();
     }
     
     public void HideScroll()

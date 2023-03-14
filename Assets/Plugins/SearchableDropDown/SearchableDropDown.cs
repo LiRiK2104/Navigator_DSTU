@@ -7,12 +7,13 @@ using Button = UnityEngine.UI.Button;
 
 public class SearchableDropDown : MonoBehaviour
 {
-    [SerializeField] private Button _cleanButton;
-    [SerializeField] private OptionsList _optionsList;
     [SerializeField] private TMP_InputField _inputField;
+    [SerializeField] private OptionsList _optionsList;
+    [SerializeField] private Button _cleanButton;
 
     public delegate void OnValueChangedDel(string val);
     public event OnValueChangedDel ValueChanged;
+    public event OnValueChangedDel EndEditing;
 
     
     public void Initialize(List<string> optionsNames)
@@ -21,7 +22,7 @@ public class SearchableDropDown : MonoBehaviour
         _inputField.onValueChanged.AddListener(OnInputValueChange);
         _inputField.onEndEdit.AddListener(OnEndEditing);
         
-        _optionsList.Add(optionsNames, OnOptionSelected);
+        _optionsList.Initialize(optionsNames, OnOptionSelected);
     }
     
     public string GetValue()
@@ -53,7 +54,7 @@ public class SearchableDropDown : MonoBehaviour
         if (_optionsList.Names.Contains(arg) == false)
             _inputField.text = String.Empty;
         
-        ValueChanged?.Invoke(_inputField.text);
+        EndEditing?.Invoke(_inputField.text);
     }
     
     private void OnInputValueChange(string arg0)
@@ -62,6 +63,8 @@ public class SearchableDropDown : MonoBehaviour
         
         if (_optionsList.Names.Contains(arg0) == false)
             _optionsList.Filter(arg0);
+        
+        ValueChanged?.Invoke(arg0);
     }
     
     private void OnOptionSelected(Button option)

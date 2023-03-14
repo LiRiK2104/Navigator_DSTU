@@ -17,12 +17,12 @@ namespace Navigation
 
         private void OnEnable()
         {
-            TargetsDropdown.ValueChanged += SetTarget;
+            TargetsDropdown.EndEditing += SetTarget;
         }
 
         private void OnDisable()
         {
-            TargetsDropdown.ValueChanged -= SetTarget;
+            TargetsDropdown.EndEditing -= SetTarget;
         }
 
         private void Start()
