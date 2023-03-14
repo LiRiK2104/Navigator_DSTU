@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Helpers
 {
@@ -88,12 +89,16 @@ namespace Helpers
     {
         [SerializeField] public string Name;
         [SerializeField] public List<Widget> Widgets = new List<Widget>();
+        [SerializeField] public ExampleEvent OnEvent = new ExampleEvent();
 
         public UIState(string name, List<Widget> widgets)
         {
             Name = name;
             Widgets = widgets.ToList();
         }
+        
+        [Serializable]
+        public class ExampleEvent : UnityEvent {}
     }
     
     [Serializable]
@@ -139,6 +144,7 @@ namespace Helpers
                 DrawStates(widgetRectWidth, widgetFieldHeight);
                 DrawRemoveWidgetButtons(widgetRectWidth);
                 DrawControlButtons();
+                DrawEvents();
 
                 serializedObject.ApplyModifiedProperties();
             }
@@ -225,6 +231,30 @@ namespace Helpers
                     _origin.RemoveState(uiState);
             }
 
+            private void DrawEvents()
+            {
+                var statesProperty = serializedObject.FindProperty(nameof(_origin._states));
+
+                for (int i = 0; i < _origin._states.Count; i++)
+                {
+                    var stateProperty = statesProperty.GetArrayElementAtIndex(i);
+                    var state = _origin._states[i];
+                    var eventProperty = stateProperty.FindPropertyRelative(nameof(state.OnEvent));
+                    
+                    serializedObject.Update();
+                    EditorGUILayout.PropertyField(eventProperty, new GUIContent($"{state.Name} set event"), true);
+                    serializedObject.ApplyModifiedProperties();
+                }
+            }
+            
+            private void DrawEvent(UIState state)
+            {
+                serializedObject.Update();
+                var serializedProperty = serializedObject.FindProperty(nameof(state.OnEvent));
+                Debug.Log($"\"{nameof(state.OnEvent)}\"");
+                //EditorGUILayout.PropertyField(serializedProperty, true);
+            }
+
             private void DrawControlButtons()
             {
                 int space = 30;
@@ -241,6 +271,7 @@ namespace Helpers
                     _origin.AddWidget();
                 
                 GUILayout.EndHorizontal();
+                GUILayout.Space(space);
             }
         }
 #endif

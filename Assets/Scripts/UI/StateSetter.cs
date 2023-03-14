@@ -28,35 +28,8 @@ namespace UI
 
             foreach (var widget in state.Widgets)
                 widget.GameObject.SetActive(widget.Active);
+            
+            state.OnEvent?.Invoke();
         }
     }
-    
-    /*public partial class StateSetter
-    {
-#if UNITY_EDITOR
-        [CustomEditor(typeof(StateSetter), true)]
-        public class StateSetterEditor : Editor
-        {
-            private StateSetter _origin;
-            
-            private void OnEnable()
-            {
-                _origin = target as StateSetter;
-            }
-
-            public override void OnInspectorGUI()
-            {
-                _origin.UIStatesStorage = EditorGUILayout.ObjectField("UI States Storage", _origin.UIStatesStorage, typeof(UIStatesStorage)) as UIStatesStorage;
-
-                if (_origin.UIStatesStorage != null)
-                {
-                    _origin._index = 
-                        EditorGUILayout.Popup("State", _origin._index, _origin.UIStatesStorage.GetStatesNames(), EditorStyles.popup);   
-                }
-
-                serializedObject.ApplyModifiedProperties();
-            }
-        }
-#endif
-    }*/
 }

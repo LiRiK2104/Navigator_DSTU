@@ -15,6 +15,15 @@ public class SearchableDropDown : MonoBehaviour
     public event OnValueChangedDel ValueChanged;
     public event OnValueChangedDel EndEditing;
 
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _inputField.ActivateInputField();
+        }
+    }
+    
     
     public void Initialize(List<string> optionsNames)
     {
@@ -28,6 +37,11 @@ public class SearchableDropDown : MonoBehaviour
     public string GetValue()
     {
         return _inputField.text;
+    }
+
+    public void ActivateInputField()
+    {
+        _inputField.ActivateInputField();
     }
 
     private void ResetDropDown()
