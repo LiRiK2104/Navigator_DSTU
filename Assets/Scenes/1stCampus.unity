@@ -529,7 +529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22400762, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0072631836
+      value: -0.008605957
       objectReference: {fileID: 0}
     - target: {fileID: 22414360, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2347,7 +2347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1139ba2f999d48b4fac5688997cf3647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isRotateToCamera: 0
   _lineRenderer: {fileID: 615067903}
 --- !u!114 &615067905
 MonoBehaviour:
@@ -2361,7 +2360,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a04426cc82328847a32e9ea98556a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraFace: {fileID: 615067904}
   _minimapScaleFactor: 4.01
   _mapScaleFactor: 2.1
 --- !u!1 &632151356
@@ -2400,6 +2398,7 @@ MonoBehaviour:
   _navigator: {fileID: 830511572}
   _dataBase: {fileID: 1237294225}
   _uiSetter: {fileID: 1848824609}
+  _uiStatesStorage: {fileID: 0}
   _cameraContainer: {fileID: 7310399565626569664}
   _bordersSetter: {fileID: 796133359}
 --- !u!4 &632151358
@@ -4114,6 +4113,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 359930411362548123, guid: 4bfe48c017ed75242a24d377761ae865, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 359930411559338878, guid: 4bfe48c017ed75242a24d377761ae865, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 359930411698135223, guid: 4bfe48c017ed75242a24d377761ae865, type: 3}
