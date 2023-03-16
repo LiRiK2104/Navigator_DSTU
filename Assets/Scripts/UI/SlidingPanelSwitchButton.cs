@@ -35,6 +35,8 @@ namespace UI
 
             public override void OnInspectorGUI()
             {
+                serializedObject.Update();
+                
                 _origin._slidingPanelHandler = EditorGUILayout.ObjectField("Sliding Panel Handler", _origin._slidingPanelHandler, typeof(SlidingPanelHandler)) as SlidingPanelHandler;
 
                 if (_origin._slidingPanelHandler != null)
@@ -46,6 +48,9 @@ namespace UI
                 }
                 
                 serializedObject.ApplyModifiedProperties();
+                
+                if (GUI.changed)
+                    EditorUtility.SetDirty(_origin);
             }
         }
 #endif
