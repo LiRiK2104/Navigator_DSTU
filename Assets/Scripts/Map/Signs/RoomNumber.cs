@@ -2,13 +2,14 @@ using TargetsSystem.Rooms;
 using TMPro;
 using UnityEngine;
 
-namespace TargetsSystem.Signs
+namespace Map.Signs
 {
-    public class RoomNumber : RoomSign
+    public class RoomNumber : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _textMeshPro;
 
-        public override void Initialize(Room room)
+        
+        public void Initialize(Room room)
         {
             SetNumber(room.Id);
         }

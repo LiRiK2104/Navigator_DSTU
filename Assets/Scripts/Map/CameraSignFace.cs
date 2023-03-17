@@ -1,16 +1,18 @@
 using System;
+using System.Collections.Generic;
 using Map.Hiders;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace Map
 {
     [RequireComponent(typeof(CameraFaceSwitcher))]
-    public partial class CameraMarkFace : CameraFace
+    public partial class CameraSignFace : CameraFace
     {
         [SerializeField] private bool _isRotateToCamera = true;
         [SerializeField] private bool _isClampScaling;
-        [SerializeField] private Hider _hider;
+        [SerializeField] private List<Hider> _hiders = new List<Hider>();
         [SerializeField] private int _stopScalingHeight;
         [SerializeField] private int _stopDisplayHeight;
 
@@ -49,11 +51,14 @@ namespace Map
         {
             if (_isClampScaling)
             {
-                if (height > _stopDisplayHeight)
-                    _hider.Hide();
-                else
-                    _hider.Show();
-                
+                foreach (var hider in _hiders)
+                {
+                    if (height > _stopDisplayHeight)
+                        hider.Hide();
+                    else
+                        hider.Show();   
+                }
+
                 height = ClampCameraHeight(height);
             }
 
@@ -72,17 +77,17 @@ namespace Map
         }
     }
 
-    public partial class CameraMarkFace
+    public partial class CameraSignFace
     {
 #if UNITY_EDITOR
-        [CustomEditor(typeof(CameraMarkFace))]
+        [CustomEditor(typeof(CameraSignFace))]
         public class CameraFaceEditor : Editor
         {
-            private CameraMarkFace _origin;
+            private CameraSignFace _origin;
 
             private void OnEnable()
             {
-                _origin = target as CameraMarkFace;
+                _origin = target as CameraSignFace;
             }
 
             public override void OnInspectorGUI()
@@ -93,8 +98,10 @@ namespace Map
                 if (_origin._isClampScaling)
                 {
                     GUILayout.Space(10);
-                    _origin._hider = EditorGUILayout.ObjectField("Hider:", _origin._hider, typeof(Hider)) as Hider;
                     
+                    var hidersProperty = serializedObject.FindProperty(nameof(_origin._hiders));
+                    EditorGUILayout.PropertyField(hidersProperty, true);
+
                     EditorGUILayout.BeginHorizontal();
                     GUILayout.Label("Stop scaling height:");
                     GUILayout.Space(50);

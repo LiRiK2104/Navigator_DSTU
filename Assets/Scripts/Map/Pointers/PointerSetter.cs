@@ -1,6 +1,7 @@
+using Navigation;
 using UnityEngine;
 
-namespace Navigation
+namespace Map.Pointers
 {
     public abstract class PointerSetter : MonoBehaviour
     {

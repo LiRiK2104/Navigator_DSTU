@@ -1,5 +1,4 @@
 using System;
-using TargetsSystem.Signs;
 using UnityEngine;
 
 namespace TargetsSystem.Rooms
@@ -10,7 +9,6 @@ namespace TargetsSystem.Rooms
         [SerializeField] private Color _fieldColor = Color.white;
         [Space]
         [SerializeField] private SpriteRenderer _field;
-        [SerializeField] private RoomSign _signPrefab;
 
         public string Id => _id;
         private Transform SignContainer => Global.Instance.ArEnvironment.RoomSignsContainer;
@@ -24,8 +22,8 @@ namespace TargetsSystem.Rooms
         private void Initialize()
         {
             PaintField();
-            var sign = Instantiate(_signPrefab, transform.position, Quaternion.identity, SignContainer);
-            sign.Initialize(this);
+            //var sign = Instantiate(_signPrefab, transform.position, Quaternion.identity, SignContainer);
+            //sign.Initialize(this);
         }
         
         private void PaintField()
