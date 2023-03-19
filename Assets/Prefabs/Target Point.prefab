@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1909060266079072822}
   - component: {fileID: 1909060266079072817}
+  - component: {fileID: 2073910515248365697}
   m_Layer: 0
   m_Name: Target Point
   m_TagString: Untagged
@@ -53,3 +54,15 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2073910515248365697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909060266079072823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7577a5bf888b9ec4988c96cd67a94b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

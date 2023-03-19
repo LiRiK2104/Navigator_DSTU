@@ -2,14 +2,51 @@ using UnityEngine;
 
 public class CameraFace : MonoBehaviour
 {
-    public Camera MinimapCamera { get; set; }
+    protected CameraFacePreset Preset;
     
-    
-    public void Update()
+
+    public virtual void Update()
     {
-        if (MinimapCamera == null)
+        if (Preset.Camera == null)
             return;
         
-        transform.LookAt(transform.position + MinimapCamera.transform.rotation * Vector3.forward, MinimapCamera.transform.rotation * Vector3.up);
+        RotateToCamera();
+        Scale();
+    }
+
+
+    public void SetPreset(CameraFacePreset preset)
+    {
+        Preset = preset;
+    }
+    
+    protected virtual void Scale()
+    {
+        var scale = CalculateScale();
+        transform.localScale = new Vector3(scale, scale, scale);
+    }
+    
+    protected float CalculateScale()
+    {
+        if (Preset.Camera == null)
+            return 1;
+
+        float scale = (CalculateCameraHeight() / Screen.width) * Preset.ScaleFactor;
+        return scale;
+    }
+
+    protected virtual float CalculateCameraHeight()
+    {
+        if (Preset.Camera.orthographic)
+            return Preset.Camera.orthographicSize * 2;
+        
+        float distanceToCamera = Vector3.Distance(Preset.Camera.transform.position, transform.position);
+        return 2.0f * distanceToCamera * Mathf.Tan(Mathf.Deg2Rad * (Preset.Camera.fieldOfView * 0.5f));
+    }
+
+    private void RotateToCamera()
+    {
+        var cameraRotation = Preset.Camera.transform.rotation;
+        transform.LookAt(transform.position + cameraRotation * Vector3.forward, cameraRotation * Vector3.up);
     }
 }

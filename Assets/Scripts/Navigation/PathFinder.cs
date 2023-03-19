@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,9 +6,9 @@ namespace Navigation
 {
     public class PathFinder : MonoBehaviour
     {
-        [SerializeField] private LineRenderer _lineRenderer;
+        [SerializeField] private List<LineRenderer> _lineRenderers;
 
-        private Transform _targetPoint;
+        private Vector3 _targetPosition;
         private NavMeshPath _path;
 
         private Calibrator Calibrator => Global.Instance.Calibrator;
@@ -31,14 +31,14 @@ namespace Navigation
 
         private void OnEnable()
         {
-            Calibrator.Calibrated += StartFinding;
-            Calibrator.CalibrationReset += StopFinding;
+            Calibrator.Calibrated += ShowPath;
+            Calibrator.CalibrationReset += HidePath;
         }
 
         private void OnDisable()
         {
-            Calibrator.Calibrated -= StartFinding;
-            Calibrator.CalibrationReset -= StopFinding;
+            Calibrator.Calibrated -= ShowPath;
+            Calibrator.CalibrationReset -= HidePath;
         }
 
         private void Start()
@@ -46,52 +46,66 @@ namespace Navigation
             _path = new NavMeshPath();
         }
 
-        private void Update()
+
+        public NavMeshPath GetLocalPath(Vector3 targetPosition)
         {
+            var localPath = new NavMeshPath();
+            NavMesh.CalculatePath(UserTransform.position, targetPosition, NavMesh.AllAreas, localPath);
+
+            return localPath;
+        }
+
+        public float CalculatePathDistance(NavMeshPath path)
+        {
+            float distance = 0;
+
+            for (int i = 0; i < path.corners.Length - 1; i++)
+                distance += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+
+            return distance;
+        }
+        
+        public void SetTarget(Vector3 targetPosition)
+        {
+            _targetPosition = targetPosition;
+        
+            ClearPath();
+            FindPath();
             DrawPath();
         }
-    
 
-        public void SetTarget(Transform targetPoint)
+        private void ClearPath()
         {
-            _targetPoint = targetPoint;
-        
-            StopFinding();
-            StartFinding();
-        }
-
-        private void StartFinding()
-        {
-            StartCoroutine(FindPath());
-        }
-    
-        private void StopFinding()
-        {
-            StopCoroutine(FindPath());
             _path.ClearCorners();
         }
-    
-        private IEnumerator FindPath()
+
+        private void FindPath()
         {
-            if (_targetPoint == null)
-                yield break;
-        
-            float updatingTime = 0.2f;
-        
-            while (true)
-            {
-                NavMesh.CalculatePath(UserTransform.position, _targetPoint.position, NavMesh.AllAreas, _path);
-                yield return new WaitForSeconds(updatingTime);
-            }
+            NavMesh.CalculatePath(UserTransform.position, _targetPosition, NavMesh.AllAreas, _path);
         }
 
         private void DrawPath()
         {
-            for (int i = 0; i < _path.corners.Length - 1; i++)
+            foreach (var lineRenderer in _lineRenderers)
             {
-                _lineRenderer.positionCount = _path.corners.Length;
-                _lineRenderer.SetPositions(_path.corners);
+                for (int i = 0; i < _path.corners.Length - 1; i++)
+                {
+                    lineRenderer.positionCount = _path.corners.Length;
+                    lineRenderer.SetPositions(_path.corners);
+                }   
             }
+        }
+
+        private void ShowPath()
+        {
+            foreach (var lineRenderer in _lineRenderers)
+                lineRenderer.enabled = true;
+        }
+        
+        private void HidePath()
+        {
+            foreach (var lineRenderer in _lineRenderers)
+                lineRenderer.enabled = false;
         }
     }
 }

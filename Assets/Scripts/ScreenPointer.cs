@@ -36,7 +36,7 @@ public class ScreenPointer : MonoBehaviour
     }
 
     
-    private void StartPoint(TargetPoint targetPoint)
+    private void StartPoint(Vector3 targetPosition)
     {
         StartPoint();
     }

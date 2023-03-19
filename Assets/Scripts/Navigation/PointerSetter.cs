@@ -18,6 +18,6 @@ namespace Navigation
             DestinationSetter.TargetSet -= SetPointer;
         }
 
-        protected abstract void SetPointer(TargetPoint targetPoint);
+        protected abstract void SetPointer(Vector3 targetPosition);
     }
 }

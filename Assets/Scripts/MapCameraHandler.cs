@@ -11,8 +11,8 @@ public class MapCameraHandler : MonoBehaviour, IPointerDownHandler, IDragHandler
     
     [SerializeField] private CameraFollower _cameraFollower;
 
-    private Camera Camera => Global.Instance.CameraContainer.MapCamera;
-    private BordersSetter BordersSetter => Global.Instance.BordersSetter;
+    private Camera Camera => Global.Instance?.CameraContainer.MapCamera;
+    private BordersSetter BordersSetter => Global.Instance?.BordersSetter;
     
     
     private void OnDrawGizmos()

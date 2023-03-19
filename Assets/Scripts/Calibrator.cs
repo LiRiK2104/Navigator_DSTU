@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UI.Menus;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,16 +8,15 @@ using UnityEngine.XR.ARFoundation;
 
 public class Calibrator : MonoBehaviour
 {
-    private bool _isCalibrated;
     private bool _shouldCalibrate;
 
     public event Action CalibrationReset;
     public event Action Calibrated;
     
-    public bool IsCalibrated => _isCalibrated;
+    public bool IsCalibrated { get; private set; } = true;
     
     private Button CalibrationButton => Global.Instance.UiSetter.CalibrationMenu.CalibrationButton;
-    private Button RecalibrationButton => Global.Instance.UiSetter.TrackingMenu.RecalibrationButton;
+    private List<Button> RecalibrationButtons => Global.Instance.UiSetter.TrackingMenu.RecalibrationButtons;
     private CalibrationMenu CalibrationMenu => Global.Instance.UiSetter.CalibrationMenu;
     private DataBase DataBase => Global.Instance.DataBase;
     private ARSession ArSession => Global.Instance.ArMain.Session;
@@ -25,31 +25,26 @@ public class Calibrator : MonoBehaviour
     private ARTrackedImageManager ArTrackedImageManager => Global.Instance.ArMain.TrackedImageManager;
     private AREnvironment ArEnvironment => Global.Instance.ArEnvironment;
 
-
-    private void Awake()
-    {
-        ARSession.stateChanged += OnAppStartCalibrate;
-    }
+    
 
     private void OnEnable()
     {
         ArTrackedImageManager.trackedImagesChanged += StartCalibration;
-        RecalibrationButton.onClick.AddListener(ResetCalibration);
+        RecalibrationButtons.ForEach(button => button.onClick.AddListener(ResetCalibration));
         CalibrationButton.onClick.AddListener(SetShouldCalibrate);
     }
 
     private void OnDisable()
     {
         ArTrackedImageManager.trackedImagesChanged -= StartCalibration;
-        RecalibrationButton.onClick.RemoveListener(ResetCalibration);
+        RecalibrationButtons.ForEach(button => button.onClick.RemoveListener(ResetCalibration));
         CalibrationButton.onClick.RemoveListener(SetShouldCalibrate);
-        ARSession.stateChanged -= OnAppStartCalibrate;
     }
 
 
-    public void Calibrate(VirtualMarker virtualMarker)
+    private void Calibrate(VirtualMarker virtualMarker)
     {
-        if (_isCalibrated || _shouldCalibrate == false)
+        if (IsCalibrated || _shouldCalibrate == false)
             return;
         
         UpdateOrigin(virtualMarker);
@@ -57,31 +52,22 @@ public class Calibrator : MonoBehaviour
         UpdateEnvironmentLocation(virtualMarker);
         ArEnvironment.gameObject.SetActive(true);
             
-        _isCalibrated = true;
+        IsCalibrated = true;
         _shouldCalibrate = false;
         Calibrated?.Invoke();
     }
-    
-    private void OnAppStartCalibrate(ARSessionStateChangedEventArgs obj)
-    {
-        if (obj.state == ARSessionState.SessionInitializing)
-        {
-            ARSession.stateChanged -= OnAppStartCalibrate;
-            ResetCalibration();
-        }
-    }
-    
+
     private void ResetCalibration()
     {
         ArSession.Reset();
         ArEnvironment.gameObject.SetActive(false);
-        _isCalibrated = false;
+        IsCalibrated = false;
         CalibrationReset?.Invoke();
     }
 
     private void SetShouldCalibrate()
     {
-        if (_isCalibrated)
+        if (IsCalibrated)
             return;
 
         StopCoroutine(WaitCalibration());
@@ -101,15 +87,15 @@ public class Calibrator : MonoBehaviour
 
     private void StartCalibration(ARTrackedImagesChangedEventArgs args)
     {
-        if (_isCalibrated || _shouldCalibrate == false)
+        if (IsCalibrated || _shouldCalibrate == false)
             return;
         
         Debug.Log("Calibration started!");
         var markerName = GetMarkerName(args);
 
-        if (DataBase.TryGetMarkerPoint(markerName, out MarkerPoint foundPoint))
+        if (DataBase.TryGetVirtualMarker(markerName, out VirtualMarker virtualMarker))
         {
-            Calibrate(foundPoint.VirtualMarker);
+            Calibrate(virtualMarker);
             Debug.Log("Calibration successfully!");
         }
         else
