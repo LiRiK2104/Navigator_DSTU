@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Calibration;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -31,12 +32,14 @@ namespace Navigation
 
         private void OnEnable()
         {
+            Calibrator.Calibrated += ResetPath;
             Calibrator.Calibrated += ShowPath;
             Calibrator.CalibrationReset += HidePath;
         }
 
         private void OnDisable()
         {
+            Calibrator.Calibrated -= ResetPath;
             Calibrator.Calibrated -= ShowPath;
             Calibrator.CalibrationReset -= HidePath;
         }
@@ -68,7 +71,14 @@ namespace Navigation
         public void SetTarget(Vector3 targetPosition)
         {
             _targetPosition = targetPosition;
-        
+            ResetPath();
+        }
+
+        private void ResetPath()
+        {
+            if (_targetPosition == default)
+                return;
+            
             ClearPath();
             FindPath();
             DrawPath();

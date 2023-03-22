@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AREnvironment : MonoBehaviour
 {
-    [SerializeField] private Transform _roomSignsContainer;
+    [SerializeField] private Transform _signsContainer;
 
-    public Transform RoomSignsContainer => _roomSignsContainer;
+    public Transform SignsContainer => _signsContainer;
 }

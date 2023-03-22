@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1043586815718622776}
-  - component: {fileID: 4808906105801092346}
   - component: {fileID: 1043586815718622783}
+  - component: {fileID: 4808906105801092346}
   m_Layer: 8
   m_Name: Number
   m_TagString: Untagged
@@ -38,19 +38,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4808906105801092346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1043586815718622777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a04426cc82328847a32e9ea98556a7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cameraFace: {fileID: 1043586815718622783}
 --- !u!114 &1043586815718622783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,6 +50,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a6fc558012edd4fb23a94c22918df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isRotateToCamera: 1
+  _isClampScaling: 1
+  _hiders:
+  - {fileID: 8883368688791359361}
+  _stopScalingHeight: 50
+  _stopDisplayHeight: 70
+--- !u!114 &4808906105801092346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043586815718622777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a04426cc82328847a32e9ea98556a7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minimapScaleFactor: 4
+  _mapScaleFactor: 2
 --- !u!1 &1043586817451841225
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +129,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_TargetDisplay: 0
 --- !u!114 &1043586817451841231
 MonoBehaviour:
@@ -146,7 +153,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &1043586817451841224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5733501434999815272}
   - component: {fileID: 5733501434999815274}
+  - component: {fileID: 8883368688791359361}
   - component: {fileID: 5733501434999815275}
   m_Layer: 8
   m_Name: Text (TMP)
@@ -222,6 +230,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5733501434999815273}
   m_CullTransparentMesh: 1
+--- !u!114 &8883368688791359361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5733501434999815273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 029fc5d4cb3b8704eb032def2adcd8c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5733501434999815275
 MonoBehaviour:
   m_ObjectHideFlags: 0

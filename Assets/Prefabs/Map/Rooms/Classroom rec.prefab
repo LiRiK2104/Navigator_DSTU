@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 3286163911610860551, guid: bd44cade1da878d45b97a7a65dd52249, type: 3}
   m_Color: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
   m_FlipX: 0
@@ -92,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2038601389625015449}
   - component: {fileID: 1975430306335867739}
+  - component: {fileID: 5825350306140697266}
   m_Layer: 0
   m_Name: Classroom rec
   m_TagString: Untagged
@@ -130,8 +131,22 @@ MonoBehaviour:
   _id: 
   _fieldColor: {r: 1, g: 1, b: 1, a: 1}
   _field: {fileID: 2967189585057453692}
-  _signPrefab: {fileID: 3876115665846435626, guid: 461f3641ce724fe4c96de42d7465fd3a, type: 3}
   _targetPoint: {fileID: 3008178753490686878}
+  _signCreator: {fileID: 5825350306140697266}
+--- !u!114 &5825350306140697266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6435298224390817575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c095d1d132f4fa45b3a7a78f1ce7e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _signPrefab: {fileID: 3149449264266535297, guid: 1d2f154cada349641b18027c882d8881, type: 3}
+  _signPreset: {fileID: 11400000, guid: 8a9832cd0a46270418ca25a1ddb3defb, type: 2}
 --- !u!1001 &3852600796820738847
 PrefabInstance:
   m_ObjectHideFlags: 0
