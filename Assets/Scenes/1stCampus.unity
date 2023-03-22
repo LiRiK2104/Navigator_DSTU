@@ -529,7 +529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22400762, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0045166016
+      value: -0.003540039
       objectReference: {fileID: 0}
     - target: {fileID: 22414360, guid: 67117722a812a2e46ab8cb8eafbf5f5e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1137,6 +1137,10 @@ PrefabInstance:
       propertyPath: _id
       value: "1-133\u0431"
       objectReference: {fileID: 0}
+    - target: {fileID: 699861909811261614, guid: 7ff9581537e31aa4592ed3e75f88db71, type: 3}
+      propertyPath: _signPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8a9832cd0a46270418ca25a1ddb3defb, type: 2}
     - target: {fileID: 1331069422822658870, guid: 7ff9581537e31aa4592ed3e75f88db71, type: 3}
       propertyPath: _id
       value: 1-132
@@ -1249,6 +1253,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map
       objectReference: {fileID: 0}
+    - target: {fileID: 5103446483407346612, guid: 7ff9581537e31aa4592ed3e75f88db71, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5103446483407346615, guid: 7ff9581537e31aa4592ed3e75f88db71, type: 3}
       propertyPath: m_SortingOrder
       value: 1
@@ -1316,6 +1324,10 @@ PrefabInstance:
     - target: {fileID: 7731658207623029346, guid: 7ff9581537e31aa4592ed3e75f88db71, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8321623862688637632, guid: 7ff9581537e31aa4592ed3e75f88db71, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8437757262411764346, guid: 7ff9581537e31aa4592ed3e75f88db71, type: 3}
       propertyPath: _id

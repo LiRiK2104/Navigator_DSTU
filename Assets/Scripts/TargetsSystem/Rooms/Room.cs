@@ -11,7 +11,6 @@ namespace TargetsSystem.Rooms
         [SerializeField] private SpriteRenderer _field;
 
         public string Id => _id;
-        private Transform SignContainer => Global.Instance.ArEnvironment.RoomSignsContainer;
 
 
         private void Start()
@@ -19,11 +18,9 @@ namespace TargetsSystem.Rooms
             Initialize();
         }
 
-        private void Initialize()
+        protected virtual void Initialize()
         {
             PaintField();
-            //var sign = Instantiate(_signPrefab, transform.position, Quaternion.identity, SignContainer);
-            //sign.Initialize(this);
         }
         
         private void PaintField()

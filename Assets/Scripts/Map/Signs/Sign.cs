@@ -14,6 +14,7 @@ namespace Map.Signs
         {
             _defaultState.Initialize(signPreset, room);
             _searchResultState.Initialize(signPreset, room);
+            Deselect();
         }
 
         public void Select()

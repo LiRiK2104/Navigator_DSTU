@@ -25,7 +25,7 @@ namespace Map
             if (Preset.Camera == null)
                 return 1;
 
-            float dividend = 640;
+            float dividend = 10040;
             float scale = (CalculateCameraHeight() / dividend) * Preset.ScaleFactor;
             return scale;
         }
