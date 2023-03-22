@@ -7,8 +7,7 @@ namespace TargetsSystem.Rooms
     public class AccessibleRoom : Room
     {
         [SerializeField] private TargetPoint _targetPoint;
-        [SerializeField] private Sign _sign;
-        [SerializeField] private SignPreset _signPreset;
+        [SerializeField] private SignCreator _signCreator;
 
         public Vector3 TargetPointPosition => _targetPoint.transform.position;
 
@@ -16,9 +15,7 @@ namespace TargetsSystem.Rooms
         protected override void Initialize()
         {
             base.Initialize();
-            
-            _sign.gameObject.SetActive(true);
-            _sign.Initialize(_signPreset, this);
+            _signCreator.Create(this);
         }
     }
 }

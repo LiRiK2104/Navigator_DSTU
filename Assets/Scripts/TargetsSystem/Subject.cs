@@ -6,8 +6,7 @@ namespace TargetsSystem
 {
     public class Subject : MonoBehaviour
     {
-        [SerializeField] private Sign _sign;
-        [SerializeField] private SignPreset _signPreset;
+        [SerializeField] private SignCreator _signCreator;
 
         private void Start()
         {
@@ -16,8 +15,7 @@ namespace TargetsSystem
 
         private void Initialize()
         {
-            _sign.gameObject.SetActive(true);
-            _sign.Initialize(_signPreset);
+            _signCreator.Create();
         }
     }
 }
