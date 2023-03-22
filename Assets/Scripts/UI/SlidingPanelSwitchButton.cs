@@ -36,6 +36,7 @@ namespace UI
             public override void OnInspectorGUI()
             {
                 serializedObject.Update();
+                DrawScriptLink();
                 
                 _origin._slidingPanelHandler = EditorGUILayout.ObjectField("Sliding Panel Handler", _origin._slidingPanelHandler, typeof(SlidingPanelHandler)) as SlidingPanelHandler;
 
@@ -51,6 +52,13 @@ namespace UI
                 
                 if (GUI.changed)
                     EditorUtility.SetDirty(_origin);
+            }
+            
+            private void DrawScriptLink()
+            {
+                GUI.enabled = false;
+                EditorGUILayout.ObjectField("Script:", MonoScript.FromMonoBehaviour(_origin), typeof(SlidingPanelSwitchButton), false);
+                GUI.enabled = true;
             }
         }
 #endif

@@ -133,14 +133,19 @@ namespace Helpers
 
             public override void OnInspectorGUI()
             {
+                serializedObject.Update();
+                
                 int widgetRectWidth = 100;
                 int widgetFieldHeight = 20;
 
                 Vector2 statesRectSize = EditorStyles.label.CalcSize(new GUIContent(_origin._states
                     .OrderBy(state => state.Name.Length).Select(state => state.Name).FirstOrDefault()));
                 statesRectSize.y *= _origin._states.Count;
-
-                DrawWidgets(widgetRectWidth, widgetFieldHeight);
+                
+                DrawScriptLink();
+                int lastRectMaxHeight = 18;
+                
+                DrawWidgets(widgetRectWidth, widgetFieldHeight, lastRectMaxHeight);
                 DrawStates(widgetRectWidth, widgetFieldHeight);
                 DrawRemoveWidgetButtons(widgetRectWidth);
                 DrawControlButtons();
@@ -149,19 +154,19 @@ namespace Helpers
                 serializedObject.ApplyModifiedProperties();
             }
 
-            private void DrawWidgets(int widgetRectWidth, int widgetFieldHeight)
+            private void DrawWidgets(int widgetRectWidth, int widgetFieldHeight, float lastRectBottom)
             {
                 int rotateAngle = 90;
                 Vector2 pivotPoint = new Vector2(
                     DefaultIndentedLevel + widgetRectWidth, 
-                    DefaultIndentedLevel + widgetRectWidth);
+                    DefaultIndentedLevel + widgetRectWidth + lastRectBottom);
                 
                 int widgetRectHeight = (widgetFieldHeight + DefaultInterval) * _origin._widgetsDefault.Count;
                 
                 
                 GUIUtility.RotateAroundPivot(rotateAngle, pivotPoint);
 
-                int rectY = DefaultIndentedLevel + widgetRectWidth - widgetRectHeight;
+                float rectY = DefaultIndentedLevel + widgetRectWidth - widgetRectHeight + lastRectBottom;
                 GUILayout.BeginArea(new Rect(DefaultIndentedLevel, rectY, widgetRectWidth, widgetRectHeight));
 
                 var widgetFieldLayoutOption = new [] {GUILayout.Width(widgetRectWidth), GUILayout.Height(widgetFieldHeight)};
@@ -246,14 +251,6 @@ namespace Helpers
                     serializedObject.ApplyModifiedProperties();
                 }
             }
-            
-            private void DrawEvent(UIState state)
-            {
-                serializedObject.Update();
-                var serializedProperty = serializedObject.FindProperty(nameof(state.OnEvent));
-                Debug.Log($"\"{nameof(state.OnEvent)}\"");
-                //EditorGUILayout.PropertyField(serializedProperty, true);
-            }
 
             private void DrawControlButtons()
             {
@@ -272,6 +269,13 @@ namespace Helpers
                 
                 GUILayout.EndHorizontal();
                 GUILayout.Space(space);
+            }
+            
+            private void DrawScriptLink()
+            {
+                GUI.enabled = false;
+                EditorGUILayout.ObjectField("Script:", MonoScript.FromMonoBehaviour(_origin), typeof(UIStatesStorage), false);
+                GUI.enabled = true;
             }
         }
 #endif

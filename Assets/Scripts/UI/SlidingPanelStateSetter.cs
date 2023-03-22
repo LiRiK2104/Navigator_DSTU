@@ -100,6 +100,7 @@ namespace UI
 
             public override void OnInspectorGUI()
             {
+                DrawScriptLink();
                 _origin.UIStatesStorage = EditorGUILayout.ObjectField("UI States Storage", _origin.UIStatesStorage, typeof(UIStatesStorage)) as UIStatesStorage;
                 
                 if (_origin.UIStatesStorage != null)
@@ -121,6 +122,13 @@ namespace UI
                 }
 
                 serializedObject.ApplyModifiedProperties();
+            }
+            
+            private void DrawScriptLink()
+            {
+                GUI.enabled = false;
+                EditorGUILayout.ObjectField("Script:", MonoScript.FromMonoBehaviour(_origin), typeof(SlidingPanelStateSetter), false);
+                GUI.enabled = true;
             }
         }
 #endif
