@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace UI
+namespace UI.SlidingPanel
 {
     public class SlidingPanelHandler : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {

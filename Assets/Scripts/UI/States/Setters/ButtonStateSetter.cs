@@ -1,9 +1,8 @@
-using Helpers;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.States.Setters
 {
     [RequireComponent(typeof(Button))]
     public partial class ButtonStateSetter : StateSetter
@@ -48,8 +47,11 @@ namespace UI
 
             public override void OnInspectorGUI()
             {
+                serializedObject.Update();
+                DrawScriptLink();
                 _origin.UIStatesStorage = EditorGUILayout.ObjectField("UI States Storage", _origin.UIStatesStorage, typeof(UIStatesStorage)) as UIStatesStorage;
-
+                _origin.UIStatesHistory = EditorGUILayout.ObjectField("UI States History", _origin.UIStatesHistory, typeof(UIStatesHistory)) as UIStatesHistory;
+                
                 if (_origin.UIStatesStorage != null)
                 {
                     _origin._index = 
@@ -57,6 +59,13 @@ namespace UI
                 }
 
                 serializedObject.ApplyModifiedProperties();
+            }
+            
+            private void DrawScriptLink()
+            {
+                GUI.enabled = false;
+                EditorGUILayout.ObjectField("Script:", MonoScript.FromMonoBehaviour(_origin), typeof(SlidingPanelStateSetter), false);
+                GUI.enabled = true;
             }
         }
 #endif

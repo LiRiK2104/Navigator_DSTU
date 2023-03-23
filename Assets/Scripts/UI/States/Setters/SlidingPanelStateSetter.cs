@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Helpers;
+using UI.SlidingPanel;
 using UnityEditor;
 using UnityEngine;
 
-namespace UI
+namespace UI.States.Setters
 {
     [RequireComponent(typeof(SlidingPanelHandler))]
     public partial class SlidingPanelStateSetter : StateSetter
@@ -100,8 +100,10 @@ namespace UI
 
             public override void OnInspectorGUI()
             {
+                serializedObject.Update();
                 DrawScriptLink();
                 _origin.UIStatesStorage = EditorGUILayout.ObjectField("UI States Storage", _origin.UIStatesStorage, typeof(UIStatesStorage)) as UIStatesStorage;
+                _origin.UIStatesHistory = EditorGUILayout.ObjectField("UI States History", _origin.UIStatesHistory, typeof(UIStatesHistory)) as UIStatesHistory;
                 
                 if (_origin.UIStatesStorage != null)
                 {

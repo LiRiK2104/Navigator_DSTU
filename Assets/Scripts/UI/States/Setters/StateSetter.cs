@@ -1,11 +1,11 @@
-using Helpers;
 using UnityEngine;
 
-namespace UI
+namespace UI.States.Setters
 {
     public abstract class StateSetter : MonoBehaviour
     {
         [SerializeField] protected UIStatesStorage UIStatesStorage; //Global.Instance.UIStatesStorage;
+        [SerializeField] protected UIStatesHistory UIStatesHistory;
 
 
         protected virtual void OnEnable()
@@ -29,6 +29,7 @@ namespace UI
             foreach (var widget in state.Widgets)
                 widget.GameObject.SetActive(widget.Active);
             
+            UIStatesHistory.AddState(index);
             state.OnEvent?.Invoke();
         }
     }

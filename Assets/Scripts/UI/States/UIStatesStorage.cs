@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Helpers
+namespace UI.States
 {
     public partial class UIStatesStorage : MonoBehaviour
     {

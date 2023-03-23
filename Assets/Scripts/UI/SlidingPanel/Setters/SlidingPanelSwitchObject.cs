@@ -1,36 +1,31 @@
-using System.Linq;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEditor;
+using System.Linq;
 
-namespace UI
+namespace UI.SlidingPanel.Setters
 {
-    [RequireComponent(typeof(Button))]
-    public partial class SlidingPanelSwitchButton : MonoBehaviour
+    public partial class SlidingPanelSwitchObject : MonoBehaviour
     {
         [SerializeField] private SlidingPanelHandler _slidingPanelHandler;
-        [SerializeField] private int _index;
-        
-        private Button _button;
-        
-        private void Awake()
+        [SerializeField] protected int _index;
+
+        protected void SetState()
         {
-            _button = GetComponent<Button>();
-            _button.onClick.AddListener(() => _slidingPanelHandler.SwitchPosition(_index));
+            _slidingPanelHandler.SwitchPosition(_index);
         }
     }
     
-    public partial class SlidingPanelSwitchButton
+    public partial class SlidingPanelSwitchObject
     {
 #if UNITY_EDITOR
-        [CustomEditor(typeof(SlidingPanelSwitchButton))]
-        public class SlidingPanelSwitchButtonEditor : Editor
+        [CustomEditor(typeof(SlidingPanelSwitchObject), true)]
+        public class SlidingPanelSwitchObjectEditor : Editor
         {
-            private SlidingPanelSwitchButton _origin;
+            private SlidingPanelSwitchObject _origin;
             
             private void OnEnable()
             {
-                _origin = target as SlidingPanelSwitchButton;
+                _origin = target as SlidingPanelSwitchObject;
             }
 
             public override void OnInspectorGUI()
@@ -57,7 +52,7 @@ namespace UI
             private void DrawScriptLink()
             {
                 GUI.enabled = false;
-                EditorGUILayout.ObjectField("Script:", MonoScript.FromMonoBehaviour(_origin), typeof(SlidingPanelSwitchButton), false);
+                EditorGUILayout.ObjectField("Script:", MonoScript.FromMonoBehaviour(_origin), typeof(SlidingPanelSwitchObject), false);
                 GUI.enabled = true;
             }
         }
