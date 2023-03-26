@@ -2,26 +2,12 @@ using UnityEngine;
 
 namespace UI.States.Setters
 {
-    public abstract class StateSetter : MonoBehaviour
+    public class StateSetter : MonoBehaviour
     {
-        [SerializeField] protected UIStatesStorage UIStatesStorage; //Global.Instance.UIStatesStorage;
-        [SerializeField] protected UIStatesHistory UIStatesHistory;
-
-
-        protected virtual void OnEnable()
-        {
-            UIStatesStorage.StateRemoved += UpdateIndex;
-        }
-
-        protected virtual void OnDisable()
-        {
-            UIStatesStorage.StateRemoved -= UpdateIndex;
-        }
-
+        private UIStatesStorage UIStatesStorage => Global.Instance.UISetterV2.UIStatesStorage;
+        private UIStatesHistory UIStatesHistory => Global.Instance.UISetterV2.UIStatesHistory;
         
-        protected abstract void UpdateIndex(int removedStateIndex);
-
-        protected void SetState(int index)
+        public void SetState(int index)
         {
             if (UIStatesStorage.TryGetState(index, out UIState state) == false)
                 return;

@@ -10,25 +10,29 @@ namespace Map.Signs
         [SerializeField] private bool _hasName;
         [SerializeField] private bool _hasIcon;
         [SerializeField] private bool _isTransitPoint;
-        [SerializeField] private TransitType _transitType;
+        [SerializeField] private PointType pointType;
 
         [SerializeField] private string _name;
         [SerializeField] private Sprite _icon;
 
         public bool HasName => _hasName;
         public bool HasIcon => _hasIcon;
-        public bool IsTransitPoint => _isTransitPoint;
-        public TransitType TransitType => _transitType;
+        public PointType PointType => pointType;
         public string Name => _name;
         public Sprite Icon => _icon;
     }
-
-    public enum TransitType
-    {
-        Stairs,
-        Elevator
-    }
     
+    public enum PointType
+    {
+        None,
+        Stairs,
+        Elevator,
+        ATM,
+        Print,
+        Library,
+        Buffet
+    }
+
     public partial class SignPreset
     {
 #if UNITY_EDITOR
@@ -70,7 +74,7 @@ namespace Map.Signs
                 
                 if (_origin._isTransitPoint)
                 {
-                    _origin._transitType = (TransitType)EditorGUILayout.EnumPopup("Transit type", _origin._transitType);
+                    _origin.pointType = (PointType)EditorGUILayout.EnumPopup("Transit type", _origin.pointType);
                     EditorGUILayout.Space(interval);
                 }
 

@@ -8,7 +8,7 @@ using UnityEngine;
 namespace UI.States.Setters
 {
     [RequireComponent(typeof(SlidingPanelHandler))]
-    public partial class SlidingPanelStateSetter : StateSetter
+    public partial class SlidingPanelStateSetter : ExternalStateSetter
     {
         [SerializeField] private List<SearchPanelStatePreset> _statePresets;
 
@@ -101,26 +101,21 @@ namespace UI.States.Setters
             public override void OnInspectorGUI()
             {
                 serializedObject.Update();
-                DrawScriptLink();
-                _origin.UIStatesStorage = EditorGUILayout.ObjectField("UI States Storage", _origin.UIStatesStorage, typeof(UIStatesStorage)) as UIStatesStorage;
-                _origin.UIStatesHistory = EditorGUILayout.ObjectField("UI States History", _origin.UIStatesHistory, typeof(UIStatesHistory)) as UIStatesHistory;
                 
-                if (_origin.UIStatesStorage != null)
-                {
-                    _origin.UpdateStatePresets();
+                DrawScriptLink();
+                _origin.UpdateStatePresets();
                     
-                    for (int i = 0; i < _origin._statePresets.Count; i++)
-                    {
-                        var statePreset = _origin._statePresets[i];
+                for (int i = 0; i < _origin._statePresets.Count; i++)
+                {
+                    var statePreset = _origin._statePresets[i];
 
-                        GUILayout.BeginHorizontal();
-                        GUILayout.Label(statePreset.TargetPoint.gameObject.name);
-                        int index = EditorGUILayout.Popup(statePreset.UIStateIndex,
-                            _origin.UIStatesStorage.GetStatesNames(), EditorStyles.popup);
-                        GUILayout.EndHorizontal();
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label(statePreset.TargetPoint.gameObject.name);
+                    int index = EditorGUILayout.Popup(statePreset.UIStateIndex,
+                        _origin.UIStatesStorage.GetStatesNames(), EditorStyles.popup);
+                    GUILayout.EndHorizontal();
 
-                        _origin._statePresets[i] = new SearchPanelStatePreset(statePreset.TargetPoint, index);
-                    }
+                    _origin._statePresets[i] = new SearchPanelStatePreset(statePreset.TargetPoint, index);
                 }
 
                 serializedObject.ApplyModifiedProperties();

@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Calibration;
+using Map.Signs;
+using Navigation;
+using TargetsSystem;
+using TargetsSystem.Points;
 using TargetsSystem.Rooms;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -9,12 +13,14 @@ using UnityEngine.XR.ARFoundation;
 public class DataBase : MonoBehaviour
 {
     [SerializeField] private List<TriadMarker> _triadMarkers;
-    [SerializeField] private List<AccessibleRoom> _rooms;
-    [SerializeField] private List<MultiRoom> _multiRooms;
+    [SerializeField] private List<PointsGroup> _pointsGroups;
+    [SerializeField] private List<Floor> _floors;
+
+    private Dictionary<Point, PointInfo> _pointInfos = new Dictionary<Point, PointInfo>();
 
     public List<TriadMarker> TriadMarker => new List<TriadMarker>(_triadMarkers);
-    public List<AccessibleRoom> Rooms => new List<AccessibleRoom>(_rooms);
-    public List<MultiRoom> MultiRooms => new List<MultiRoom>(_multiRooms);
+    public List<PointsGroup> PointsGroups => new List<PointsGroup>(_pointsGroups);
+    public List<Floor> Floors =>  new List<Floor>(_floors);
 
 
     public bool TryGetVirtualMarker(List<ARTrackedImage> trackedImages, 
@@ -39,61 +45,105 @@ public class DataBase : MonoBehaviour
 
         return false;
     }
-    
-    public bool TryGetRoom(string name, out AccessibleRoom foundRoom)
+
+
+    private void Start()
     {
-        foundRoom = null;
+        FillPointInfos();
+    }
+    
+    
+    public bool TryGetPoint(PointInfo pointInfo, out Point point)
+    {
+        point = null;
         
-        foreach (var room in _rooms)
+        foreach (var localPointInfo in _pointInfos)
         {
-            if (room.Id == name)
+            if (localPointInfo.Value.Equals(pointInfo))
             {
-                foundRoom = room;
+                point = localPointInfo.Key;
                 return true;
             }
-        }
-        
-        foreach (var multiRoom in _multiRooms)
-        {
-            if (multiRoom.CommonId == name)
-            {
-                foundRoom = multiRoom.GetNearestRoom();
-                return true;
-            }
-                
-            if (multiRoom.TryGetRoom(name, out foundRoom))
-                return true;
         }
 
         return false;
     }
-}
 
+    public bool TryGetPointInfo(Point targetPoint, out PointInfo pointInfo)
+    {
+        return _pointInfos.TryGetValue(targetPoint, out pointInfo);
+    }
 
-/*[Serializable]
-public abstract class Point
-{
-    [SerializeField] private string _id;
-
-    public string Id => _id;
-    public abstract Transform Transform { get; }
-}
-
-[Serializable]
-public class MarkerPoint : Point
-{
-    [SerializeField] private VirtualMarker _virtualMarker;
-
-    public VirtualMarker VirtualMarker => _virtualMarker;
-    public override Transform Transform => _virtualMarker.transform;
-}
-
-[Serializable]
-public class TargetPointOld : Point
-{
-    [SerializeField] private List<string> _aliases;
-    [SerializeField] private Transform _transform;
+    private void FillPointInfos()
+    {
+        for (int i = 0; i < Floors.Count; i++)
+        {
+            foreach (var block in Floors[i].Blocks)
+            {
+                foreach (var point in block.Points)
+                {
+                    _pointInfos.Add(point, CreatePointInfo(point, i, block.Name));
+                }
+            }
+        }
+    }
     
-    public List<string> Aliases => new List<string>(_aliases);
-    public override Transform Transform => _transform;
-}*/
+    private PointInfo CreatePointInfo(Point point, int floorIndex, string blockName)
+    {
+        int floorNumber = floorIndex + 1;
+        string id = point is AccessibleRoom accessibleRoom ? accessibleRoom.Id : "0";
+        var pointType = point.SignCreator.SignPreset.PointType;
+
+        Address address = TryGetPointTypeNumber(point, out int typerNumber) ? 
+            new Address(floorNumber, blockName, id, pointType, typerNumber) : 
+            new Address(floorNumber, blockName, id);
+        
+        return new PointInfo(point, address);
+    }
+
+    private bool TryGetPointTypeNumber(Point myPoint, out int number)
+    {
+        number = 0;
+        var myPointType = myPoint.SignCreator.SignPreset.PointType;
+
+        if (myPointType == PointType.None)
+            return false;
+
+        foreach (var floor in _floors)
+        {
+            foreach (var block in floor.Blocks)
+            {
+                foreach (var point in block.Points)
+                {
+                    var pointType = point.SignCreator.SignPreset.PointType;
+
+                    if (pointType == myPointType)
+                    {
+                        number++;
+                        
+                        if (point == myPoint)
+                            return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+    
+
+    [Serializable]
+    public class Floor
+    {
+        public List<Block> Blocks = new List<Block>();
+    }
+    
+    [Serializable]
+    public class Block
+    {
+        public string Name; 
+        public List<Point> Points = new List<Point>();
+    }
+}
+
+

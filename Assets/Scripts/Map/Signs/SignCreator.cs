@@ -1,4 +1,5 @@
 using System;
+using TargetsSystem.Points;
 using TargetsSystem.Rooms;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace Map.Signs
 
         private Sign _sign;
 
+        public Sign Sign => _sign;
+        public SignPreset SignPreset => _signPreset;
         private Transform SignsContainer => Global.Instance.ArEnvironment.SignsContainer;
         
         

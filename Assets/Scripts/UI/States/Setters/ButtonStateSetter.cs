@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace UI.States.Setters
 {
     [RequireComponent(typeof(Button))]
-    public partial class ButtonStateSetter : StateSetter
+    public partial class ButtonStateSetter : ExternalStateSetter
     {
         [SerializeField] private int _index;
         
@@ -48,15 +48,9 @@ namespace UI.States.Setters
             public override void OnInspectorGUI()
             {
                 serializedObject.Update();
-                DrawScriptLink();
-                _origin.UIStatesStorage = EditorGUILayout.ObjectField("UI States Storage", _origin.UIStatesStorage, typeof(UIStatesStorage)) as UIStatesStorage;
-                _origin.UIStatesHistory = EditorGUILayout.ObjectField("UI States History", _origin.UIStatesHistory, typeof(UIStatesHistory)) as UIStatesHistory;
                 
-                if (_origin.UIStatesStorage != null)
-                {
-                    _origin._index = 
-                        EditorGUILayout.Popup("State", _origin._index, _origin.UIStatesStorage.GetStatesNames(), EditorStyles.popup);   
-                }
+                DrawScriptLink();
+                _origin._index = EditorGUILayout.Popup("State", _origin._index, _origin.UIStatesStorage.GetStatesNames(), EditorStyles.popup);
 
                 serializedObject.ApplyModifiedProperties();
             }

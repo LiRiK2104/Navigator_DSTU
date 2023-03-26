@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &7820901008847520062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6676648593898288978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7973727b5cd9d954384087692691bd20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slidingPanelHandler: {fileID: 0}
+  _index: 0
 --- !u!1 &6676648594042670795
 GameObject:
   m_ObjectHideFlags: 0
@@ -1573,7 +1587,6 @@ GameObject:
   - component: {fileID: 7421674538301880201}
   - component: {fileID: 7421674538301880203}
   - component: {fileID: 7421674538301880200}
-  - component: {fileID: 6676648594193660961}
   - component: {fileID: 7421674538301880245}
   m_Layer: 5
   m_Name: Search Window
@@ -1627,33 +1640,6 @@ MonoBehaviour:
   _inputField: {fileID: 7421674537426469095}
   _optionsList: {fileID: 6676648594483666212}
   _cleanButton: {fileID: 6676648594762029841}
---- !u!114 &6676648594193660961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7421674538301880246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44b79b15d0d6b1c4da29248a07c1bc30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _options:
-  - 123
-  - 124
-  - 125
-  - 126
-  - 127
-  - 128
-  - 129
-  - 130
-  - 131
-  - 132
-  - 134
-  - 135
-  - 136
-  - 137
 --- !u!114 &7421674538301880245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2009,20 +1995,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &7820901008847520062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6676648593898288978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7973727b5cd9d954384087692691bd20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _slidingPanelHandler: {fileID: 0}
-  _index: 0
 --- !u!1001 &458425994922106636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2144,11 +2116,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26619a467edb6cc43a1cde283678f52f, type: 3}
---- !u!224 &6676648594483666213 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6554022266209583657, guid: 26619a467edb6cc43a1cde283678f52f, type: 3}
-  m_PrefabInstance: {fileID: 458425994922106636}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6676648594483666212 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6554022266209583656, guid: 26619a467edb6cc43a1cde283678f52f, type: 3}
@@ -2160,6 +2127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15f2f053d1930364d93a205e313e46cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &6676648594483666213 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6554022266209583657, guid: 26619a467edb6cc43a1cde283678f52f, type: 3}
+  m_PrefabInstance: {fileID: 458425994922106636}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8689841639766999188
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1372,7 +1372,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77c34e25185d7da4da3fff789c896b6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _text: 
 --- !u!1 &1427603360
 GameObject:
   m_ObjectHideFlags: 0
@@ -2731,5 +2730,6 @@ PrefabInstance:
       propertyPath: _slidingPanelHandler
       value: 
       objectReference: {fileID: 1904585378}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6676648594193660961, guid: 2c03a08dbc9b2404584583f6f4751ca3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2c03a08dbc9b2404584583f6f4751ca3, type: 3}

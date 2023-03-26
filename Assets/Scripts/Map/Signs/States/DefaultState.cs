@@ -1,4 +1,5 @@
 
+using TargetsSystem.Points;
 using TargetsSystem.Rooms;
 using TMPro;
 using UnityEngine;

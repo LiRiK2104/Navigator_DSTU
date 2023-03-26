@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using TargetsSystem.Points;
 using TargetsSystem.Rooms;
+using UI.SearchableDropDown;
 using UnityEngine;
 
 namespace Navigation
@@ -33,25 +35,27 @@ namespace Navigation
     
         private void InitializeSearch()
         {
-            var targetsNames = new List<string>();
+            /*var targetsNames = new List<string>();
         
             DataBase.Rooms.ForEach(room => targetsNames.Add(room.Id));
             
-            foreach (var multiRoom in DataBase.MultiRooms)
+            foreach (var multiRoom in DataBase.PointsGroups)
                 multiRoom.GetAllIds().ForEach(id => targetsNames.Add(id));
         
             targetsNames.Sort();
-            TargetsDropdown.Initialize(targetsNames);
+            TargetsDropdown.Initialize(targetsNames);*/
+            //TODO: Сделать новыую реализацию
         }
 
         private void SetTarget(string targetName)
         {
-            if (DataBase.TryGetRoom(targetName, out AccessibleRoom room))
+            /*if (DataBase.TryGetRoom(targetName, out AccessibleRoom room))
             {
                 PathFinder.SetTarget(room.TargetPointPosition);
                 HasDestination = true;
                 TargetSet?.Invoke(room.TargetPointPosition);
-            }
+            }*/
+            //TODO: Сделать новыую реализацию
         }
     }
 }
