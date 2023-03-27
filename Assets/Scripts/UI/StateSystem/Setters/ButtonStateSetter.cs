@@ -2,12 +2,12 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.States.Setters
+namespace UI.StateSystem.Setters
 {
     [RequireComponent(typeof(Button))]
     public partial class ButtonStateSetter : ExternalStateSetter
     {
-        [SerializeField] private int _index;
+        [SerializeField] private StateType _stateType;
         
         private Button _button;
         
@@ -20,15 +20,15 @@ namespace UI.States.Setters
         
         private void SetState()
         {
-            SetState(_index);
+            SetState(_stateType);
         }
 
         protected override void UpdateIndex(int removedStateIndex)
         {
-            if (_index > removedStateIndex)
-                _index--;
-            else if (_index == removedStateIndex)
-                _index = 0;
+            if ((int)_stateType > removedStateIndex)
+                _stateType--;
+            else if ((int)_stateType == removedStateIndex)
+                _stateType = 0;
         }
     }
     
@@ -50,7 +50,7 @@ namespace UI.States.Setters
                 serializedObject.Update();
                 
                 DrawScriptLink();
-                _origin._index = EditorGUILayout.Popup("State", _origin._index, _origin.UIStatesStorage.GetStatesNames(), EditorStyles.popup);
+                _origin._stateType = (StateType)EditorGUILayout.EnumPopup("State", _origin._stateType);
 
                 serializedObject.ApplyModifiedProperties();
             }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UI.States.Setters
+namespace UI.StateSystem.Setters
 {
     public abstract class ExternalStateSetter : MonoBehaviour
     {
@@ -21,6 +21,7 @@ namespace UI.States.Setters
         
         protected abstract void UpdateIndex(int removedStateIndex);
 
-        protected void SetState(int index) => StateSetter.SetState(index);
+        protected void SetState(StateType stateType) => StateSetter.SetState(stateType, out StateContainer state);
+        protected void SetPreviousState() => StateSetter.SetPreviousState();
     }
 }

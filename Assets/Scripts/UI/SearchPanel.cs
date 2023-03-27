@@ -6,11 +6,11 @@ namespace UI
 {
     public class SearchPanel : MonoBehaviour
     {
-        [SerializeField] private SearchableDropDown.SearchableDropDown _targetsDropdown;
+        [SerializeField] private Search.SearchableDropDown _targetsDropdown;
         [Space]
         [SerializeField] private List<Button> _closeButtons;
 
-        public SearchableDropDown.SearchableDropDown TargetsDropdown => _targetsDropdown;
+        public Search.SearchableDropDown TargetsDropdown => _targetsDropdown;
         
         private void OnEnable()
         {

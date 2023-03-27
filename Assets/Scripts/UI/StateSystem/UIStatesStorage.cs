@@ -1,52 +1,58 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using UI.StateSystem.Groups;
+using UI.StateSystem.States;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
-namespace UI.States
+namespace UI.StateSystem
 {
     public partial class UIStatesStorage : MonoBehaviour
     {
-        [SerializeField] private List<UIState> _states = new List<UIState>();
+        [FormerlySerializedAs("_states")] 
+        [SerializeField] private List<StateContainer> _statesContainers = new List<StateContainer>();
         [SerializeField] private List<Widget> _widgetsDefault = new List<Widget>();
-        
+        [SerializeField] private List<StatesGroup> _statesGroups = new List<StatesGroup>();
+
         public event Action<int> StateRemoved;
 
+        public ReadOnlyCollection<StatesGroup> StatesGroups => _statesGroups.AsReadOnly();
 
-        public bool TryGetState(int index, out UIState foundState)
+        public bool TryGetState(StateType stateType, out StateContainer foundStateContainer)
         {
-            foundState = null;
-            
-            if (index >= 0 && index < _states.Count)
+            foundStateContainer = null;
+
+            foreach (var stateContainer in _statesContainers)
             {
-                foundState = _states[index];
-                return true;
+                if (stateContainer.Type == stateType)
+                {
+                    foundStateContainer = stateContainer;
+                    return true;
+                }
             }
 
             return false;
         }
-        
-        public string[] GetStatesNames()
-        {
-            return _states.Select(state => state.Name).ToArray();
-        }
-        
+
+
         private void AddState()
         {
-            _states.Add(new UIState("State", _widgetsDefault));
+            _statesContainers.Add(new StateContainer(StateType.Default, _widgetsDefault));
         }
         
-        private void RemoveState(UIState state)
+        private void RemoveState(StateContainer stateContainer)
         {
-            if (TryGetStateIndex(state, out int removedStateIndex) == false)
+            if (TryGetStateIndex(stateContainer, out int removedStateIndex) == false)
             {
                 Debug.LogError("RemovedState not found!");
                 return;
             }
             
-            _states.Remove(state);
+            _statesContainers.Remove(stateContainer);
             StateRemoved?.Invoke(removedStateIndex);
         }
         
@@ -55,7 +61,7 @@ namespace UI.States
             var widget = new Widget(null, false);
             _widgetsDefault.Add(widget);
 
-            foreach (var state in _states)
+            foreach (var state in _statesContainers)
                 state.Widgets.Add(widget);
         }
         
@@ -63,17 +69,17 @@ namespace UI.States
         {
             _widgetsDefault.RemoveAt(widgetIndex);
 
-            foreach (var state in _states)
+            foreach (var state in _statesContainers)
                 state.Widgets.RemoveAt(widgetIndex);
         }
 
-        private bool TryGetStateIndex(UIState foundState, out int index)
+        private bool TryGetStateIndex(StateContainer foundStateContainer, out int index)
         {
             index = 0;
             
-            for (int i = 0; i < _states.Count; i++)
+            for (int i = 0; i < _statesContainers.Count; i++)
             {
-                if (foundState == _states[i])
+                if (foundStateContainer == _statesContainers[i])
                 {
                     index = i;
                     return true;
@@ -84,21 +90,28 @@ namespace UI.States
         }
     }
 
-    [Serializable]
-    public class UIState
+    public enum StateType
     {
-        [SerializeField] public string Name;
-        [SerializeField] public List<Widget> Widgets = new List<Widget>();
-        [SerializeField] public ExampleEvent OnEvent = new ExampleEvent();
+        MapView,
+        Default,
+        SearchPanel,
+        SearchResults,
+        PointInfo
+    }
 
-        public UIState(string name, List<Widget> widgets)
+    [Serializable]
+    public class StateContainer
+    {
+        [SerializeField] public StateType Type;
+        [SerializeField] public State State;
+        [SerializeField] public List<Widget> Widgets = new List<Widget>();
+
+        public StateContainer(StateType type, List<Widget> widgets)
         {
-            Name = name;
+            Type = type;
             Widgets = widgets.ToList();
+            State = null;
         }
-        
-        [Serializable]
-        public class ExampleEvent : UnityEvent {}
     }
     
     [Serializable]
@@ -120,6 +133,7 @@ namespace UI.States
         [CustomEditor(typeof(UIStatesStorage))]
         public class UIStatesStorageEditor : Editor
         {
+            private const int StateFieldWidth = 30;
             private const int DefaultIndentedLevel = 15;
             private const int DefaultInterval = 2;
             
@@ -134,22 +148,17 @@ namespace UI.States
             public override void OnInspectorGUI()
             {
                 serializedObject.Update();
-                
-                int widgetRectWidth = 100;
-                int widgetFieldHeight = 20;
-
-                Vector2 statesRectSize = EditorStyles.label.CalcSize(new GUIContent(_origin._states
-                    .OrderBy(state => state.Name.Length).Select(state => state.Name).FirstOrDefault()));
-                statesRectSize.y *= _origin._states.Count;
-                
                 DrawScriptLink();
+                
+                int widgetRectWidth = 120;
+                int widgetFieldHeight = 20;
                 int lastRectMaxHeight = 18;
                 
                 DrawWidgets(widgetRectWidth, widgetFieldHeight, lastRectMaxHeight);
                 DrawStates(widgetRectWidth, widgetFieldHeight);
                 DrawRemoveWidgetButtons(widgetRectWidth);
                 DrawControlButtons();
-                DrawEvents();
+                DrawGroups();
 
                 serializedObject.ApplyModifiedProperties();
             }
@@ -177,7 +186,7 @@ namespace UI.States
                     widgetTemplate.GameObject = EditorGUILayout.ObjectField(widgetTemplate.GameObject, typeof(GameObject), true, widgetFieldLayoutOption) as GameObject;
                     _origin._widgetsDefault[i] = widgetTemplate;
 
-                    foreach (var state in _origin._states)
+                    foreach (var state in _origin._statesContainers)
                         state.Widgets[i] = new Widget(widgetTemplate.GameObject, state.Widgets[i].Active);
                 }
 
@@ -189,26 +198,27 @@ namespace UI.States
 
             private void DrawStates(int widgetRectWidth, int widgetFieldHeight)
             {
-                for (int i = 0; i < _origin._states.Count; i++)
-                    DrawStateAndToggles(_origin._states[i], widgetRectWidth, widgetFieldHeight);
+                for (int i = 0; i < _origin._statesContainers.Count; i++)
+                    DrawStateAndToggles(_origin._statesContainers[i], widgetRectWidth, widgetFieldHeight);
             }
 
-            private void DrawStateAndToggles(UIState uiState, int widgetRectWidth, int widgetFieldHeight)
+            private void DrawStateAndToggles(StateContainer stateContainer, int widgetRectWidth, int widgetFieldHeight)
             {
                 int toggleWidth = 19;
                 var toggleLayoutOption = new [] {GUILayout.Width(toggleWidth), GUILayout.Height(widgetFieldHeight)};
                 
                 GUILayout.BeginHorizontal();
-                uiState.Name = GUILayout.TextField(uiState.Name, GUILayout.Width(widgetRectWidth));
+                stateContainer.Type = (StateType)EditorGUILayout.EnumPopup(stateContainer.Type, GUILayout.Width(widgetRectWidth / 2));
+                stateContainer.State = EditorGUILayout.ObjectField(stateContainer.State, typeof(State), true, GUILayout.Width(widgetRectWidth / 2)) as State;
 
-                for (int i = uiState.Widgets.Count - 1; i >= 0; i--)
+                for (int i = stateContainer.Widgets.Count - 1; i >= 0; i--)
                 {
-                    var widget = uiState.Widgets[i];
+                    var widget = stateContainer.Widgets[i];
                     widget.Active = GUILayout.Toggle(widget.Active, String.Empty, toggleLayoutOption);
-                    uiState.Widgets[i] = widget;
+                    stateContainer.Widgets[i] = widget;
                 }
                 
-                DrawRemoveStateButton(uiState);
+                DrawRemoveStateButton(stateContainer);
                 GUILayout.EndHorizontal();
             }
 
@@ -228,28 +238,12 @@ namespace UI.States
                 GUILayout.EndHorizontal();
             }
 
-            private void DrawRemoveStateButton(UIState uiState)
+            private void DrawRemoveStateButton(StateContainer stateContainer)
             {
                 int width = 30;
                 
                 if (GUILayout.Button("-", GUILayout.Width(width)))
-                    _origin.RemoveState(uiState);
-            }
-
-            private void DrawEvents()
-            {
-                var statesProperty = serializedObject.FindProperty(nameof(_origin._states));
-
-                for (int i = 0; i < _origin._states.Count; i++)
-                {
-                    var stateProperty = statesProperty.GetArrayElementAtIndex(i);
-                    var state = _origin._states[i];
-                    var eventProperty = stateProperty.FindPropertyRelative(nameof(state.OnEvent));
-                    
-                    serializedObject.Update();
-                    EditorGUILayout.PropertyField(eventProperty, new GUIContent($"{state.Name} set event"), true);
-                    serializedObject.ApplyModifiedProperties();
-                }
+                    _origin.RemoveState(stateContainer);
             }
 
             private void DrawControlButtons()
@@ -269,6 +263,12 @@ namespace UI.States
                 
                 GUILayout.EndHorizontal();
                 GUILayout.Space(space);
+            }
+
+            private void DrawGroups()
+            {
+                var groupsProperty = serializedObject.FindProperty(nameof(_origin._statesGroups));
+                EditorGUILayout.PropertyField(groupsProperty, new GUIContent("Groups"));
             }
             
             private void DrawScriptLink()

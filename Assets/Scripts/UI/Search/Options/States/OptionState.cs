@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.SearchableDropDown.Options.States
+namespace UI.Search.Options.States
 {
     public abstract class OptionState : MonoBehaviour
     {

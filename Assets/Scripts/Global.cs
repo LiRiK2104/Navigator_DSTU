@@ -2,7 +2,6 @@ using Calibration;
 using Helpers;
 using Navigation;
 using UI;
-using UI.States;
 using UnityEngine;
 
 public class Global : Singleton<Global>

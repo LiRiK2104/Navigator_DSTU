@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Navigation;
-using UI.SearchableDropDown.Options;
+using UI.Search.Options;
 using UnityEngine;
 
 namespace TargetsSystem.Points

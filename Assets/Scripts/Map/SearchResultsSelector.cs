@@ -1,10 +1,11 @@
 using System;
 using Navigation;
 using TargetsSystem.Points;
-using UI;
-using UI.SearchableDropDown;
-using UI.SearchableDropDown.Options;
-using UI.States.Setters;
+using UI.Search;
+using UI.Search.Options;
+using UI.StateSystem;
+using UI.StateSystem.Setters;
+using UI.StateSystem.States;
 using UnityEngine;
 
 namespace Map
@@ -12,10 +13,8 @@ namespace Map
     public class SearchResultsSelector : MonoBehaviour
     {
         [SerializeField] private SearchableDropDown _searchableDropDown;
-
-        private DataBase DataBase => Global.Instance.DataBase;
+        
         private StateSetter StateSetter => Global.Instance.UISetterV2.StateSetter;
-        private MapPointerSetter MapPointerSetter => Global.Instance.Navigator.MapPointerSetter;
 
 
         private void OnEnable()
@@ -34,11 +33,11 @@ namespace Map
             switch (optionInfo)
             {
                 case PointInfo pointInfo:
-                    Select(pointInfo);
+                    SetPointInfoState(pointInfo);
                     break;
                 
                 case PointsGroup pointsGroup:
-                    Select(pointsGroup);
+                    SetSearchResultsState(pointsGroup);
                     break;
                 
                 default:
@@ -46,26 +45,20 @@ namespace Map
             }
         }
 
-        private void Select(PointInfo pointInfo)
+        private void SetPointInfoState(PointInfo pointInfo)
         {
-            if (DataBase.TryGetPoint(pointInfo, out Point point))
-            {
-                var pointerSetRequest = new PointerSetRequest(point.transform.position, PointerState.Default);
-                MapPointerSetter.SetPointer(pointerSetRequest);
-
-                int pointInfoStateIndex = 4;
-                StateSetter.SetState(pointInfoStateIndex);
-            }
-            
+            StateSetter.SetState(StateType.PointInfo, out StateContainer state);
+                    
+            if (state.State is PointInfoState pointInfoState)
+                pointInfoState.Initialize(pointInfo);
         }
         
-        private void Select(PointsGroup pointsGroup)
+        private void SetSearchResultsState(PointsGroup pointsGroup)
         {
-            foreach (var point in pointsGroup.Points)
-                point.SignCreator.Sign.Select();
-            
-            int searchResultStateIndex = 3;
-            StateSetter.SetState(searchResultStateIndex);
+            StateSetter.SetState(StateType.SearchResults, out StateContainer state);
+                    
+            if (state.State is SearchResultsState searchResultsState)
+                searchResultsState.Initialize(pointsGroup.Name, pointsGroup);
         }
     }
 }

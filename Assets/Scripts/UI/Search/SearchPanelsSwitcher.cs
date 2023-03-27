@@ -1,20 +1,20 @@
 using System;
 using UnityEngine;
 
-namespace UI.SearchableDropDown
+namespace UI.Search
 {
-    [RequireComponent(typeof(SearchableDropDown))]
+    [RequireComponent(typeof(Search.SearchableDropDown))]
     public class SearchPanelsSwitcher : MonoBehaviour
     {
         [SerializeField] private GameObject _defaultPanel;
         [SerializeField] private GameObject _searchPanel;
 
-        private SearchableDropDown _searchableDropDown;
+        private Search.SearchableDropDown _searchableDropDown;
     
 
         private void Awake()
         {
-            _searchableDropDown = GetComponent<SearchableDropDown>();
+            _searchableDropDown = GetComponent<Search.SearchableDropDown>();
             SetDefaultPanel();
         }
 

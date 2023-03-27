@@ -5,7 +5,7 @@ using UI.SlidingPanel;
 using UnityEditor;
 using UnityEngine;
 
-namespace UI.States.Setters
+namespace UI.StateSystem.Setters
 {
     [RequireComponent(typeof(SlidingPanelHandler))]
     public partial class SlidingPanelStateSetter : ExternalStateSetter
@@ -44,7 +44,7 @@ namespace UI.States.Setters
             foreach (var statePreset in _statePresets)
             {
                 if (statePreset.TargetPoint == targetPoint)
-                    SetState(statePreset.UIStateIndex);
+                    SetState(statePreset.StateType);
             }
         }
         
@@ -54,10 +54,10 @@ namespace UI.States.Setters
             {
                 var updatedPreset = _statePresets[i];
                 
-                if (_statePresets[i].UIStateIndex > removedStateIndex)
-                    updatedPreset.UIStateIndex--;
-                else if (_statePresets[i].UIStateIndex == removedStateIndex)
-                    updatedPreset.UIStateIndex = 0;
+                if ((int)_statePresets[i].StateType > removedStateIndex)
+                    updatedPreset.StateType--;
+                else if ((int)_statePresets[i].StateType == removedStateIndex)
+                    updatedPreset.StateType = 0;
 
                 _statePresets[i] = updatedPreset;
             }
@@ -111,11 +111,10 @@ namespace UI.States.Setters
 
                     GUILayout.BeginHorizontal();
                     GUILayout.Label(statePreset.TargetPoint.gameObject.name);
-                    int index = EditorGUILayout.Popup(statePreset.UIStateIndex,
-                        _origin.UIStatesStorage.GetStatesNames(), EditorStyles.popup);
+                    StateType stateType = (StateType)EditorGUILayout.EnumPopup(statePreset.StateType);
                     GUILayout.EndHorizontal();
 
-                    _origin._statePresets[i] = new SearchPanelStatePreset(statePreset.TargetPoint, index);
+                    _origin._statePresets[i] = new SearchPanelStatePreset(statePreset.TargetPoint, stateType);
                 }
 
                 serializedObject.ApplyModifiedProperties();
@@ -134,21 +133,21 @@ namespace UI.States.Setters
     [Serializable]
     public struct SearchPanelStatePreset
     {
-        private const int DefaultIndex = 0; 
+        private const StateType DefaultStateType = StateType.Default; 
         
         public Transform TargetPoint;
-        public int UIStateIndex;
+        public StateType StateType;
 
         public SearchPanelStatePreset(Transform targetPoint)
         {
             TargetPoint = targetPoint;
-            UIStateIndex = DefaultIndex;
+            StateType = DefaultStateType;
         }
         
-        public SearchPanelStatePreset(Transform targetPoint, int uiStateIndex)
+        public SearchPanelStatePreset(Transform targetPoint, StateType stateType)
         {
             TargetPoint = targetPoint;
-            UIStateIndex = uiStateIndex;
+            StateType = stateType;
         }
     }
 }

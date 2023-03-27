@@ -23,6 +23,12 @@ public class DataBase : MonoBehaviour
     public List<Floor> Floors =>  new List<Floor>(_floors);
 
 
+    private void Start()
+    {
+        FillPointInfos();
+    }
+    
+    
     public bool TryGetVirtualMarker(List<ARTrackedImage> trackedImages, 
         out TriadMarker foundMarker,
         out ARTrackedImage image1st, 
@@ -45,13 +51,24 @@ public class DataBase : MonoBehaviour
 
         return false;
     }
-
-
-    private void Start()
-    {
-        FillPointInfos();
-    }
     
+    public List<Point> GetAllPoints()
+    {
+        var allPoints = new List<Point>();
+            
+        foreach (var floor in _floors)
+        {
+            foreach (var block in floor.Blocks)
+            {
+                foreach (var point in block.Points)
+                {
+                    allPoints.Add(point);
+                }
+            }
+        }
+
+        return allPoints;
+    }
     
     public bool TryGetPoint(PointInfo pointInfo, out Point point)
     {

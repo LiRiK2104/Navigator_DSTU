@@ -3,7 +3,7 @@ using TargetsSystem.Points;
 using TMPro;
 using UnityEngine;
 
-namespace UI.SearchableDropDown.Options.States
+namespace UI.Search.Options.States
 {
     public class PointState : OptionState
     {

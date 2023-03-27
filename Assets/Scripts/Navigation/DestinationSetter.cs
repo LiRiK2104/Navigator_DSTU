@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using TargetsSystem.Points;
-using TargetsSystem.Rooms;
-using UI.SearchableDropDown;
+using UI.Search;
 using UnityEngine;
 
 namespace Navigation

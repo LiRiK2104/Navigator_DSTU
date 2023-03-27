@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UI.SearchableDropDown.Options;
 using TMPro;
+using UI.Search.Options;
 using UnityEngine;
 using Button = UnityEngine.UI.Button;
 
-namespace UI.SearchableDropDown
+namespace UI.Search
 {
     public class SearchableDropDown : MonoBehaviour
     {
@@ -21,33 +21,38 @@ namespace UI.SearchableDropDown
         public event OnValueChangedDel ValueChanged;
         public event OnValueChangedDel EndEditing;
 
-
-        private void Update()
+        public string InputFieldValue
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            get => _inputField.text;
+            set => _inputField.text = value;
+        }
+        
+        public bool InputFieldIsActive
+        {
+            set
             {
-                _inputField.ActivateInputField();
+                if (value)
+                    _inputField.ActivateInputField();
+                else 
+                    _inputField.DeactivateInputField();
             }
         }
-    
-    
+
+
         public void Initialize(List<IOptionInfo> optionInfos)
         {
-            _cleanButton.onClick.AddListener(OnCleanButtonClick);
+            _cleanButton.onClick.AddListener(Reset);
             _inputField.onValueChanged.AddListener(OnInputValueChange);
             _inputField.onEndEdit.AddListener(OnEndEditing);
         
             _optionsList.Initialize(optionInfos, OnOptionClick);
         }
-    
-        public string GetValue()
+        
+        public void Reset()
         {
-            return _inputField.text;
-        }
-
-        public void ActivateInputField()
-        {
-            _inputField.ActivateInputField();
+            ResetDropDown();
+            _optionsList.HideScroll();
+            _cleanButton.gameObject.SetActive(false);
         }
 
         private void ResetDropDown()
@@ -105,13 +110,6 @@ namespace UI.SearchableDropDown
             StopAllCoroutines();
             StartCoroutine(SelectOption(optionInfo));
             StartCoroutine(CheckIfValidInput(optionInfo.Name));
-        }
-
-        private void OnCleanButtonClick()
-        {
-            ResetDropDown();
-            _optionsList.HideScroll();
-            _cleanButton.gameObject.SetActive(false);
         }
     }
 }

@@ -1,13 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using Navigation;
-using TargetsSystem.Points;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Button = UnityEngine.UI.Button;
 
-namespace UI.SearchableDropDown.Options
+namespace UI.Search.Options
 {
     public class OptionsList : MonoBehaviour
     {
