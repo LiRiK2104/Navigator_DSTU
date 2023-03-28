@@ -1,2 +1,0 @@
-c54fc3b699074ddb9a78b7edc9e61a7c|D:\Unity\Unity Projects\Navigator_DSTU\Assets\Sprites\Markers\ar_marker.jpg
-d3e12d76437c4a879e7e002e31b13567|D:\Unity\Unity Projects\Navigator_DSTU\Assets\Sprites\Markers\ar_marker (1).jpg

@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using Map.Hiders;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace Map
@@ -119,6 +117,9 @@ namespace Map
                 }
 
                 serializedObject.ApplyModifiedProperties();
+                
+                if (GUI.changed)
+                    EditorUtility.SetDirty(target);
             }
         }
 #endif

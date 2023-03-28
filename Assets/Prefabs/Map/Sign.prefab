@@ -366,8 +366,8 @@ MonoBehaviour:
   - {fileID: 5917315317257753273}
   - {fileID: 8865452791324449036}
   - {fileID: 2263430824076329806}
-  _stopScalingHeight: 50
-  _stopDisplayHeight: 70
+  _stopScalingHeight: 70
+  _stopDisplayHeight: 110
 --- !u!114 &1126873524550609404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,8 +436,8 @@ MonoBehaviour:
   _isClampScaling: 1
   _hiders:
   - {fileID: 4112180404699724300}
-  _stopScalingHeight: 50
-  _stopDisplayHeight: 70
+  _stopScalingHeight: 70
+  _stopDisplayHeight: 110
 --- !u!114 &4420825147869979002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1267,8 +1267,8 @@ MonoBehaviour:
   _hiders:
   - {fileID: 8583762419162568626}
   - {fileID: 3184564256145329545}
-  _stopScalingHeight: 50
-  _stopDisplayHeight: 70
+  _stopScalingHeight: 70
+  _stopDisplayHeight: 110
 --- !u!114 &8583762419851497185
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -76,7 +76,9 @@ namespace Map.Signs
                 EditorGUILayout.Space(interval);
 
                 serializedObject.ApplyModifiedProperties();
-                EditorUtility.SetDirty(target);
+
+                if (GUI.changed)
+                    EditorUtility.SetDirty(target);
             }
         }
 #endif
