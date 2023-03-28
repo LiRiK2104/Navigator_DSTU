@@ -1,4 +1,5 @@
 using Map.Signs;
+using Navigation;
 using UnityEngine;
 
 namespace TargetsSystem.Points
@@ -10,6 +11,7 @@ namespace TargetsSystem.Points
 
         public SignCreator SignCreator => _signCreator;
         public Vector3 TargetPointPosition => _targetPoint.transform.position;
+        private DataBase DataBase => Global.Instance.DataBase;
         
         
         private void Start()
@@ -20,7 +22,8 @@ namespace TargetsSystem.Points
         
         protected virtual void Initialize()
         {
-            _signCreator.Create();
+            DataBase.TryGetPointInfo(this, out PointInfo pointInfo);
+            _signCreator.Create(pointInfo);
         }
     }
 }

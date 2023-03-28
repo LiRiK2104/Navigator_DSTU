@@ -1,4 +1,5 @@
 using System;
+using Map;
 using TargetsSystem.Points;
 using TMPro;
 using UnityEngine;
@@ -10,11 +11,20 @@ namespace UI.StateSystem.States
         [SerializeField] private TextMeshProUGUI _fakeInputFieldText;
         
         private DataBase DataBase => Global.Instance.DataBase;
-        
-        
-        public override void Initialize() { }
+        private MapHandlePanel MapHandlePanel => Global.Instance.MapHandlePanel;
 
-        public override void OnClose() { }
+
+        public override void Initialize()
+        {
+            MapHandlePanel.MapControllingActive = true;
+            MapHandlePanel.SignSelectorActive = true;
+        }
+
+        public override void OnClose()
+        {
+            MapHandlePanel.MapControllingActive = false;
+            MapHandlePanel.SignSelectorActive = false;
+        }
         
         public void Initialize(string input, PointsGroup pointsGroup)
         {

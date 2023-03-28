@@ -28,6 +28,14 @@ namespace Map
         }
         
 
+        public void SetPointInfoState(PointInfo pointInfo)
+        {
+            StateSetter.SetState(StateType.PointInfo, out StateContainer state);
+                    
+            if (state.State is PointInfoState pointInfoState)
+                pointInfoState.Initialize(pointInfo);
+        }
+        
         private void Select(IOptionInfo optionInfo)
         {
             switch (optionInfo)
@@ -45,14 +53,6 @@ namespace Map
             }
         }
 
-        private void SetPointInfoState(PointInfo pointInfo)
-        {
-            StateSetter.SetState(StateType.PointInfo, out StateContainer state);
-                    
-            if (state.State is PointInfoState pointInfoState)
-                pointInfoState.Initialize(pointInfo);
-        }
-        
         private void SetSearchResultsState(PointsGroup pointsGroup)
         {
             StateSetter.SetState(StateType.SearchResults, out StateContainer state);

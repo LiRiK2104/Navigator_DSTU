@@ -1,45 +1,16 @@
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
 
 namespace Helpers
 {
-    public partial class TestA : Test
+    public class TestA : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private Image _image;
 
-    public partial class TestA
-    {
-#if UNITY_EDITOR
-        [CustomEditor(typeof(TestA))]
-        public class TestAEditor : Editor
+        public void MakeRed()
         {
-            private TestA _origin;
-
-            private void OnEnable()
-            {
-                _origin = target as TestA;
-            }
-
-            public override void OnInspectorGUI()
-            {
-                base.OnInspectorGUI();
-                serializedObject.Update();
-
-                DrawScriptLink();
-                
-
-                serializedObject.ApplyModifiedProperties();
-            }
-
-            private void DrawScriptLink()
-            {
-                GUI.enabled = false;
-                EditorGUILayout.ObjectField("Script:", MonoScript.FromMonoBehaviour(_origin), typeof(TestA), false);
-                GUI.enabled = true;
-            }
+            _image.color = Color.red;
         }
-#endif
-
     }
 }

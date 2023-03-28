@@ -1,5 +1,6 @@
 using Calibration;
 using Helpers;
+using Map;
 using Navigation;
 using UI;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class Global : Singleton<Global>
     [SerializeField] private DataBase _dataBase;
     [SerializeField] private UISetter _uiSetter;
     [SerializeField] private UISetterV2 _uiSetterV2;
+    [SerializeField] private MapHandlePanel _mapHandlePanel;
     [SerializeField] private CameraContainer _cameraContainer;
     [SerializeField] private BordersSetter _bordersSetter;
     
@@ -26,6 +28,7 @@ public class Global : Singleton<Global>
     public DataBase DataBase => _dataBase;
     public UISetter UiSetter => _uiSetter;
     public UISetterV2 UISetterV2 => _uiSetterV2;
+    public MapHandlePanel MapHandlePanel => _mapHandlePanel;
     public CameraContainer CameraContainer => _cameraContainer;
     public BordersSetter BordersSetter => _bordersSetter;
 }

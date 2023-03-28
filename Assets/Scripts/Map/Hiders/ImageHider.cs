@@ -6,27 +6,27 @@ namespace Map.Hiders
     [RequireComponent(typeof(Image))]
     public class ImageHider : Hider
     {
-        private Image _renderer;
+        private Image _image;
 
-        private Image Renderer
+        private Image Image
         {
             get
             {
-                if (_renderer == null)
-                    _renderer = GetComponent<Image>();
+                if (_image == null)
+                    _image = GetComponent<Image>();
 
-                return _renderer;
+                return _image;
             }
         }
 
         public override void Hide()
         {
-            Renderer.enabled = false;
+            Image.enabled = false;
         }
 
         public override void Show()
         {
-            Renderer.enabled = true;
+            Image.enabled = true;
         }
     }
 }

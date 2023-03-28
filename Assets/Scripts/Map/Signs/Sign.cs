@@ -1,4 +1,5 @@
 using Map.Signs.States;
+using Navigation;
 using TargetsSystem.Points;
 using UnityEngine;
 using DefaultState = Map.Signs.States.DefaultState;
@@ -9,12 +10,14 @@ namespace Map.Signs
     {
         [SerializeField] private DefaultState _defaultState;
         [SerializeField] private SearchResultState _searchResultState;
+        [SerializeField] private SignCollider _signCollider;
 
         
-        public void Initialize(SignPreset signPreset, AccessibleRoom room = null)
+        public void Initialize(PointInfo pointInfo, SignPreset signPreset, AccessibleRoom room = null)
         {
             _defaultState.Initialize(signPreset, room);
             _searchResultState.Initialize(signPreset, room);
+            _signCollider.Initialize(pointInfo);
             Deselect();
         }
 

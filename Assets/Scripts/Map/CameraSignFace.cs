@@ -106,14 +106,14 @@ namespace Map
                     GUILayout.Label("Stop scaling height:");
                     GUILayout.Space(50);
                     _origin._stopScalingHeight = EditorGUILayout.IntSlider(_origin._stopScalingHeight,
-                        MapCameraHandler.ZoomMin, MapCameraHandler.ZoomMax);
+                        MapControl.ZoomMin, MapControl.ZoomMax);
                     EditorGUILayout.EndHorizontal();
                     
                     EditorGUILayout.BeginHorizontal();
                     GUILayout.Label("Stop display height:");
                     GUILayout.Space(50);
                     _origin._stopDisplayHeight = EditorGUILayout.IntSlider(_origin._stopDisplayHeight,
-                        MapCameraHandler.ZoomMin, MapCameraHandler.ZoomMax);
+                        MapControl.ZoomMin, MapControl.ZoomMax);
                     EditorGUILayout.EndHorizontal();
                 }
 

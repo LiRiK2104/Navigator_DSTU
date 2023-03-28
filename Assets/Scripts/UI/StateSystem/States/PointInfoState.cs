@@ -16,17 +16,22 @@ namespace UI.StateSystem.States
         
         private DataBase DataBase => Global.Instance.DataBase;
         private MapPointerSetter MapPointerSetter => Global.Instance.Navigator.MapPointerSetter;
+        private MapHandlePanel MapHandlePanel => Global.Instance.MapHandlePanel;
         
         
         public override void Initialize()
         {
             _icon.gameObject.SetActive(false);
             _defaultIcon.gameObject.SetActive(true);
+            
+            MapHandlePanel.MapControllingActive = true;
+            MapHandlePanel.SignSelectorActive = false;
         }
 
         public override void OnClose()
         {
             MapPointerSetter.DeactivateAllPointers();
+            MapHandlePanel.MapControllingActive = false;
         }
         
         public void Initialize(PointInfo pointInfo)
