@@ -1,5 +1,4 @@
 using System;
-using UI.Search;
 using UnityEngine;
 
 namespace Navigation
@@ -11,18 +10,7 @@ namespace Navigation
         public bool HasDestination { get; private set; }
         private DataBase DataBase => Global.Instance.DataBase;
         private PathFinder PathFinder => Global.Instance.Navigator.PathFinder;
-        private SearchableDropDown TargetsDropdown => Global.Instance.UiSetter.TrackingMenu.SearchPanel.TargetsDropdown;
-    
 
-        private void OnEnable()
-        {
-            TargetsDropdown.EndEditing += SetTarget;
-        }
-
-        private void OnDisable()
-        {
-            TargetsDropdown.EndEditing -= SetTarget;
-        }
 
         private void Start()
         {

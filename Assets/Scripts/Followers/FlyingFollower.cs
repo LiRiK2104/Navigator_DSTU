@@ -1,4 +1,5 @@
 using System.Collections;
+using Map;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,20 +13,23 @@ namespace Followers
 
         private Camera Camera => Global.Instance.CameraContainer.MapCamera;
         private Button FollowButton => Global.Instance.UiSetter.TrackingMenu.FollowButton;
+        private MapControl MapControl => Global.Instance.UISetterV2.MapHandlePanel.MapControl;
 
 
         private void OnEnable()
         {
+            MapControl.StartedDrag += StopFollow;
             FollowButton.onClick.AddListener(FlyAndFollow);
         }
 
         private void OnDisable()
         {
+            MapControl.StartedDrag -= StopFollow;
             FollowButton.onClick.RemoveListener(FlyAndFollow);
         }
     
 
-        public void StopFollow()
+        private void StopFollow()
         {
             if (_shouldFollow == false)
                 return;

@@ -11,7 +11,7 @@ namespace UI.StateSystem.States
         [SerializeField] private TextMeshProUGUI _fakeInputFieldText;
         
         private DataBase DataBase => Global.Instance.DataBase;
-        private MapHandlePanel MapHandlePanel => Global.Instance.MapHandlePanel;
+        private MapHandlePanel MapHandlePanel => Global.Instance.UISetterV2.MapHandlePanel;
 
 
         public override void Initialize()

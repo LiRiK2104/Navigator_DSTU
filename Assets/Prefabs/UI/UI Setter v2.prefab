@@ -327,7 +327,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fccc471c1e814a44987d1ee84c4d412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flyingFollower: {fileID: 0}
 --- !u!114 &1146288990947514117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -757,7 +756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
+  m_Color: {r: 0.17328231, g: 0.3116492, b: 0.6226415, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1183,6 +1182,7 @@ MonoBehaviour:
   _uiStatesStorage: {fileID: 1146288991036751561}
   _stateSetter: {fileID: 8081878074105922428}
   _searchResultsSelector: {fileID: 5947214110005269100}
+  _mapHandlePanel: {fileID: 1146288990947514119}
 --- !u!1001 &1560772551544428019
 PrefabInstance:
   m_ObjectHideFlags: 0

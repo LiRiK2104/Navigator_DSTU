@@ -16,7 +16,7 @@ namespace UI.StateSystem.States
         
         private DataBase DataBase => Global.Instance.DataBase;
         private MapPointerSetter MapPointerSetter => Global.Instance.Navigator.MapPointerSetter;
-        private MapHandlePanel MapHandlePanel => Global.Instance.MapHandlePanel;
+        private MapHandlePanel MapHandlePanel => Global.Instance.UISetterV2.MapHandlePanel;
         
         
         public override void Initialize()

@@ -5,7 +5,7 @@ namespace UI.StateSystem.States
 {
     public class MapViewState : State
     {
-        private MapHandlePanel MapHandlePanel => Global.Instance.MapHandlePanel;
+        private MapHandlePanel MapHandlePanel => Global.Instance.UISetterV2.MapHandlePanel;
         
         public override void Initialize()
         {

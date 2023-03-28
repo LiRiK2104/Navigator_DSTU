@@ -1,6 +1,6 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Followers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -12,8 +12,8 @@ namespace Map
         public const int ZoomMax = 120;
         private const float ZoomSensitivity = 0.03f;
 
-        [SerializeField] private FlyingFollower flyingFollower;
-
+        public event Action StartedDrag;
+        
         private Camera Camera => Global.Instance?.CameraContainer.MapCamera;
         private BordersSetter BordersSetter => Global.Instance?.BordersSetter;
     
@@ -37,7 +37,7 @@ namespace Map
     
         public void OnPointerDown(PointerEventData eventData)
         {
-            flyingFollower.StopFollow();
+            StartedDrag?.Invoke();
         }
 
         public void OnDrag(PointerEventData eventData)

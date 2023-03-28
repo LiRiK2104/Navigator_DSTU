@@ -15,7 +15,7 @@ namespace Map
         private CameraFacePreset _minimapPreset;
         private CameraFacePreset _mapPreset;
 
-        private TrackingMenu TrackingMenu => Global.Instance.UiSetter.TrackingMenu;
+        //private TrackingMenu TrackingMenu => Global.Instance.UiSetter.TrackingMenu;
 
         private CameraFace CameraFace
         {
@@ -50,8 +50,8 @@ namespace Map
             }
         }
     
-
-        private void OnEnable()
+        //TODO: Обновить AR-режим
+        /*private void OnEnable()
         {
             TrackingMenu.ToArSwitched += SetMinimapPreset;
             TrackingMenu.ToMapSwitched += SetMapPreset;
@@ -61,7 +61,7 @@ namespace Map
         {
             TrackingMenu.ToArSwitched -= SetMinimapPreset;
             TrackingMenu.ToMapSwitched -= SetMapPreset;
-        }
+        }*/
 
         private void Start()
         {
@@ -71,7 +71,7 @@ namespace Map
 
         private void SetPresetByViewMode()
         {
-            switch (TrackingMenu.ViewMode)
+            switch (ViewMode.Map/*TrackingMenu.ViewMode*/)
             {
                 case ViewMode.Map:
                     SetMapPreset();
