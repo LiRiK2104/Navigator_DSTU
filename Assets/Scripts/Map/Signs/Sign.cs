@@ -13,10 +13,10 @@ namespace Map.Signs
         [SerializeField] private SignCollider _signCollider;
 
         
-        public void Initialize(PointInfo pointInfo, SignPreset signPreset, AccessibleRoom room = null)
+        public void Initialize(PointInfo pointInfo, SignPreset signPreset)
         {
-            _defaultState.Initialize(signPreset, room);
-            _searchResultState.Initialize(signPreset, room);
+            _defaultState.Initialize(signPreset, pointInfo);
+            _searchResultState.Initialize(pointInfo);
             _signCollider.Initialize(pointInfo);
             Deselect();
         }

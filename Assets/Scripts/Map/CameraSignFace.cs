@@ -77,6 +77,7 @@ namespace Map
         }
     }
 
+    #region Editor
     public partial class CameraSignFace
     {
 #if UNITY_EDITOR
@@ -122,4 +123,5 @@ namespace Map
         }
 #endif
     }
+    #endregion
 }

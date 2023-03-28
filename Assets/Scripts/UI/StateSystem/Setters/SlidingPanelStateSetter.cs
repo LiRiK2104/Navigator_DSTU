@@ -84,7 +84,29 @@ namespace UI.StateSystem.Setters
             }
         }
     }
+    
+    [Serializable]
+    public struct SearchPanelStatePreset
+    {
+        private const StateType DefaultStateType = StateType.Default; 
+        
+        public Transform TargetPoint;
+        public StateType StateType;
 
+        public SearchPanelStatePreset(Transform targetPoint)
+        {
+            TargetPoint = targetPoint;
+            StateType = DefaultStateType;
+        }
+        
+        public SearchPanelStatePreset(Transform targetPoint, StateType stateType)
+        {
+            TargetPoint = targetPoint;
+            StateType = stateType;
+        }
+    }
+
+    #region Editor
     public partial class SlidingPanelStateSetter
     {
 #if UNITY_EDITOR
@@ -129,25 +151,5 @@ namespace UI.StateSystem.Setters
         }
 #endif
     }
-
-    [Serializable]
-    public struct SearchPanelStatePreset
-    {
-        private const StateType DefaultStateType = StateType.Default; 
-        
-        public Transform TargetPoint;
-        public StateType StateType;
-
-        public SearchPanelStatePreset(Transform targetPoint)
-        {
-            TargetPoint = targetPoint;
-            StateType = DefaultStateType;
-        }
-        
-        public SearchPanelStatePreset(Transform targetPoint, StateType stateType)
-        {
-            TargetPoint = targetPoint;
-            StateType = stateType;
-        }
-    }
+    #endregion
 }

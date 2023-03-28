@@ -7,6 +7,7 @@ using Navigation;
 using TargetsSystem;
 using TargetsSystem.Points;
 using TargetsSystem.Rooms;
+using UI.Search.Options;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
@@ -23,7 +24,7 @@ public class DataBase : MonoBehaviour
     public List<Floor> Floors =>  new List<Floor>(_floors);
 
 
-    private void Start()
+    private void Awake()
     {
         FillPointInfos();
     }
@@ -52,6 +53,7 @@ public class DataBase : MonoBehaviour
         return false;
     }
     
+
     public List<Point> GetAllPoints()
     {
         var allPoints = new List<Point>();

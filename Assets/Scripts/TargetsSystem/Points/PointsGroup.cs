@@ -10,9 +10,11 @@ namespace TargetsSystem.Points
     public class PointsGroup : MonoBehaviour, IOptionInfo
     {
         [SerializeField] private string _name;
+        [SerializeField] private Sprite _sprite;
         [SerializeField] private List<Point> _points;
 
         public string Name => _name;
+        public Sprite Sprite => _sprite;
         public ReadOnlyCollection<Point> Points => _points.AsReadOnly();
         private PathFinder PathFinder => Global.Instance.Navigator.PathFinder;
         private DataBase DataBase => Global.Instance.DataBase;

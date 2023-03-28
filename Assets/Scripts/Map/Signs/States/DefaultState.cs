@@ -1,4 +1,5 @@
 
+using Navigation;
 using TargetsSystem.Points;
 using TargetsSystem.Rooms;
 using TMPro;
@@ -12,7 +13,7 @@ namespace Map.Signs.States
         [SerializeField] private Icon _iconState;
 
 
-        public void Initialize(SignPreset signPreset, AccessibleRoom room = null)
+        public void Initialize(SignPreset signPreset, PointInfo pointInfo)
         {
             _iconState.gameObject.SetActive(false);
             _roomNumberState.gameObject.SetActive(false);
@@ -25,9 +26,7 @@ namespace Map.Signs.States
             else
             {
                 _roomNumberState.gameObject.SetActive(true);
-                
-                if (room != null)
-                    _roomNumberState.Initialize(room);
+                _roomNumberState.Initialize(pointInfo);
             }
         }
     }

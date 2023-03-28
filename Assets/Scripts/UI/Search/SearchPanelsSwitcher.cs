@@ -1,31 +1,36 @@
 using System;
+using UI.Search.Options;
 using UnityEngine;
 
 namespace UI.Search
 {
-    [RequireComponent(typeof(Search.SearchableDropDown))]
+    [RequireComponent(typeof(SearchableDropDown))]
     public class SearchPanelsSwitcher : MonoBehaviour
     {
         [SerializeField] private GameObject _defaultPanel;
         [SerializeField] private GameObject _searchPanel;
 
-        private Search.SearchableDropDown _searchableDropDown;
+        private SearchableDropDown _searchableDropDown;
     
 
         private void Awake()
         {
-            _searchableDropDown = GetComponent<Search.SearchableDropDown>();
+            _searchableDropDown = GetComponent<SearchableDropDown>();
             SetDefaultPanel();
         }
 
         private void OnEnable()
         {
             _searchableDropDown.ValueChanged += SwitchPanel;
+            _searchableDropDown.EndEditing += SwitchPanel;
+            _searchableDropDown.OptionSelected += SetDefaultPanel;
         }
 
         private void OnDisable()
         {
             _searchableDropDown.ValueChanged -= SwitchPanel;
+            _searchableDropDown.EndEditing -= SwitchPanel;
+            _searchableDropDown.OptionSelected -= SetDefaultPanel;
         }
 
     
@@ -37,6 +42,11 @@ namespace UI.Search
                 SetSearchPanel();
         }
 
+        private void SetDefaultPanel(IOptionInfo optionInfo)
+        {
+            SetDefaultPanel();
+        }
+        
         private void SetDefaultPanel()
         {
             _defaultPanel.SetActive(true);

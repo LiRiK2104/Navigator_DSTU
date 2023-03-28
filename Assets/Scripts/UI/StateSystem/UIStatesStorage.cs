@@ -127,6 +127,7 @@ namespace UI.StateSystem
         }
     }
 
+    #region Editor
     public partial class UIStatesStorage
     {
 #if UNITY_EDITOR
@@ -280,4 +281,5 @@ namespace UI.StateSystem
         }
 #endif
     }
+    #endregion
 }

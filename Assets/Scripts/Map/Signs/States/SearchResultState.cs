@@ -1,5 +1,4 @@
-using TargetsSystem.Points;
-using TargetsSystem.Rooms;
+using Navigation;
 using TMPro;
 using UnityEngine;
 
@@ -10,14 +9,9 @@ namespace Map.Signs.States
         [SerializeField] private TextMeshProUGUI _name;
         
         
-        public void Initialize(SignPreset signPreset, AccessibleRoom room = null)
+        public void Initialize(PointInfo pointInfo)
         {
-            if (signPreset.HasName)
-                _name.text = signPreset.Name;
-            else if (room != null)
-                _name.text = room.Id;
-            else
-                _name.text = string.Empty;
+            _name.text = pointInfo.Name;
         }
     }
 }

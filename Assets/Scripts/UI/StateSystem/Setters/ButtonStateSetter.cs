@@ -32,6 +32,7 @@ namespace UI.StateSystem.Setters
         }
     }
     
+    #region Editor
     public partial class ButtonStateSetter
     {
 #if UNITY_EDITOR
@@ -64,4 +65,5 @@ namespace UI.StateSystem.Setters
         }
 #endif
     }
+    #endregion
 }

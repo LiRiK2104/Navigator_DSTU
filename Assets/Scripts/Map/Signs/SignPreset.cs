@@ -1,4 +1,3 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,7 +8,6 @@ namespace Map.Signs
     {
         [SerializeField] private bool _hasName;
         [SerializeField] private bool _hasIcon;
-        [SerializeField] private bool _isTransitPoint;
         [SerializeField] private PointType pointType;
 
         [SerializeField] private string _name;
@@ -25,6 +23,8 @@ namespace Map.Signs
     public enum PointType
     {
         None,
+        ManToilet,
+        WomanToilet,
         Stairs,
         Elevator,
         ATM,
@@ -33,6 +33,7 @@ namespace Map.Signs
         Buffet
     }
 
+    #region Editor
     public partial class SignPreset
     {
 #if UNITY_EDITOR
@@ -51,8 +52,10 @@ namespace Map.Signs
                 serializedObject.Update();
 
                 int interval = 20;
-                
-                _origin._hasName = EditorGUILayout.Toggle("Has name", _origin._hasName);
+
+                var hasNameProperty = serializedObject.FindProperty(nameof(_origin._hasName));
+                EditorGUILayout.PropertyField(hasNameProperty, new GUIContent("Has name"));
+                //_origin._hasName = EditorGUILayout.Toggle("Has name", _origin._hasName);
 
                 if (_origin._hasName)
                 {
@@ -68,19 +71,15 @@ namespace Map.Signs
                     _origin._icon = EditorGUILayout.ObjectField("Icon", _origin._icon, typeof(Sprite)) as Sprite;
                     EditorGUILayout.Space(interval);
                 }
-                
-                
-                _origin._isTransitPoint = EditorGUILayout.Toggle("Is transit point", _origin._isTransitPoint);
-                
-                if (_origin._isTransitPoint)
-                {
-                    _origin.pointType = (PointType)EditorGUILayout.EnumPopup("Transit type", _origin.pointType);
-                    EditorGUILayout.Space(interval);
-                }
+
+                _origin.pointType = (PointType)EditorGUILayout.EnumPopup("Transit type", _origin.pointType);
+                EditorGUILayout.Space(interval);
 
                 serializedObject.ApplyModifiedProperties();
+                EditorUtility.SetDirty(target);
             }
         }
 #endif
     }
+    #endregion
 }

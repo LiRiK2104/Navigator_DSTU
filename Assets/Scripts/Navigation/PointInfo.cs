@@ -33,6 +33,8 @@ namespace Navigation
         private static readonly Dictionary<PointType, string> TypesNames = new Dictionary<PointType, string>()
         {
             {PointType.None, String.Empty},
+            {PointType.ManToilet, "мужской туалет"},
+            {PointType.WomanToilet, "женский туалет"},
             {PointType.Stairs, "лестница"},
             {PointType.Elevator, "лифт"},
             {PointType.ATM, "банкомат"},

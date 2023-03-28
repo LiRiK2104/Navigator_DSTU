@@ -15,6 +15,7 @@ namespace UI.SlidingPanel.Setters
         }
     }
     
+    #region Editor
     public partial class SlidingPanelSwitchObject
     {
 #if UNITY_EDITOR
@@ -58,4 +59,5 @@ namespace UI.SlidingPanel.Setters
         }
 #endif
     }
+    #endregion
 }

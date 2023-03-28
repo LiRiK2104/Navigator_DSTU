@@ -1,3 +1,4 @@
+using Navigation;
 using TargetsSystem.Points;
 using TargetsSystem.Rooms;
 using TMPro;
@@ -10,9 +11,9 @@ namespace Map.Signs
         [SerializeField] private TextMeshProUGUI _textMeshPro;
 
         
-        public void Initialize(AccessibleRoom room)
+        public void Initialize(PointInfo pointInfo)
         {
-            SetNumber(room.Id);
+            SetNumber(pointInfo.Name);
         }
         
         private void SetNumber(string number)

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Navigation;
 using TMPro;
 using UI.Search.Options;
 using UnityEngine;
@@ -20,6 +22,8 @@ namespace UI.Search
         public event OnOptionSelectedDel OptionSelected;
         public event OnValueChangedDel ValueChanged;
         public event OnValueChangedDel EndEditing;
+        
+        private DataBase DataBase => Global.Instance.DataBase;
 
         public string InputFieldValue
         {
@@ -39,20 +43,41 @@ namespace UI.Search
         }
 
 
-        public void Initialize(List<IOptionInfo> optionInfos)
+        private void Start()
         {
-            _cleanButton.onClick.AddListener(Reset);
-            _inputField.onValueChanged.AddListener(OnInputValueChange);
-            _inputField.onEndEdit.AddListener(OnEndEditing);
-        
-            _optionsList.Initialize(optionInfos, OnOptionClick);
+            Initialize();
         }
+        
         
         public void Reset()
         {
             ResetDropDown();
             _optionsList.HideScroll();
             _cleanButton.gameObject.SetActive(false);
+        }
+        
+        private void Initialize()
+        {
+            var optionInfos = GetOptionInfos();
+            
+            _cleanButton.onClick.AddListener(Reset);
+            _inputField.onValueChanged.AddListener(OnInputValueChange);
+            _inputField.onEndEdit.AddListener(OnEndEditing);
+        
+            _optionsList.Initialize(optionInfos, OnOptionClick);
+        }
+
+        private List<IOptionInfo> GetOptionInfos()
+        {
+            var optionInfos = DataBase.GetAllPoints().Select(point =>
+            {
+                DataBase.TryGetPointInfo(point, out PointInfo pointInfo);
+                return pointInfo as IOptionInfo;
+            }).ToList();
+
+            optionInfos.AddRange(DataBase.PointsGroups.Select(group => group as IOptionInfo).ToArray());
+
+            return optionInfos;
         }
 
         private void ResetDropDown()

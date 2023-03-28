@@ -9,7 +9,7 @@ namespace UI.Search.Options.States
         [SerializeField] private Image _icon;
         
 
-        protected void InitializeSprite(Sprite sprite = null)
+        protected void InitializeIcon(Sprite sprite = null)
         {
             _defaultIcon.SetActive(false);
             _icon.gameObject.SetActive(false);

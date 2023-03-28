@@ -10,16 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4f106d49b21d784ea67b50b9020806a, type: 3}
-  m_Name: BuffetSignPreset
+  m_Name: CenterInvestSignPreset
   m_EditorClassIdentifier: 
-  _hasName: 0
-  _hasIcon: 0
-  _isRoom: 0
-  _isLockedRoom: 0
-  _isTransitPoint: 0
-  _transitType: 0
-  _name: 
-  _number: 
-  _icon: {fileID: 0}
-  _transitIcon: {fileID: 0}
-  _tags: []
+  _hasName: 1
+  _hasIcon: 1
+  pointType: 5
+  _name: "\u0426\u0435\u043D\u0442\u0440-\u0438\u043D\u0432\u0435\u0441\u0442"
+  _icon: {fileID: 7747123342861865244, guid: 5fb633156730f1d4182a4b85bd2d7a04, type: 3}

@@ -23,7 +23,7 @@ namespace UI.Search.Options.States
                 sprite = point.SignCreator.SignPreset.Icon;
             }
             
-            InitializeSprite(sprite);
+            InitializeIcon(sprite);
             _name.text = pointInfo.Name;
             _address.text = pointInfo.Address.ToString();
         }

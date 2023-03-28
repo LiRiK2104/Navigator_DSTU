@@ -10,13 +10,25 @@ namespace Map
 
         [SerializeField] [Range(MinScaleFactor, MaxScaleFactor)] private float _minimapScaleFactor;
         [SerializeField] [Range(MinScaleFactor, MaxScaleFactor)] private float _mapScaleFactor;
-    
+
+        private Canvas _canvas;
         private CameraFace _cameraFace;
         private CameraFacePreset _minimapPreset;
         private CameraFacePreset _mapPreset;
 
         //private TrackingMenu TrackingMenu => Global.Instance.UiSetter.TrackingMenu;
 
+        private Canvas Canvas
+        {
+            get
+            {
+                if (_canvas == null)
+                    _canvas = GetComponentInParent<Canvas>();
+            
+                return _canvas;
+            }
+        }
+        
         private CameraFace CameraFace
         {
             get
@@ -86,11 +98,18 @@ namespace Map
         private void SetMapPreset()
         {
             CameraFace.SetPreset(MapPreset);
+            SetCameraToCanvas(MapPreset);
         }
     
         private void SetMinimapPreset()
         {
             CameraFace.SetPreset(MinimapPreset);
+            SetCameraToCanvas(MinimapPreset);
+        }
+
+        private void SetCameraToCanvas(CameraFacePreset preset)
+        {
+            Canvas.worldCamera = preset.Camera;
         }
     }
 

@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Navigation;
+using TargetsSystem.Points;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +31,7 @@ namespace UI.Search.Options
             _scrollRect = GetComponentInChildren<ScrollRect>();
             _content = _scrollRect.content;
         
+            optionInfos = Sort(optionInfos);
             Add(optionInfos, callback);
         }
 
@@ -96,6 +100,24 @@ namespace UI.Search.Options
                 Destroy(button.gameObject);
         
             _initializedOptions.Clear();
+        }
+
+        private List<IOptionInfo> Sort(List<IOptionInfo> optionsInfo)
+        {
+            return optionsInfo.OrderByDescending(optionInfo =>
+            {
+                switch (optionInfo)
+                {
+                    case PointInfo pointInfo:
+                        return 0;
+
+                    case PointsGroup pointsGroup:
+                        return 1;
+
+                    default:
+                        return 0;
+                }
+            }).ToList();
         }
     
         private void SetScrollActive(bool status)

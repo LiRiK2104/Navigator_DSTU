@@ -47,8 +47,9 @@ namespace UI.StateSystem.States
                 _defaultIcon.gameObject.SetActive(false);
                 _icon.gameObject.SetActive(true);
                 _icon.sprite = point.SignCreator.SignPreset.Icon;
-                SetPointer(point);
             }
+            
+            SetPointer(point);
         }
 
         private void SetPointer(Point point)

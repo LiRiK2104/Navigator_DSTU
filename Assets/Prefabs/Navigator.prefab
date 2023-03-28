@@ -399,6 +399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pathFinder: {fileID: 4226190227912340334}
   _destinationSetter: {fileID: 1261808330108314511}
+  _mapPointerSetter: {fileID: 3149094271147430296}
 --- !u!1 &8348364242274544545
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,7 +454,7 @@ GameObject:
   - component: {fileID: 2564936720504553445}
   - component: {fileID: 3149094271147430296}
   m_Layer: 0
-  m_Name: Minimap Pointer Setter
+  m_Name: Map Pointer Setter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

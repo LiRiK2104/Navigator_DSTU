@@ -660,6 +660,20 @@ RectTransform:
   m_AnchoredPosition: {x: 5.0049124, y: -87}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &321912029473157310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7727145541463098664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7973727b5cd9d954384087692691bd20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slidingPanelHandler: {fileID: 0}
+  _index: 2
 --- !u!1001 &6355613587518968741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -764,5 +778,10 @@ PrefabInstance:
 --- !u!224 &7727145541463098667 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3679433252181907086, guid: e689971729a011748b853f53752c4c60, type: 3}
+  m_PrefabInstance: {fileID: 6355613587518968741}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7727145541463098664 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3679433252181907085, guid: e689971729a011748b853f53752c4c60, type: 3}
   m_PrefabInstance: {fileID: 6355613587518968741}
   m_PrefabAsset: {fileID: 0}
