@@ -8,7 +8,7 @@ public class GwJob
     public Action<GwWaypoint[]> callback;
     public bool clampToEndNode;
     public bool debugMode;
-    public Vector3[] availableOrigins;
+    public int[] availableOrigins;
 
     public GwJob(Vector3 origin, Vector3 targetPosition, Action<GwWaypoint[]> callback, bool clampToEndNode, bool debugMode)
     {
@@ -19,7 +19,7 @@ public class GwJob
         this.debugMode = debugMode;
     }
     
-    public GwJob(Vector3 origin, Vector3 targetPosition, Action<GwWaypoint[]> callback, bool clampToEndNode, bool debugMode, Vector3[] availableOrigins) : this(origin, targetPosition, callback, clampToEndNode, debugMode)
+    public GwJob(Vector3 origin, Vector3 targetPosition, Action<GwWaypoint[]> callback, bool clampToEndNode, bool debugMode, int[] availableOrigins) : this(origin, targetPosition, callback, clampToEndNode, debugMode)
     {
         this.availableOrigins = availableOrigins;
     }

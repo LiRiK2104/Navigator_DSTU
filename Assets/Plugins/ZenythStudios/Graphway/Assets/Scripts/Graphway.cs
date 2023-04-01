@@ -120,7 +120,7 @@ public class Graphway : MonoBehaviour
 
             // Remove graphway child gameobjects as they are no longer needed during runtime
             foreach (var childNode in nodesParent.GetComponentsInChildren<Transform>())
-	            Destroy(childNode.gameObject);
+	            childNode.gameObject.SetActive(false);//Destroy(childNode.gameObject);
             
             //Destroy(connectionsParent.gameObject);
         }
@@ -178,7 +178,7 @@ public class Graphway : MonoBehaviour
     /// <param name="availableOrigins">If not null allows only nodes with specified positions.</param>
     /// <param name="clampToEndNode">Clamp final position to closest node.</param>
     /// <param name="debugMode">Enable Debug Mode to see algorithm in action (slowed down).  ENABLE GIZMOS!</param>
-    public static void FindPath(Vector3 origin, Vector3 targetPosition, Action<GwWaypoint[]> callback, Vector3[] availableOrigins, bool clampToEndNode = true, bool debugMode = false)
+    public static void FindPath(Vector3 origin, Vector3 targetPosition, Action<GwWaypoint[]> callback, int[] availableOrigins, bool clampToEndNode = true, bool debugMode = false)
     {
 	    instance.PathFind(origin, targetPosition, callback, availableOrigins, clampToEndNode, debugMode);
     }
@@ -206,7 +206,7 @@ public class Graphway : MonoBehaviour
     /// <param name="availableOrigins">If not null allows only nodes with specified positions.</param>
     /// <param name="clampToEndNode">Clamp final position to closest node.</param>
     /// <param name="debugMode">Enable Debug Mode to see algorithm in action (slowed down).  ENABLE GIZMOS!</param>
-    public void PathFind(Vector3 origin, Vector3 targetPosition, Action<GwWaypoint[]> callback, Vector3[] availableOrigins, bool clampToEndNode = true, bool debugMode = false)
+    public void PathFind(Vector3 origin, Vector3 targetPosition, Action<GwWaypoint[]> callback, int[] availableOrigins, bool clampToEndNode = true, bool debugMode = false)
     {
 	    // Create new job and add it to the queue
 	    jobs.Add(new GwJob(origin, targetPosition, callback, clampToEndNode, debugMode, availableOrigins));
@@ -353,9 +353,9 @@ public class Graphway : MonoBehaviour
     /// Finds the closest node to a world position.
     /// </summary>
     /// <param name="position">Target position.</param>
-    /// /// <param name="availablePositions">If not null allows only nodes with specified positions.</param>
+    /// /// <param name="availableIds">If not null allows only nodes with specified positions.</param>
     /// <returns>The ID of the closest node.</returns>
-    private int ClosestNodeID(Vector3 position, Vector3[] availablePositions = null)
+    private int ClosestNodeID(Vector3 position, int[] availableIds = null)
     {
         int closestNodeID = -1;
         
@@ -363,9 +363,9 @@ public class Graphway : MonoBehaviour
         
         foreach (KeyValuePair<int, GwNode> node in nodes)
         {
-	        if ( availablePositions != null && 
-	             availablePositions.Length > 0 && 
-	             availablePositions.Contains(node.Value.transform.position) == false)
+	        if ( availableIds != null && 
+	             availableIds.Length > 0 && 
+	             availableIds.Contains(node.Value.nodeID) == false)
 		        continue;
 	        
             float distance = Vector3.Distance(position, node.Value.transform.position);
