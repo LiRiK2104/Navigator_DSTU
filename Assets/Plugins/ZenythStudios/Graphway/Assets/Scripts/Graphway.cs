@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 
+[RequireComponent(typeof(GraphwayConnector))]
 public class Graphway : MonoBehaviour 
 {
 	public static Graphway instance;
@@ -28,7 +29,10 @@ public class Graphway : MonoBehaviour
     public int pathfindFrameLimit = 100;
 
     public int editorNodeCounter = 0; // Keep public so value is saved upon editor close
-    
+
+    public List<Graphway> subGraphways;
+    public GraphwayNode toConnectNodeA;
+    public GraphwayNode toConnectNodeB;
     public GwNode runtimeNodeTemplate; 
 
     // RUNTIME ONLY VARS
@@ -38,6 +42,20 @@ public class Graphway : MonoBehaviour
 	private List<int> openNodes;
     private List<int> closedNodes;
     private int currentNodeID;
+    private GraphwayConnector _graphwayConnector;
+    private bool isInitialized;
+    
+    public GraphwayConnector GraphwayConnector
+    {
+	    get
+	    {
+		    if (_graphwayConnector == null)
+			    _graphwayConnector = GetComponent<GraphwayConnector>();
+
+		    return _graphwayConnector;
+	    }
+    }
+    
     
     void Awake()
     {
@@ -46,7 +64,25 @@ public class Graphway : MonoBehaviour
     
     void Start()
     {
-        // Create new list to store pathfinding jobs
+        Initialize();
+    }
+    
+    void Update()
+    {
+	    // Process next job (if there is one)
+        if (jobs.Count > 0 && activeJob == null)
+        {
+            StartCoroutine(ProcessJob(jobs[0]));
+        }
+    }
+
+
+    public void Initialize()
+    {
+	    if (isInitialized)
+		    return;
+	    
+	    // Create new list to store pathfinding jobs
         jobs = new List<GwJob>();
 
         // Convert GameObject structure to class objects for efficiency
@@ -74,6 +110,16 @@ public class Graphway : MonoBehaviour
                 var runtimeNode = Instantiate(runtimeNodeTemplate, node.position, Quaternion.identity, transform);
                 runtimeNode.Initialize(nodeData.nodeID);
                 nodes[nodeData.nodeID] = runtimeNode;
+            }
+
+            foreach (var subGraphway in subGraphways)
+            {
+	            subGraphway.Initialize();
+
+	            foreach (var subGraphwayNode in subGraphway.nodes)
+	            {
+		            nodes[subGraphwayNode.Key] = subGraphwayNode.Value;
+	            }
             }
 
             // Add CONNECTION structure
@@ -106,14 +152,18 @@ public class Graphway : MonoBehaviour
                 }
 
                 // Add connection A->B
-                if (connectionData.connectionType == GraphwayConnectionTypes.Bidirectional || connectionData.connectionType == GraphwayConnectionTypes.UnidirectionalAToB)
+                if (connectionData.connectionType == GraphwayConnectionTypes.Bidirectional || 
+                    connectionData.connectionType == GraphwayConnectionTypes.UnidirectionalAToB)
                 {
-                    nodes[connectionData.nodeIDA].AddConnection(connectionData.nodeIDB, connectionData.disabled, connectionData.speedWeight, subnodesAB);
+	                //AddConnection(connectionData.nodeIDA, connectionData.nodeIDB, connectionData, subnodesAB);
+	                nodes[connectionData.nodeIDA].AddConnection(connectionData.nodeIDB, connectionData.disabled, connectionData.speedWeight, subnodesAB);
                 }
 
                 // Add connection B->A
-                if (connectionData.connectionType == GraphwayConnectionTypes.Bidirectional || connectionData.connectionType == GraphwayConnectionTypes.UnidirectionalBToA)
+                if (connectionData.connectionType == GraphwayConnectionTypes.Bidirectional || 
+                    connectionData.connectionType == GraphwayConnectionTypes.UnidirectionalBToA)
                 {
+	                //AddConnection(connectionData.nodeIDB, connectionData.nodeIDA, connectionData, subnodesBA);
                     nodes[connectionData.nodeIDB].AddConnection(connectionData.nodeIDA, connectionData.disabled, connectionData.speedWeight, subnodesBA);
                 }
             }
@@ -123,39 +173,11 @@ public class Graphway : MonoBehaviour
 	            childNode.gameObject.SetActive(false);//Destroy(childNode.gameObject);
             
             //Destroy(connectionsParent.gameObject);
+
+            isInitialized = true;
         }
     }
     
-    void Update()
-    {
-	    /*if (Input.GetKeyDown(KeyCode.Space) && nodes != null && nodes.Count > 0)
-	    {
-		    var offset = new Vector3(10, 0, 0);
-		    
-		    foreach (var node in nodes)
-		    {
-			    node.Value.position += offset;
-
-			    foreach (var connection in node.Value.connections)
-			    {
-				    if (connection.Value.subnodes == null)
-						continue;
-				    
-				    for (int i = 0; i < connection.Value.subnodes.Length; i++)
-				    {
-					    connection.Value.subnodes[i] += offset;
-				    }
-			    }
-		    }
-	    }*/
-	    
-        // Process next job (if there is one)
-        if (jobs.Count > 0 && activeJob == null)
-        {
-            StartCoroutine(ProcessJob(jobs[0]));
-        }
-    }
-
     /// <summary>
     /// Find a new path from A to B using Graphway (static method).
     /// </summary>
@@ -211,7 +233,51 @@ public class Graphway : MonoBehaviour
 	    // Create new job and add it to the queue
 	    jobs.Add(new GwJob(origin, targetPosition, callback, clampToEndNode, debugMode, availableOrigins));
     }
-    
+
+    public List<GraphwayNode> GetNodes()
+    {
+	    return transform.Find("Nodes").transform.GetComponentsInChildren<GraphwayNode>().ToList();
+    }
+
+    public bool TryFindNodePosition(int nodeID, out Vector3 nodePosition)
+    {
+	    nodePosition = default;
+	    var node = transform.Find("Nodes/" + nodeID);
+
+	    if (node != null)
+	    {
+		    nodePosition = node.position;   
+		    return true;
+	    }
+
+	    foreach (var subGraphway in subGraphways)
+	    {
+		    if (subGraphway.TryFindNodePosition(nodeID, out nodePosition))
+			    return true;
+	    }
+
+	    return false;
+    }
+
+    private bool TryGetNode(int nodeID, out GwNode node)
+    {
+	    node = null;
+	    
+	    if (nodes.ContainsKey(nodeID))
+	    {
+		    node = nodes[nodeID];
+		    return true;
+	    }
+
+	    foreach (var subGraphway in subGraphways)
+	    {
+		    if (subGraphway.TryGetNode(nodeID, out node) && node != null)
+			    return true;
+	    }
+
+	    return false;
+    }
+
     private IEnumerator ProcessJob(GwJob job)
     {
         activeJob = job;
@@ -469,7 +535,7 @@ public class Graphway : MonoBehaviour
     /// <summary>
     /// Debug algorithm using Gizmos
     /// </summary>
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         // DRAW GRAPH
         if (Application.isPlaying)
@@ -483,11 +549,12 @@ public class Graphway : MonoBehaviour
 	            // Draw ACTIVE Connections
 	            foreach (KeyValuePair<int, GwConnection> connection in node.Value.connections)
 	            {
-	                if ( ! connection.Value.disabled)
+	                if (connection.Value.disabled == false && 
+	                    TryGetNode(connection.Value.connectedNodeID, out GwNode nodeB))
 	                {
 		                // Set positions of connected nodes
-			            Vector3 nodeAPosition = node.Value.transform.position;
-			            Vector3 nodeBPosition = nodes[connection.Value.connectedNodeID].transform.position;
+		                Vector3 nodeAPosition = node.Value.transform.position;
+			            Vector3 nodeBPosition = nodeB.transform.position;
 			            Vector3 lastPosition = nodeAPosition;
 			
 						// Traverse subnodes (if any)

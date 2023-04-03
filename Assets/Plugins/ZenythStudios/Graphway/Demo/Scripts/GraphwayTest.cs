@@ -10,6 +10,8 @@ public class GraphwayTest : MonoBehaviour
     [Tooltip("Enable Debug Mode to see algoritm in action slowed down. MAKE SURE GIZMOS ARE ENABLED!")]
     public bool debugMode = false;
 
+    public Graphway Graphway;
+
     private GwWaypoint[] waypoints;
 	private float speed = 0;
 	
@@ -27,7 +29,7 @@ public class GraphwayTest : MonoBehaviour
             {
                 // Object hit
                 // Use Graphway to try and find a path to hit position
-                Graphway.FindPath(transform.position, hit.point, FindPathCallback, true, debugMode);
+                Graphway.PathFind(transform.position, hit.point, FindPathCallback, true, debugMode);
             }
 		}
 		

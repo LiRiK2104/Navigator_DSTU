@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -18,8 +19,12 @@ public class GraphwayEditor : Editor
 	private SerializedProperty arrowSize;
 	private SerializedProperty pathfindFrameLimit;
 	private SerializedProperty runtimeNodeTemplate;
-		
-    private bool nodePlacementEnabled = false;
+	private SerializedProperty subGraphways;
+	private SerializedProperty toConnectNodeA;
+	private SerializedProperty toConnectNodeB;
+	private bool nodePlacementEnabled = false;
+
+	private Graphway origin;
 
 	void OnEnable()
 	{
@@ -31,6 +36,11 @@ public class GraphwayEditor : Editor
 		arrowSize = serializedObject.FindProperty("arrowSize");
         pathfindFrameLimit = serializedObject.FindProperty("pathfindFrameLimit");
         runtimeNodeTemplate = serializedObject.FindProperty("runtimeNodeTemplate");
+        subGraphways = serializedObject.FindProperty("subGraphways");
+        toConnectNodeA = serializedObject.FindProperty("toConnectNodeA");
+        toConnectNodeB = serializedObject.FindProperty("toConnectNodeB");
+        
+        origin = target as Graphway;
 	}
 	
 	void OnDisable()
@@ -40,8 +50,11 @@ public class GraphwayEditor : Editor
         
         if (graphway != null)
         {
-			DisableRenderers(graphway.transform);
-		}
+	        DisableRenderers(graphway.transform);
+
+	        foreach (var subGraphway in origin.subGraphways)
+				DisableRenderers(subGraphway);
+        }
     }
 	
     public override void OnInspectorGUI()
@@ -63,12 +76,13 @@ public class GraphwayEditor : Editor
         EditorGUILayout.Space();
         EditorGUILayout.PropertyField(runtimeNodeTemplate);
         EditorGUILayout.Space();
-         
+        EditorGUILayout.PropertyField(subGraphways);
+        EditorGUILayout.Space();
+        DrawConnectionMenu();
+        
         serializedObject.ApplyModifiedProperties();
-     
-		EditorGUILayout.Space();
-		
-		// Enables/Disable node placement button
+
+        // Enables/Disable node placement button
 		if (nodePlacementEnabled)
 		{
 			EditorGUILayout.HelpBox("Select the Disable Node Placement button below to end node placement.", MessageType.Info);
@@ -91,9 +105,75 @@ public class GraphwayEditor : Editor
 		EditorGUILayout.Space();
 	}
 
-	void OnSceneGUI()
+    private void DrawConnectionMenu()
+    {
+	    if (origin.subGraphways.Count >= 2 && 
+            origin.subGraphways.All(subGraphway => subGraphway != null))
+        {
+	        EditorGUILayout.PropertyField(toConnectNodeA);
+	        EditorGUILayout.PropertyField(toConnectNodeB);
+
+	        if (origin.toConnectNodeA != null && 
+	            origin.toConnectNodeB != null)
+	        {
+		        var errorTextStyle = new GUIStyle { normal = { textColor = Color.red }};
+
+		        if (origin.toConnectNodeA == origin.toConnectNodeB)
+		        {
+			        GUILayout.Label("Selected the same node!", errorTextStyle);
+		        }
+		        else
+		        {
+			        var graphwayNodeA = FindGraphwayParent(origin.toConnectNodeA.transform);
+			        var graphwayNodeB = FindGraphwayParent(origin.toConnectNodeB.transform);
+
+			        if (graphwayNodeA == graphwayNodeB)
+			        {
+				        GUILayout.Label("Nodes must be in different Graphways. \n" +
+				                        "To connect in one Graphway, use the standard connection method.", errorTextStyle);
+			        }
+			        else if (origin.subGraphways.Contains(graphwayNodeA) == false || 
+			                 origin.subGraphways.Contains(graphwayNodeB) == false)
+			        {
+				        GUILayout.Label("Selected nodes are not part of subgraphways!", errorTextStyle);
+			        }
+			        else
+			        {
+				        var nodeIDA = origin.toConnectNodeA.nodeID;
+				        var nodeIDB = origin.toConnectNodeB.nodeID;
+				        
+				        if (NodesAreConnected(nodeIDA, nodeIDB)) 
+				        {
+					        if (GUILayout.Button("Disconnect Nodes"))
+					        {
+						        DisconnectNodes(nodeIDA, nodeIDB);
+					        }
+				        }
+						else 
+				        {
+					        if (GUILayout.Button("Connect Nodes (Bidirectional)"))
+					        {
+						        ConnectNodes(nodeIDA, nodeIDB, GraphwayConnectionTypes.Bidirectional);
+					        }
+					        else if (GUILayout.Button("Connect Nodes (Unidirectional A To B)"))
+					        {
+						        ConnectNodes(nodeIDA, nodeIDB, GraphwayConnectionTypes.UnidirectionalAToB);
+					        }
+					        else if (GUILayout.Button("Connect Nodes (Unidirectional B To A)"))
+					        {
+						        ConnectNodes(nodeIDA, nodeIDB, GraphwayConnectionTypes.UnidirectionalBToA);
+					        }
+				        }
+			        }
+		        }
+	        }
+        }
+	    
+	    EditorGUILayout.Space();
+    }
+
+	private void OnSceneGUI()
 	{
-		Graphway graphway = (Graphway)target;
 
 		if (nodePlacementEnabled)
 		{
@@ -129,13 +209,25 @@ public class GraphwayEditor : Editor
 		}
 
 		// Update graph display
-		DrawGraph(graphway.transform);
+		DrawGraph(origin.transform);
+		
+		foreach (var subGraphway in origin.subGraphways)
+			DrawGraph(subGraphway);
 	}
-	
+
+	private bool NodesAreConnected(int nodeIDA, int nodeIDB)
+	{
+		return origin.GraphwayConnector.NodesAreConnected(origin, nodeIDA, nodeIDB);
+	}
+
 	public static void DrawGraph(Transform transform)
 	{
 		Graphway graphway = FindGraphwayParent(transform);
-		
+		DrawGraph(graphway);
+	}
+
+	public static void DrawGraph(Graphway graphway)
+	{
 		if (graphway != null)
 		{
 			// Check integrity of Graphway structure
@@ -164,9 +256,9 @@ public class GraphwayEditor : Editor
                 GraphwayConnectionTypes connectionType = connection.GetComponent<GraphwayConnection>().connectionType;
 	
 				// Set positions of connected nodes
-	            Vector3 nodeAPosition = graphway.transform.Find("Nodes/"+nodeIDA).position;
-	            Vector3 nodeBPosition = graphway.transform.Find("Nodes/"+nodeIDB).position;
-	            Vector3 lastPosition = nodeAPosition;
+				graphway.TryFindNodePosition(nodeIDA, out Vector3 nodeAPosition);
+				graphway.TryFindNodePosition(nodeIDB, out Vector3 nodeBPosition);
+				Vector3 lastPosition = nodeAPosition;
 	
 				// Check if connection uses subnodes
 	            if (connection.childCount > 0)
@@ -257,20 +349,23 @@ public class GraphwayEditor : Editor
 	private static void CheckHierarchyIntegrity(Graphway graphway)
 	{
 		// Create a list of node IDs
-		List<int> nodeIDs = new List<int>();
-		
-		foreach (Transform node in graphway.transform.Find("Nodes").transform)
+		var nodes = new List<GraphwayNode>(graphway.GetNodes());
+
+		foreach (var subGraphway in graphway.subGraphways)
 		{
-			nodeIDs.Add(int.Parse(node.name));
+			nodes.AddRange(subGraphway.GetNodes());
 		}
 		
+		List<int> nodeIDs = nodes.Select(node => node.nodeID).ToList();
+
 		// Check connection nodes exist
 		foreach (Transform connection in graphway.transform.Find("Connections").transform)
 		{
             int nodeIDA = connection.GetComponent<GraphwayConnection>().nodeIDA; 
-            int nodeIDB = connection.GetComponent<GraphwayConnection>().nodeIDB; 
-            
-            if (nodeIDs.Contains(nodeIDA) == false || nodeIDs.Contains(nodeIDB) == false)
+            int nodeIDB = connection.GetComponent<GraphwayConnection>().nodeIDB;
+
+            if (nodeIDs.Contains(nodeIDA) == false || 
+                nodeIDs.Contains(nodeIDB) == false)
             {
                 DestroyImmediate(connection.gameObject);
             }
@@ -320,7 +415,11 @@ public class GraphwayEditor : Editor
 	public static void DisableRenderers(Transform transform)
 	{
 		Graphway graphway = FindGraphwayParent(transform);
-		
+		DisableRenderers(graphway);
+	}
+	
+	public static void DisableRenderers(Graphway graphway)
+	{
 		SetRenderers(graphway.transform, false);
 	}
 
@@ -338,6 +437,16 @@ public class GraphwayEditor : Editor
 				SetRenderers(child.transform, enabled);
 			}
 		}
+	}
+
+	private void ConnectNodes(int nodeIDA, int nodeIDB, GraphwayConnectionTypes connectionType)
+	{
+		origin.GraphwayConnector.ConnectSelectedNodes(origin, nodeIDA, nodeIDB, connectionType);
+	}
+	
+	private void DisconnectNodes(int nodeIDA, int nodeIDB)
+	{
+		origin.GraphwayConnector.DisconnectNodes(origin, nodeIDA, nodeIDB);
 	}
 
     /// <summary>
