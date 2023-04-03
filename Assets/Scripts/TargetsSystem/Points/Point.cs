@@ -6,11 +6,11 @@ namespace TargetsSystem.Points
 {
     public abstract class Point : MonoBehaviour
     {
-        [SerializeField] private TargetPoint _targetPoint;
+        [SerializeField] private GraphwayNode _graphwayNode;
         [SerializeField] private SignCreator _signCreator;
 
         public SignCreator SignCreator => _signCreator;
-        public Vector3 TargetPointPosition => _targetPoint.transform.position;
+        public Vector3 TargetPointPosition => _graphwayNode.transform.position;
         private DataBase DataBase => Global.Instance.DataBase;
         
         
