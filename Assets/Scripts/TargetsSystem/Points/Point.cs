@@ -10,13 +10,25 @@ namespace TargetsSystem.Points
         [SerializeField] private SignCreator _signCreator;
 
         public SignCreator SignCreator => _signCreator;
-        public Vector3 TargetPointPosition => _graphwayNode.transform.position;
+        public Vector3 GraphwayNodePosition => _graphwayNode.transform.position;
         private DataBase DataBase => Global.Instance.DataBase;
         
         
         private void Start()
         {
             Initialize();
+        }
+        
+        private void OnDrawGizmos()
+        {
+            if (_graphwayNode != null)
+            {
+                var sphereRadius = 0.4f;
+                
+                Gizmos.color = Color.green;
+                Gizmos.DrawLine(transform.position, GraphwayNodePosition);
+                Gizmos.DrawSphere(GraphwayNodePosition, sphereRadius);
+            }
         }
         
         

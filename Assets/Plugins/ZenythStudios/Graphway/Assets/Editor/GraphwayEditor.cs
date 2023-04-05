@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Plugins.ZenythStudios.Graphway.Assets.Scripts;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -68,7 +69,7 @@ public class GraphwayEditor : Editor
         EditorGUILayout.PropertyField(nodeColor);
         EditorGUILayout.PropertyField(subnodeColor);
         EditorGUILayout.Space();
-        EditorGUILayout.Slider(nodeSize, 0.1f, 100);
+        EditorGUILayout.Slider(nodeSize, 0.01f, 100);
         EditorGUILayout.Slider(subnodeSize, 0.05f, 50);
         EditorGUILayout.Slider(arrowSize, 0.025f, 25);
         EditorGUILayout.Space();
@@ -349,11 +350,11 @@ public class GraphwayEditor : Editor
 	private static void CheckHierarchyIntegrity(Graphway graphway)
 	{
 		// Create a list of node IDs
-		var nodes = new List<GraphwayNode>(graphway.GetNodes());
+		var nodes = new List<GraphwayNode>(graphway.GetAllNodes());
 
 		foreach (var subGraphway in graphway.subGraphways)
 		{
-			nodes.AddRange(subGraphway.GetNodes());
+			nodes.AddRange(subGraphway.GetAllNodes());
 		}
 		
 		List<int> nodeIDs = nodes.Select(node => node.nodeID).ToList();

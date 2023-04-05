@@ -23,7 +23,7 @@ namespace TargetsSystem.Points
         public Point GetNearestPoint()
         {
             return _points.OrderBy(point =>
-                PathFinder.CalculatePathDistance(PathFinder.GetLocalPath(point.TargetPointPosition))).First();
+                PathFinder.CalculatePathDistance(PathFinder.GetLocalPath(point.GraphwayNodePosition))).First();
         }
 
         public bool TryGetPoint(PointInfo myPointInfo, out Point foundPoint)

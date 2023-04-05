@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Plugins.ZenythStudios.Graphway.Assets.Scripts;
+using UnityEngine;
 using UnityEditor;
 
 public class GraphwayMenu

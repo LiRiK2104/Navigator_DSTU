@@ -28,4 +28,9 @@ public class GraphwayConnection : MonoBehaviour
         this.nodeIDB = nodeIDB;
         this.connectionType = connectionType;
     }
+
+    public void UpdateName()
+    {
+	    name = $"{nodeIDA}->{nodeIDB}";
+    }
 }

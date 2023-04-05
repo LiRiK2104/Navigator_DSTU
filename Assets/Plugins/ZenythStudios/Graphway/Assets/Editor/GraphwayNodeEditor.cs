@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Plugins.ZenythStudios.Graphway.Assets.Scripts;
+using UnityEngine;
 using UnityEditor;
 
 
@@ -170,8 +172,26 @@ public class GraphwayNodeEditor : Editor
 		GraphwayEditor.DrawGraph(graphwayNodeData.transform);
 	}
 
+	private void OnSceneDrag(SceneView sceneView, int index)
+	{
+		if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
+		{
+			Ray worldRay = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+
+			RaycastHit2D hit = Physics2D.Raycast(worldRay.origin, worldRay.direction);
+
+			if (hit.collider != null)
+			{
+				Debug.Log(hit.collider.gameObject.name);
+			}
+
+			// Use up event
+			Event.current.Use();
+		}
+	}
 	
-    private void ConnectSelectedNodes(GraphwayConnectionTypes connectionType)
+
+	private void ConnectSelectedNodes(GraphwayConnectionTypes connectionType)
     {
         GameObject[] selectedObjects = Selection.gameObjects;
         

@@ -20,5 +20,6 @@ public class GraphwayNode : MonoBehaviour
 	public void SetNodeID(int nodeID)
 	{
 		this.nodeID = nodeID;
+		name = nodeID.ToString();
 	}
 }

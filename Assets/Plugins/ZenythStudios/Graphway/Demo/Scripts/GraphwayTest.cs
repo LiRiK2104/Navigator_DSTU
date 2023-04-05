@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Plugins.ZenythStudios.Graphway.Assets.Scripts;
 using UnityEngine;
 
 public class GraphwayTest : MonoBehaviour 
