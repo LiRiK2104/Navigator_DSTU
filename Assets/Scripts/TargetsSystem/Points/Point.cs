@@ -10,6 +10,11 @@ namespace TargetsSystem.Points
         [SerializeField] private SignCreator _signCreator;
 
         public SignCreator SignCreator => _signCreator;
+        public GraphwayNode GraphwayNode
+        {
+            get => _graphwayNode;
+            set => _graphwayNode = value;
+        }
         public Vector3 GraphwayNodePosition => _graphwayNode.transform.position;
         private DataBase DataBase => Global.Instance.DataBase;
         
