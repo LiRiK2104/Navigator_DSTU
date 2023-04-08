@@ -1,5 +1,6 @@
 ﻿using System;
 using Plugins.ZenythStudios.Graphway.Assets.Scripts;
+using TargetsSystem.Points;
 using UnityEngine;
 using UnityEditor;
 
@@ -9,6 +10,8 @@ using UnityEditor;
 public class GraphwayNodeEditor : Editor
 {
 	private GraphwayNode origin; 
+	
+	private bool IsMouseOverSceneView =>  EditorWindow.mouseOverWindow.ToString() == " (UnityEditor.SceneView)";
 	
 	
 	private void OnEnable()
@@ -108,13 +111,13 @@ public class GraphwayNodeEditor : Editor
 		
 		EditorGUILayout.Space();
 	}
-	
-	void OnSceneGUI()
+
+	private void OnSceneGUI()
 	{
         // Allow nodes to be linked/unlinked using the 'C' key
         // Nodes will only be linked Bidirectionally this way
 		Event e = Event.current;
-		
+
 		switch (e.type)
 		{
 			case EventType.KeyDown:
@@ -170,26 +173,35 @@ public class GraphwayNodeEditor : Editor
 		GraphwayNode graphwayNodeData = (GraphwayNode)target;
      
 		GraphwayEditor.DrawGraph(graphwayNodeData.transform);
+		
+		if (IsMouseOverSceneView)
+			ProcessDrag();
 	}
 
-	private void OnSceneDrag(SceneView sceneView, int index)
+	private void ProcessDrag()
 	{
-		if (Event.current.type == EventType.MouseDown && Event.current.button == 0)
+		return;
+		Event e = Event.current;
+		GameObject pickObject = HandleUtility.PickGameObject(e.mousePosition, false);
+
+		if (e.type == EventType.DragUpdated)
 		{
-			Ray worldRay = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-
-			RaycastHit2D hit = Physics2D.Raycast(worldRay.origin, worldRay.direction);
-
-			if (hit.collider != null)
-			{
-				Debug.Log(hit.collider.gameObject.name);
-			}
-
-			// Use up event
-			Event.current.Use();
+			Debug.Log("drag");
+			DragAndDrop.visualMode = pickObject ? DragAndDropVisualMode.Link : DragAndDropVisualMode.Copy;
+			e.Use();
+		} 
+		else if (e.type == EventType.DragPerform) 
+		{
+			Debug.Log("Drag performed");
+			DragAndDrop.AcceptDrag();
+			e.Use();
+         
+			AccessibleRoom room = pickObject? pickObject.GetComponentInParent<AccessibleRoom>() : null;
+			
+			if (room != null)
+				room.GraphwayNode = origin;
 		}
 	}
-	
 
 	private void ConnectSelectedNodes(GraphwayConnectionTypes connectionType)
     {

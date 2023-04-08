@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Plugins.ZenythStudios.Graphway.Assets.Scripts;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GraphwayTest : MonoBehaviour 
 {
-    public const int MAX_SPEED = 50;
+    /*public const int MAX_SPEED = 50;
     public const int ACCELERATION = 5;
 
     [Tooltip("Enable Debug Mode to see algoritm in action slowed down. MAKE SURE GIZMOS ARE ENABLED!")]
@@ -116,5 +113,5 @@ public class GraphwayTest : MonoBehaviour
 
         GUI.Label(new Rect(20, 20, 200, 20), "INSTRUCTIONS: Left click on a roadway node to find the quickest path to it.", style);
         GUI.Label(new Rect(Screen.width - 260, 20, 200, 20), "Make sure GIZMOS are ENABLED! ^^^", style);
-    }
+    }*/
 }
