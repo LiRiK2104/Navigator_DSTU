@@ -173,14 +173,17 @@ public class GraphwayNodeEditor : Editor
 		GraphwayNode graphwayNodeData = (GraphwayNode)target;
      
 		GraphwayEditor.DrawGraph(graphwayNodeData.transform);
-		
-		if (IsMouseOverSceneView)
-			ProcessDrag();
+
+		ProcessDrag();
 	}
 
 	private void ProcessDrag()
 	{
 		return;
+		
+		if (IsMouseOverSceneView == false)
+			return;
+			
 		Event e = Event.current;
 		GameObject pickObject = HandleUtility.PickGameObject(e.mousePosition, false);
 

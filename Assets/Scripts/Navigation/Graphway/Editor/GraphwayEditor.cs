@@ -186,11 +186,9 @@ public class GraphwayEditor : Editor
 			{
 				// Raycast to find hit position
                 // NOTE - objects must have colliders attached!
-				Ray worldRay = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+                Ray worldRay = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
 
-				RaycastHit hit;
-
-				if (Physics.Raycast(worldRay, out hit))
+                if (Physics.Raycast(worldRay, out RaycastHit hit))
 				{
 					// Add new node at position
 					CreateNodeObject(hit.point);
