@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f106d49b21d784ea67b50b9020806a, type: 3}
   m_Name: PrintSignPreset
   m_EditorClassIdentifier: 
-  _hasName: 0
-  _hasIcon: 0
-  pointType: 0
-  _name: 
-  _icon: {fileID: 0}
+  _hasName: 1
+  _hasIcon: 1
+  pointType: 6
+  _name: "\u041F\u0443\u043D\u043A\u0442 \u043F\u0435\u0447\u0430\u0442\u0438"
+  _icon: {fileID: 3236270400922626276, guid: 5fb633156730f1d4182a4b85bd2d7a04, type: 3}
