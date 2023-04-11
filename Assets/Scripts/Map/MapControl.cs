@@ -9,7 +9,7 @@ namespace Map
     public class MapControl : MonoBehaviour, IPointerDownHandler, IDragHandler
     {
         public const int ZoomMin = 10;
-        public const int ZoomMax = 120;
+        public const int ZoomMax = 220;
         private const float ZoomSensitivity = 0.03f;
 
         public event Action StartedDrag;
