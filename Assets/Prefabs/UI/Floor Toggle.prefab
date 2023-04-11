@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 3374497258771210760}
   - component: {fileID: 451520352822940572}
   - component: {fileID: 4939563065334486906}
+  - component: {fileID: 6976282482748386903}
   m_Layer: 5
   m_Name: Floor Toggle
   m_TagString: Untagged
@@ -335,3 +336,16 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
+--- !u!114 &6976282482748386903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5326124306271718737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38fc511513a51694486eb0c097a7ca76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _number: {fileID: 2914423247827383770}

@@ -3,6 +3,7 @@ using Helpers;
 using Map;
 using Navigation;
 using UI;
+using UI.FloorsSwitch;
 using UnityEngine;
 
 public class Global : Singleton<Global>

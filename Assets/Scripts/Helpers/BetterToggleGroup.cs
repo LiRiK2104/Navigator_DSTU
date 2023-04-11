@@ -9,17 +9,25 @@ namespace Helpers
     {
         public delegate void ChangedEventHandler(Toggle newActive);
         public event ChangedEventHandler ToggleChanged;
-        public event Action Initialized;
 
-        private bool _isInitialized;
 
-        protected override void Start() 
+        public void Initialize()
         {
-            base.Start();
-            
-            Initialize();
+            foreach (Transform transformToggle in gameObject.transform) 
+            {
+                var toggle = transformToggle.gameObject.GetComponent<Toggle>();
+                
+                toggle.onValueChanged.RemoveAllListeners();
+                toggle.onValueChanged.AddListener(isSelected => 
+                {
+                    if (isSelected == false) 
+                        return;
+                
+                    var activeToggle = ActiveToggles().FirstOrDefault();
+                    ToggleChanged?.Invoke(activeToggle);
+                });
+            }
         }
-
 
         public void SelectToggle(Toggle targetToggle)
         {
@@ -55,28 +63,6 @@ namespace Helpers
             
             toggle = m_Toggles[index];
             return true;
-        }
-
-        private void Initialize()
-        {
-            if (_isInitialized)
-                return;
-            
-            foreach (Transform transformToggle in gameObject.transform) 
-            {
-                var toggle = transformToggle.gameObject.GetComponent<Toggle>();
-                toggle.onValueChanged.AddListener(isSelected => 
-                {
-                    if (isSelected == false) 
-                        return;
-                
-                    var activeToggle = ActiveToggles().FirstOrDefault();
-                    ToggleChanged?.Invoke(activeToggle);
-                });
-            }
-
-            _isInitialized = true;
-            Initialized?.Invoke();
         }
     }
 }

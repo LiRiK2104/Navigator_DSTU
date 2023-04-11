@@ -39,7 +39,11 @@ namespace TargetsSystem.Points
         
         protected virtual void Initialize()
         {
-            DataBase.TryGetPointInfo(this, out PointInfo pointInfo);
+            if (DataBase.TryGetPointInfo(this, out PointInfo pointInfo) && pointInfo.Name.Contains("305"))
+            {
+                
+            }
+
             _signCreator.Create(pointInfo);
         }
     }
