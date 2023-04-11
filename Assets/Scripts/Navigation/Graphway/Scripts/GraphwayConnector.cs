@@ -1,9 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using Plugins.ZenythStudios.Graphway.Assets.Scripts;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using UnityEngine;
+#endif
+
 
 public class GraphwayConnector : MonoBehaviour
 {
@@ -12,6 +16,7 @@ public class GraphwayConnector : MonoBehaviour
     
     public void ConnectSelectedNodes(Graphway graphway, int nodeIDA, int nodeIDB, GraphwayConnectionTypes connectionType)
     {
+#if UNITY_EDITOR 
         // NOTE - Nodes are connected by smallest node ID to largest node ID
         // Create connection
         if (nodeIDA < nodeIDB)
@@ -23,11 +28,13 @@ public class GraphwayConnector : MonoBehaviour
         }
 
         // Mark scene as dirty to trigger 'Save Changes' prompt
-        EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+        EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+#endif
     }
     
     public void DisconnectNodes(Graphway graphway, int nodeIDA, int nodeIDB)
     {
+#if UNITY_EDITOR 
         // NOTE - Nodes are connected by smallest node ID to largest node ID
         // Break connection
         if (nodeIDA < nodeIDB)
@@ -39,7 +46,8 @@ public class GraphwayConnector : MonoBehaviour
         }
 
         // Mark scene as dirty to trigger 'Save Changes' prompt
-        EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+        EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+#endif
     }
     
     public bool NodesAreConnected(Graphway graphway, int nodeIDA, int nodeIDB)
@@ -51,6 +59,7 @@ public class GraphwayConnector : MonoBehaviour
     {
         if (NodesAreConnected(graphway, nodeIDA, nodeIDB) == false)
         {
+#if UNITY_EDITOR 
             GameObject newConnection = new GameObject();
 
             newConnection.name = GetConnectionName(nodeIDA, nodeIDB);
@@ -62,6 +71,7 @@ public class GraphwayConnector : MonoBehaviour
 			
             // Reorder connection hierarchy to keep things tidy
             ReorderConnections(graphway);
+#endif
         }
     }
 

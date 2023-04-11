@@ -20,7 +20,14 @@ namespace UI.StateSystem.Groups
         private void DeselectAllPoints()
         {
             foreach (var point in DataBase.GetAllPoints())
+            {
+                if (point == null || point.SignCreator == null || point.SignCreator.Sign == null)
+                {
+                    return;
+                }
+                
                 point.SignCreator.Sign.Deselect();
+            }
         }
     }
 }

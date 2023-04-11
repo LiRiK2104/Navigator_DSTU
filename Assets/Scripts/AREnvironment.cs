@@ -1,8 +1,9 @@
+using Map;
 using UnityEngine;
 
 public class AREnvironment : MonoBehaviour
 {
-    [SerializeField] private Transform _signsContainer;
+    [SerializeField] private FirstBuilding _firstBuilding;
 
-    public Transform SignsContainer => _signsContainer;
+    public FirstBuilding FirstBuilding => _firstBuilding;
 }

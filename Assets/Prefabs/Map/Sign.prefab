@@ -381,7 +381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minimapScaleFactor: 4
-  _mapScaleFactor: 2
+  _mapScaleFactor: 1.74
 --- !u!1 &6004621265076207855
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,7 +451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minimapScaleFactor: 4
-  _mapScaleFactor: 2
+  _mapScaleFactor: 1.74
 --- !u!1 &7071029989827757803
 GameObject:
   m_ObjectHideFlags: 0
@@ -1282,7 +1282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minimapScaleFactor: 4
-  _mapScaleFactor: 2
+  _mapScaleFactor: 1.74
 --- !u!1 &8583762420082533561
 GameObject:
   m_ObjectHideFlags: 0

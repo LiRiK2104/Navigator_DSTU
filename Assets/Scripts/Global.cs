@@ -17,6 +17,7 @@ public class Global : Singleton<Global>
     [SerializeField] private UISetterV2 _uiSetterV2;
     [SerializeField] private CameraContainer _cameraContainer;
     [SerializeField] private BordersSetter _bordersSetter;
+    [SerializeField] private FloorsSwitcher _floorsSwitcher;
     
 
     public ARMain ArMain => _arMain;
@@ -29,4 +30,6 @@ public class Global : Singleton<Global>
     public UISetterV2 UISetterV2 => _uiSetterV2;
     public CameraContainer CameraContainer => _cameraContainer;
     public BordersSetter BordersSetter => _bordersSetter;
+
+    public FloorsSwitcher FloorsSwitcher => _floorsSwitcher;
 }

@@ -162,6 +162,9 @@ namespace UI.StateSystem
                 DrawGroups();
 
                 serializedObject.ApplyModifiedProperties();
+
+                if (GUI.changed)
+                    EditorUtility.SetDirty(target);
             }
 
             private void DrawWidgets(int widgetRectWidth, int widgetFieldHeight, float lastRectBottom)

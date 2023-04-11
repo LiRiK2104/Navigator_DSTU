@@ -3150,7 +3150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6151892607063934233}
   - component: {fileID: 507468365959587376}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 1-4 Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -17,7 +17,7 @@ namespace Map
 
         private void Update()
         {
-            if (Preset.Camera == null)
+            if (Preset == null || Preset.Camera == null)
                 return;
         
             if (_isRotateToCamera)

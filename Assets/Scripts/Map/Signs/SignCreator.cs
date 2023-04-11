@@ -1,7 +1,4 @@
-using System;
 using Navigation;
-using TargetsSystem.Points;
-using TargetsSystem.Rooms;
 using UnityEngine;
 
 namespace Map.Signs
@@ -15,13 +12,19 @@ namespace Map.Signs
 
         public Sign Sign => _sign;
         public SignPreset SignPreset => _signPreset;
-        private Transform SignsContainer => Global.Instance.ArEnvironment.SignsContainer;
+        private AREnvironment AREnvironment => Global.Instance.ArEnvironment;
         
         
         public void Create(PointInfo pointInfo)
         {
-            _sign = Instantiate(_signPrefab, transform.position, Quaternion.identity, SignsContainer);
+            _sign = Instantiate(_signPrefab, transform.position, Quaternion.identity, GetSignContainer(pointInfo));
             _sign.Initialize(pointInfo, _signPreset);
+        }
+
+        private Transform GetSignContainer(PointInfo pointInfo)
+        {
+            var floorIndex = pointInfo.Address.Floor - 1;
+            return AREnvironment.FirstBuilding.Floors[floorIndex].SignsContainer.transform;
         }
     }
 }
