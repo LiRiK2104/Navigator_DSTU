@@ -8,7 +8,7 @@ namespace UI.StateSystem.States
 {
     public class SearchResultsState : State
     {
-        [SerializeField] private TextMeshProUGUI _fakeInputFieldText;
+        [SerializeField] private FakeInputField _fakeInputField;
         
         private DataBase DataBase => Global.Instance.DataBase;
         private MapHandlePanel MapHandlePanel => Global.Instance.UISetterV2.MapHandlePanel;
@@ -35,12 +35,12 @@ namespace UI.StateSystem.States
 
         private void SetText(string text)
         {
-            _fakeInputFieldText.text = text;
+            _fakeInputField.SetText(text);
         }
 
         private void SetEmptyText()
         {
-            SetText(string.Empty);
+            _fakeInputField.Clear();
         }
 
         private void DeselectAllPoints()

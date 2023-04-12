@@ -41,22 +41,9 @@ namespace UI.Search
                     _inputField.DeactivateInputField();
             }
         }
-
-
-        private void Start()
-        {
-            Initialize();
-        }
         
         
-        public void Reset()
-        {
-            ResetDropDown();
-            _optionsList.HideScroll();
-            _cleanButton.gameObject.SetActive(false);
-        }
-        
-        private void Initialize()
+        public void Initialize()
         {
             var optionInfos = GetOptionInfos();
             
@@ -65,6 +52,13 @@ namespace UI.Search
             _inputField.onEndEdit.AddListener(OnEndEditing);
         
             _optionsList.Initialize(optionInfos, OnOptionClick);
+        }
+        
+        public void Reset()
+        {
+            ResetDropDown();
+            _optionsList.HideScroll();
+            _cleanButton.gameObject.SetActive(false);
         }
 
         private List<IOptionInfo> GetOptionInfos()
