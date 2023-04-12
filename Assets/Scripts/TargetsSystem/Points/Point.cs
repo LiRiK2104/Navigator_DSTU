@@ -19,9 +19,10 @@ namespace TargetsSystem.Points
         private DataBase DataBase => Global.Instance.DataBase;
         
         
-        private void Start()
+        public virtual void Initialize()
         {
-            Initialize();
+            if (DataBase.TryGetPointInfo(this, out PointInfo pointInfo))
+                _signCreator.Create(pointInfo);
         }
         
         private void OnDrawGizmos()
@@ -34,17 +35,6 @@ namespace TargetsSystem.Points
                 Gizmos.DrawLine(transform.position, GraphwayNodePosition);
                 Gizmos.DrawSphere(GraphwayNodePosition, sphereRadius);
             }
-        }
-        
-        
-        protected virtual void Initialize()
-        {
-            if (DataBase.TryGetPointInfo(this, out PointInfo pointInfo) && pointInfo.Name.Contains("305"))
-            {
-                
-            }
-
-            _signCreator.Create(pointInfo);
         }
     }
 }

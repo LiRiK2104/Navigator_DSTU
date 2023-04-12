@@ -22,13 +22,12 @@ public class DataBase : MonoBehaviour
     public List<TriadMarker> TriadMarker => new List<TriadMarker>(_triadMarkers);
     public List<PointsGroup> PointsGroups => new List<PointsGroup>(_pointsGroups);
     public List<Floor> Floors =>  new List<Floor>(_floors);
-
-
-    private void Awake()
+    
+    
+    public void Initialize()
     {
         FillPointInfos();
     }
-    
     
     public bool TryGetVirtualMarker(List<ARTrackedImage> trackedImages, 
         out TriadMarker foundMarker,

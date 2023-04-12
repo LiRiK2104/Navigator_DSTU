@@ -13,7 +13,7 @@ namespace TargetsSystem.Points
         public string Id => _id;
 
 
-        protected override void Initialize()
+        public override void Initialize()
         {
             base.Initialize();
             PaintField();
