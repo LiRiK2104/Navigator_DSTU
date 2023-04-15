@@ -47,6 +47,15 @@ TextureImporter:
   - first:
       213: 6516668606131851432
     second: Buttons Icons Atlas_2
+  - first:
+      213: -7431735631636968216
+    second: Buttons Icons Atlas_3
+  - first:
+      213: 8611697520914806260
+    second: Buttons Icons Atlas_4
+  - first:
+      213: 2824272508096872831
+    second: Buttons Icons Atlas_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -449,6 +458,69 @@ TextureImporter:
       bones: []
       spriteID: 8a0dd6b029bdf6a50800000000000000
       internalID: 6516668606131851432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Buttons Icons Atlas_3
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 105
+        width: 54
+        height: 90
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ec4aab61db2dd890800000000000000
+      internalID: -7431735631636968216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Buttons Icons Atlas_4
+      rect:
+        serializedVersion: 2
+        x: 473
+        y: 11
+        width: 68
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f53d3fb445e28770800000000000000
+      internalID: 8611697520914806260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Buttons Icons Atlas_7
+      rect:
+        serializedVersion: 2
+        x: 507
+        y: 105
+        width: 54
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f71040ae1e4d13720800000000000000
+      internalID: 2824272508096872831
       vertices: []
       indices: 
       edges: []
