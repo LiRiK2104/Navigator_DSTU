@@ -9,17 +9,5 @@ namespace Map
 
         public MapControl MapControl => _mapControl;
         public SignsSelector SignsSelector => _signsSelector;
-
-        public bool MapControllingActive
-        {
-            get => _mapControl.enabled;
-            set => _mapControl.enabled = value;
-        }
-        
-        public bool SignSelectorActive
-        {
-            get => _signsSelector.enabled;
-            set => _signsSelector.enabled = value;
-        }
     }
 }

@@ -5,18 +5,8 @@ namespace UI.StateSystem.States
 {
     public class MapViewState : State
     {
-        private MapHandlePanel MapHandlePanel => Global.Instance.UISetterV2.MapHandlePanel;
-        
-        public override void OnOpen()
-        {
-            MapHandlePanel.MapControllingActive = true;
-            MapHandlePanel.SignSelectorActive = true;
-        }
+        public override void OnOpen() { }
 
-        public override void OnClose()
-        {
-            MapHandlePanel.MapControllingActive = false;
-            MapHandlePanel.SignSelectorActive = false;
-        }
+        public override void OnClose() { }
     }
 }

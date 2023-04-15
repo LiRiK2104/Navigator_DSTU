@@ -15,7 +15,7 @@ namespace UI.StateSystem
     {
         [FormerlySerializedAs("_states")] 
         [SerializeField] private List<StateContainer> _statesContainers = new List<StateContainer>();
-        [SerializeField] private List<Widget> _widgetsDefault = new List<Widget>();
+        [SerializeReference] private List<Widget> _widgetsDefault = new List<Widget>();
         [SerializeField] private List<StatesGroup> _statesGroups = new List<StatesGroup>();
 
         public event Action<int> StateRemoved;
@@ -56,9 +56,20 @@ namespace UI.StateSystem
             StateRemoved?.Invoke(removedStateIndex);
         }
         
-        private void AddWidget()
+        private void AddGameObjectWidget()
         {
-            var widget = new Widget(null, false);
+            var widget = new GameObjectWidget(null, false);
+            AddWidget(widget);
+        }
+        
+        private void AddBehaviourWidget()
+        {
+            var widget = new BehaviourWidget(null, false);
+            AddWidget(widget);
+        }
+
+        private void AddWidget(Widget widget)
+        {
             _widgetsDefault.Add(widget);
 
             foreach (var state in _statesContainers)
@@ -108,7 +119,7 @@ namespace UI.StateSystem
     {
         [SerializeField] public StateType Type;
         [SerializeField] public State State;
-        [SerializeField] public List<Widget> Widgets = new List<Widget>();
+        [SerializeReference] public List<Widget> Widgets = new List<Widget>();
 
         public StateContainer(StateType type, List<Widget> widgets)
         {
@@ -119,16 +130,60 @@ namespace UI.StateSystem
     }
     
     [Serializable]
-    public struct Widget
+    public class GameObjectWidget : Widget
     {
         [SerializeField] public GameObject GameObject;
         [SerializeField] public bool Active;
 
-        public Widget(GameObject gameObject, bool active)
+        public override bool ActiveSelf
+        {
+            get => Active;
+            set => Active = value;
+        }
+
+
+        public GameObjectWidget(GameObject gameObject, bool active)
         {
             GameObject = gameObject;
             Active = active;
         }
+
+        public override void SetActive()
+        {
+            GameObject.SetActive(Active);    
+        }
+    }
+    
+    [Serializable]
+    public class BehaviourWidget : Widget
+    {
+        [SerializeField] public Behaviour Behaviour;
+        [SerializeField] public bool Active;
+
+        public override bool ActiveSelf
+        {
+            get => Active;
+            set => Active = value;
+        }
+        
+        
+        public BehaviourWidget(Behaviour behaviour, bool active)
+        {
+            Behaviour = behaviour;
+            Active = active;
+        }
+
+        public override void SetActive()
+        {
+            Behaviour.enabled = Active;
+        }
+    }
+
+    [Serializable]
+    public abstract class Widget
+    {
+        public abstract bool ActiveSelf { get; set; }
+        public abstract void SetActive();
     }
 
     #region Editor
@@ -191,19 +246,48 @@ namespace UI.StateSystem
                 for (int i = 0; i < _origin._widgetsDefault.Count; i++)
                 {
                     var widgetTemplate = _origin._widgetsDefault[i];
-                    widgetTemplate.GameObject = EditorGUILayout.ObjectField(widgetTemplate.GameObject, typeof(GameObject), true, widgetFieldLayoutOption) as GameObject;
-                    _origin._widgetsDefault[i] = widgetTemplate;
-
-                    foreach (var state in _origin._statesContainers)
-                    {
-                        state.Widgets[i] = new Widget(widgetTemplate.GameObject, state.Widgets[i].Active);
-                    }
+                    DrawWidgetField(i, widgetTemplate, widgetFieldLayoutOption);
                 }
-
 
                 GUILayout.EndArea();
                 GUIUtility.RotateAroundPivot(-rotateAngle, pivotPoint);
                 GUILayout.Space(widgetRectWidth + DefaultIndentedLevel);
+            }
+
+            private void DrawWidgetField(int widgetIndex, Widget widgetTemplate, GUILayoutOption[] widgetFieldLayoutOption)
+            {
+                switch (widgetTemplate)
+                {
+                    case GameObjectWidget gameObjectWidgetTemplate:
+                        DrawWidgetField(widgetIndex, gameObjectWidgetTemplate, widgetFieldLayoutOption);
+                        break;
+                    
+                    case BehaviourWidget behaviourWidgetTemplate:
+                        DrawWidgetField(widgetIndex, behaviourWidgetTemplate, widgetFieldLayoutOption);
+                        break;
+                }
+            }
+            
+            private void DrawWidgetField(int widgetIndex, GameObjectWidget widgetTemplate, GUILayoutOption[] widgetFieldLayoutOption)
+            {
+                widgetTemplate.GameObject = EditorGUILayout.ObjectField(widgetTemplate.GameObject, typeof(GameObject), true, widgetFieldLayoutOption) as GameObject;
+                _origin._widgetsDefault[widgetIndex] = widgetTemplate;
+
+                foreach (var state in _origin._statesContainers)
+                {
+                    state.Widgets[widgetIndex] = new GameObjectWidget(widgetTemplate.GameObject, state.Widgets[widgetIndex].ActiveSelf);
+                }
+            }
+            
+            private void DrawWidgetField(int widgetIndex, BehaviourWidget widgetTemplate, GUILayoutOption[] widgetFieldLayoutOption)
+            {
+                widgetTemplate.Behaviour = EditorGUILayout.ObjectField(widgetTemplate.Behaviour, typeof(Behaviour), true, widgetFieldLayoutOption) as Behaviour;
+                _origin._widgetsDefault[widgetIndex] = widgetTemplate;
+
+                foreach (var state in _origin._statesContainers)
+                {
+                    state.Widgets[widgetIndex] = new BehaviourWidget(widgetTemplate.Behaviour, state.Widgets[widgetIndex].ActiveSelf);
+                }
             }
 
             private void DrawStates(int widgetRectWidth, int widgetFieldHeight)
@@ -224,7 +308,7 @@ namespace UI.StateSystem
                 for (int i = stateContainer.Widgets.Count - 1; i >= 0; i--)
                 {
                     var widget = stateContainer.Widgets[i];
-                    widget.Active = GUILayout.Toggle(widget.Active, String.Empty, toggleLayoutOption);
+                    widget.ActiveSelf = GUILayout.Toggle(widget.ActiveSelf, String.Empty, toggleLayoutOption);
                     stateContainer.Widgets[i] = widget;
                 }
                 
@@ -268,8 +352,13 @@ namespace UI.StateSystem
                 
                 GUILayout.Space(space);
                 
-                if (GUILayout.Button("Add Widget"))
-                    _origin.AddWidget();
+                if (GUILayout.Button("Add GameObject Widget"))
+                    _origin.AddGameObjectWidget();
+                
+                GUILayout.Space(space);
+                
+                if (GUILayout.Button("Add Behaviour Widget"))
+                    _origin.AddBehaviourWidget();
                 
                 GUILayout.EndHorizontal();
                 GUILayout.Space(space);

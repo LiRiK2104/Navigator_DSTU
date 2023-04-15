@@ -11,20 +11,10 @@ namespace UI.StateSystem.States
         [SerializeField] private FakeInputField _fakeInputField;
         
         private DataBase DataBase => Global.Instance.DataBase;
-        private MapHandlePanel MapHandlePanel => Global.Instance.UISetterV2.MapHandlePanel;
 
+        public override void OnOpen() { }
 
-        public override void OnOpen()
-        {
-            MapHandlePanel.MapControllingActive = true;
-            MapHandlePanel.SignSelectorActive = true;
-        }
-
-        public override void OnClose()
-        {
-            MapHandlePanel.MapControllingActive = false;
-            MapHandlePanel.SignSelectorActive = false;
-        }
+        public override void OnClose() { }
         
         public void Initialize(string input, PointsGroup pointsGroup)
         {

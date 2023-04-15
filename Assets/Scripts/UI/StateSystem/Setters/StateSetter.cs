@@ -37,7 +37,7 @@ namespace UI.StateSystem.Setters
             _currentState = stateType;
 
             foreach (var widget in stateContainer.Widgets)
-                widget.GameObject.SetActive(widget.Active);
+                widget.SetActive();
             
             CloseState();
             CloseGroup();

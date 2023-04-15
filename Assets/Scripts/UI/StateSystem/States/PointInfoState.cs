@@ -14,17 +14,9 @@ namespace UI.StateSystem.States
         private MapHandlePanel MapHandlePanel => Global.Instance.UISetterV2.MapHandlePanel;
         
         
-        public override void OnOpen()
-        {
-            MapHandlePanel.MapControllingActive = true;
-            MapHandlePanel.SignSelectorActive = false;
-        }
+        public override void OnOpen() { }
 
-        public override void OnClose()
-        {
-            MapPointerSetter.DeactivateAllPointers();
-            MapHandlePanel.MapControllingActive = false;
-        }
+        public override void OnClose() { }
         
         public void Initialize(PointInfo pointInfo)
         {
