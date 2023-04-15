@@ -1,29 +1,21 @@
 using Map;
 using Navigation;
 using TargetsSystem.Points;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UI.StateSystem.States
 {
     public class PointInfoState : State
     {
-        [SerializeField] private TextMeshProUGUI _name;
-        [SerializeField] private TextMeshProUGUI _address;
-        [SerializeField] private Image _icon;
-        [SerializeField] private Image _defaultIcon;
+        [SerializeField] private PointInfoView _pointInfoView;
         
         private DataBase DataBase => Global.Instance.DataBase;
         private MapPointerSetter MapPointerSetter => Global.Instance.Navigator.MapPointerSetter;
         private MapHandlePanel MapHandlePanel => Global.Instance.UISetterV2.MapHandlePanel;
         
         
-        public override void Initialize()
+        public override void OnOpen()
         {
-            _icon.gameObject.SetActive(false);
-            _defaultIcon.gameObject.SetActive(true);
-            
             MapHandlePanel.MapControllingActive = true;
             MapHandlePanel.SignSelectorActive = false;
         }
@@ -36,20 +28,11 @@ namespace UI.StateSystem.States
         
         public void Initialize(PointInfo pointInfo)
         {
-            _name.text = pointInfo.Name;
-            _address.text = pointInfo.Address.ToString();
+            OnOpen(); 
+            _pointInfoView.Initialize(pointInfo);
             
-            Initialize();
-
-            if (DataBase.TryGetPoint(pointInfo, out Point point) && 
-                point.SignCreator.SignPreset.HasIcon)
-            {
-                _defaultIcon.gameObject.SetActive(false);
-                _icon.gameObject.SetActive(true);
-                _icon.sprite = point.SignCreator.SignPreset.Icon;
-            }
-            
-            SetPointer(point);
+            if (DataBase.TryGetPoint(pointInfo, out Point point)) 
+                SetPointer(point);
         }
 
         private void SetPointer(Point point)

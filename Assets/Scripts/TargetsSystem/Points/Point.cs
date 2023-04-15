@@ -21,8 +21,13 @@ namespace TargetsSystem.Points
         
         public virtual void Initialize()
         {
-            if (DataBase.TryGetPointInfo(this, out PointInfo pointInfo))
+            if (TryGetInfo(out PointInfo pointInfo))
                 _signCreator.Create(pointInfo);
+        }
+
+        public bool TryGetInfo(out PointInfo pointInfo)
+        {
+            return DataBase.TryGetPointInfo(this, out pointInfo);
         }
         
         private void OnDrawGizmos()

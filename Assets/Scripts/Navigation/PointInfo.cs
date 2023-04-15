@@ -43,7 +43,8 @@ namespace Navigation
             {PointType.Buffet, "буфет"}
         };
 
-        public int Floor { get; }
+        public int Floor => FloorIndex + 1;
+        public int FloorIndex { get; }
         public string BlockName { get; }
         public string RoomId { get; }
         public PointType PointType { get; }
@@ -52,21 +53,21 @@ namespace Navigation
         public bool HasRoomId => RoomId != String.Empty;
 
 
-        public Address(int floor, string blockName)
+        public Address(int floorIndex, string blockName)
         {
-            Floor = floor;
+            FloorIndex = floorIndex;
             BlockName = blockName;
             RoomId = String.Empty;
             PointType = PointType.None;
             PointNumber = 0;
         }
         
-        public Address(int floor, string blockName, string roomId) : this(floor, blockName)
+        public Address(int floorIndex, string blockName, string roomId) : this(floorIndex, blockName)
         {
             RoomId = roomId;
         }
         
-        public Address(int floor, string blockName, string roomId, PointType pointType, int pointNumber) : this(floor, blockName, roomId)
+        public Address(int floorIndex, string blockName, string roomId, PointType pointType, int pointNumber) : this(floorIndex, blockName, roomId)
         {
             PointType = pointType;
             PointNumber = pointNumber;

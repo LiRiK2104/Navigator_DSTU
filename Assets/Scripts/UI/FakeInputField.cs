@@ -9,6 +9,8 @@ namespace UI
         [SerializeField] private TextMeshProUGUI _placeholder;
         [SerializeField] private TextMeshProUGUI _textField;
 
+        public string Text => _textField.text;
+
         
         public void SetText(string text)
         {

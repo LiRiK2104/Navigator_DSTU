@@ -14,7 +14,7 @@ namespace UI.StateSystem.States
         private MapHandlePanel MapHandlePanel => Global.Instance.UISetterV2.MapHandlePanel;
 
 
-        public override void Initialize()
+        public override void OnOpen()
         {
             MapHandlePanel.MapControllingActive = true;
             MapHandlePanel.SignSelectorActive = true;

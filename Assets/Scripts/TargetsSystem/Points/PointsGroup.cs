@@ -18,13 +18,7 @@ namespace TargetsSystem.Points
         public ReadOnlyCollection<Point> Points => _points.AsReadOnly();
         private PathFinder PathFinder => Global.Instance.Navigator.PathFinder;
         private DataBase DataBase => Global.Instance.DataBase;
-
-
-        public Point GetNearestPoint()
-        {
-            return _points.OrderBy(point =>
-                PathFinder.CalculatePathDistance(PathFinder.GetLocalPath(point.GraphwayNodePosition))).First();
-        }
+        
 
         public bool TryGetPoint(PointInfo myPointInfo, out Point foundPoint)
         {

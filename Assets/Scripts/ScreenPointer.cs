@@ -14,6 +14,9 @@ public class ScreenPointer : MonoBehaviour
     private ARCameraManager ArCameraManager => Global.Instance.ArMain.CameraManager;
     private PathFinder PathFinder => Global.Instance.Navigator.PathFinder;
     private Calibrator Calibrator => Global.Instance.Calibrator;
+    private Vector3 UserPosition => ArCameraManager.transform.position + ArCameraManager.transform.forward;
+    private int UserFloorIndex => 0;
+    //TODO: Узнать этаж пользователя
 
 
     private void Awake()
@@ -44,7 +47,9 @@ public class ScreenPointer : MonoBehaviour
 
     private void StartPoint()
     {
-        if (PathFinder.NearestPoint == Vector3.zero || 
+        var userPoint = new PathPoint(UserPosition, UserFloorIndex);
+        
+        if (PathFinder.GetNearestPathPoint(userPoint) == Vector3.zero || 
             DestinationSetter.HasDestination == false)
             return;
         
@@ -63,11 +68,11 @@ public class ScreenPointer : MonoBehaviour
     {
         while (true)
         {
-            var userPosition = ArCameraManager.transform.position + ArCameraManager.transform.forward;
-            var direction = PathFinder.NearestPoint - userPosition;
+            var userPoint = new PathPoint(UserPosition, UserFloorIndex);
+            var direction = PathFinder.GetNearestPathPoint(userPoint) - UserPosition;
             float toTargetDistance = direction.magnitude;
         
-            Ray ray = new Ray(userPosition, direction);
+            Ray ray = new Ray(UserPosition, direction);
             float rayMinDistance = GetInCameraViewDistance(ray, direction);
 
             if (toTargetDistance > rayMinDistance)

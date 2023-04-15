@@ -96,7 +96,11 @@ namespace UI.StateSystem
         Default,
         SearchPanel,
         SearchResults,
-        PointInfo
+        PointInfo,
+        PathPlanning,
+        PathView,
+        PathSearch,
+        PathPointInfo
     }
 
     [Serializable]
@@ -191,7 +195,9 @@ namespace UI.StateSystem
                     _origin._widgetsDefault[i] = widgetTemplate;
 
                     foreach (var state in _origin._statesContainers)
+                    {
                         state.Widgets[i] = new Widget(widgetTemplate.GameObject, state.Widgets[i].Active);
+                    }
                 }
 
 

@@ -15,12 +15,12 @@ namespace Helpers.Tests
         private void FindPath(Vector3 positionA, Vector3 positionB, int startFloor)
         {
             if (_testDataBase.TryGetFloorNodesIds(startFloor, out List<int> availableNodeIds))
-                Graphway.FindPath(positionA, positionB, DistributeByFloors, availableNodeIds.ToArray());
+                Graphway.FindPath(positionA, positionB, DistributePathInFloors, availableNodeIds.ToArray());
             else
-                Graphway.FindPath(positionA, positionB, DistributeByFloors);
+                Graphway.FindPath(positionA, positionB, DistributePathInFloors);
         }
 
-        private void DistributeByFloors(GwWaypoint[] path)
+        private void DistributePathInFloors(GwWaypoint[] path)
         {
             if (path == null)
                 return;

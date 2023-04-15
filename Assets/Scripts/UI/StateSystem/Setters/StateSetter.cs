@@ -1,4 +1,4 @@
-using System;
+using UI.StateSystem.Groups;
 using UnityEngine;
 
 namespace UI.StateSystem.Setters
@@ -7,11 +7,28 @@ namespace UI.StateSystem.Setters
     {
         private StateType _previousState;
         private StateType _currentState;
+
+        public StatesGroup CurrentGroup
+        {
+            get
+            {
+                if (UIStatesStorage.TryGetState(_currentState, out StateContainer _currentStateContainer) == false)
+                    return null;
+                
+                foreach (var group in UIStatesStorage.StatesGroups)
+                {
+                    if (group.States.Contains(_currentStateContainer.State))
+                        return group;
+                }
+
+                return null;
+            }
+        }
         
         private UIStatesStorage UIStatesStorage => Global.Instance.UISetterV2.UIStatesStorage;
 
         
-        public void SetState(StateType stateType, out StateContainer stateContainer, Action initializationCallback = null)
+        public void SetState(StateType stateType, out StateContainer stateContainer)
         {
             if (TryGetState(stateType, out stateContainer) == false)
                 return;
@@ -24,8 +41,8 @@ namespace UI.StateSystem.Setters
             
             CloseState();
             CloseGroup();
-            InitializeState(stateContainer, initializationCallback);
             InitializeGroup();
+            InitializeState(stateContainer);
         }
         
         public void SetPreviousState()
@@ -33,12 +50,9 @@ namespace UI.StateSystem.Setters
             SetState(_previousState, out StateContainer stateContainer);
         }
 
-        private void InitializeState(StateContainer stateContainer, Action initializationCallback = null)
+        private void InitializeState(StateContainer stateContainer)
         {
-            if (initializationCallback != null)
-                initializationCallback.Invoke();
-            else
-                stateContainer.State.Initialize();
+            stateContainer.State.OnOpen();
         }
         
         private void InitializeGroup()
@@ -52,7 +66,7 @@ namespace UI.StateSystem.Setters
                 if (group.States.Contains(previousStateContainer.State) == false && 
                     group.States.Contains(currentStateContainer.State))
                 {
-                    group.Initialize();
+                    group.OnOpen();
                 }
             }
         }

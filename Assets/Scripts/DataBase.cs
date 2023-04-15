@@ -91,6 +91,36 @@ public class DataBase : MonoBehaviour
     {
         return _pointInfos.TryGetValue(targetPoint, out pointInfo);
     }
+    
+    public bool TryGetFloorNodesIds(int floorIndex, out List<int> ids)
+    {
+        ids = null;
+        
+        if (floorIndex < 0 || floorIndex >= _floors.Count)
+            return false;
+
+        ids = (
+            from block in _floors[floorIndex].Blocks 
+            from point in block.Points 
+            select point.GraphwayNode.nodeID).ToList();
+
+        return ids.Count != 0;
+    }
+        
+    public bool TryGetFloorNodesPositions(int floorIndex, out List<Vector3> positions)
+    {
+        positions = null;
+            
+        if (floorIndex < 0 || floorIndex >= _floors.Count)
+            return false;
+
+        positions = (
+            from block in _floors[floorIndex].Blocks 
+            from point in block.Points 
+            select point.GraphwayNodePosition).ToList();
+
+        return positions.Count != 0;
+    }
 
     private void FillPointInfos()
     {
@@ -108,13 +138,12 @@ public class DataBase : MonoBehaviour
     
     private PointInfo CreatePointInfo(Point point, int floorIndex, string blockName)
     {
-        int floorNumber = floorIndex + 1;
         string id = point is AccessibleRoom accessibleRoom ? accessibleRoom.Id : "0";
         var pointType = point.SignCreator.SignPreset.PointType;
 
         Address address = TryGetPointTypeNumber(point, out int typerNumber) ? 
-            new Address(floorNumber, blockName, id, pointType, typerNumber) : 
-            new Address(floorNumber, blockName, id);
+            new Address(floorIndex, blockName, id, pointType, typerNumber) : 
+            new Address(floorIndex, blockName, id);
         
         return new PointInfo(point, address);
     }

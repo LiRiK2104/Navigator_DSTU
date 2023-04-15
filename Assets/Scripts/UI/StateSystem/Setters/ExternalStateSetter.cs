@@ -19,7 +19,7 @@ namespace UI.StateSystem.Setters
         }
 
         
-        protected abstract void UpdateIndex(int removedStateIndex);
+        protected virtual void UpdateIndex(int removedStateIndex) {}
 
         protected void SetState(StateType stateType) => StateSetter.SetState(stateType, out StateContainer state);
         protected void SetPreviousState() => StateSetter.SetPreviousState();

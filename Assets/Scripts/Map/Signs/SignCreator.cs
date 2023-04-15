@@ -23,8 +23,7 @@ namespace Map.Signs
 
         private Transform GetSignContainer(PointInfo pointInfo)
         {
-            var floorIndex = pointInfo.Address.Floor - 1;
-            return AREnvironment.FirstBuilding.Floors[floorIndex].SignsContainer.transform;
+            return AREnvironment.FirstBuilding.Floors[pointInfo.Address.FloorIndex].SignsContainer.transform;
         }
     }
 }

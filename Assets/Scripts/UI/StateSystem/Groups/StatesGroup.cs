@@ -12,7 +12,7 @@ namespace UI.StateSystem.Groups
         public ReadOnlyCollection<State> States => _states.AsReadOnly();
 
         
-        public abstract void Initialize();
+        public abstract void OnOpen();
         public abstract void OnClose();
     }
 }
