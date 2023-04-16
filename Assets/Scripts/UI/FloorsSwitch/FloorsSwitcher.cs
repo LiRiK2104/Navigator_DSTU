@@ -1,4 +1,3 @@
-using System;
 using System.Collections.ObjectModel;
 using Helpers;
 using Map;
@@ -14,8 +13,10 @@ namespace UI.FloorsSwitch
     
         private BetterToggleGroup _toggleGroup;
 
-        public event Action<int> FloorSwitched;
+        public delegate void FloorSwitchInfo(int floorIndex);
+        public event FloorSwitchInfo FloorSwitched;
     
+        public int CurrentFloorIndex { get; private set; }
         private ReadOnlyCollection<Floor> Floors => Global.Instance.ArEnvironment.FirstBuilding.Floors;
 
 
@@ -84,6 +85,7 @@ namespace UI.FloorsSwitch
                 floor.gameObject.SetActive(false);
         
             Floors[floorIndex].gameObject.SetActive(true);
+            CurrentFloorIndex = floorIndex;
         }
 
         private void SetFirstFloor()

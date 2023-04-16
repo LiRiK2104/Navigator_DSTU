@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using Plugins.ZenythStudios.Graphway.Assets.Scripts;
 using UnityEngine;
@@ -7,36 +6,31 @@ namespace Helpers.Tests
 {
     public class Test : MonoBehaviour
     {
-        [SerializeField] private TestDataBase _testDataBase;
+        [SerializeField] private Transform _pointA;
+        [SerializeField] private Transform _pointB;
+        [SerializeField] private LineRenderer _lineRenderer;
 
         private Vector3[][] _floorsPath;
 
-
-        private void FindPath(Vector3 positionA, Vector3 positionB, int startFloor)
+        private void Start()
         {
-            if (_testDataBase.TryGetFloorNodesIds(startFloor, out List<int> availableNodeIds))
-                Graphway.FindPath(positionA, positionB, DistributePathInFloors, availableNodeIds.ToArray());
-            else
-                Graphway.FindPath(positionA, positionB, DistributePathInFloors);
+            FindPath(_pointA.position, _pointB.position);
+        }
+
+        private void FindPath(Vector3 positionA, Vector3 positionB)
+        {
+            Graphway.FindPath(positionA, positionB, DistributePathInFloors);
         }
 
         private void DistributePathInFloors(GwWaypoint[] path)
         {
             if (path == null)
                 return;
-
-            _floorsPath = new Vector3[_testDataBase.FloorsCount][];
             
-            for (int i = 0; i < _floorsPath.Length; i++)
-            {
-                if (_testDataBase.TryGetFloorNodesPositions(i, out List<Vector3> floorNodesIds))
-                {
-                    _floorsPath[i] = path.
-                        Where(point => floorNodesIds.Contains(point.position)).
-                        Select(point => point.position).
-                        ToArray();
-                }
-            }
+            _lineRenderer.positionCount = path.Length;
+            _lineRenderer.SetPositions(path.
+                Where(pathPoint => pathPoint.nodeID.HasValue).
+                Select(pathPoint => pathPoint.position).ToArray());
         }
     }
 }

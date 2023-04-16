@@ -13,6 +13,17 @@ namespace UI.StateSystem.States
         private PathFinder PathFinder => Global.Instance.Navigator.PathFinder;
 
 
+        private void OnEnable()
+        {
+            PathFinder.PathFound += _pathPlanningView.InitializePathInfoPanel;
+        }
+
+        private void OnDisable()
+        {
+            PathFinder.PathFound -= _pathPlanningView.InitializePathInfoPanel;
+        }
+        
+
         public override void OnOpen()
         {
             _pathPlanningView.InitializePathInfoPanel();

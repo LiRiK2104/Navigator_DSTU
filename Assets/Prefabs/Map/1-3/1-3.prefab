@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _signsContainer: {fileID: 3337912182871767151}
+  _graphway: {fileID: 561027874326122480}
 --- !u!1 &3337912182871767151
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,6 +156,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8099091531565130573, guid: f503fa75836d5c1478eb18de4583cde2, type: 3}
   m_PrefabInstance: {fileID: 5013508101486023580}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &561027874326122480 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4781315301580151916, guid: f503fa75836d5c1478eb18de4583cde2, type: 3}
+  m_PrefabInstance: {fileID: 5013508101486023580}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c87f95f8d32cda04daa394a437d35578, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9042915194349186197
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,16 +1,19 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Calibration;
+using Map;
 using Plugins.ZenythStudios.Graphway.Assets.Scripts;
 using TargetsSystem.Points;
+using UI.FloorsSwitch;
 using UnityEngine;
 
 namespace Navigation
 {
     public class PathFinder : MonoBehaviour
     {
-        [SerializeField] private List<LineRenderer> _lineRenderers;
+        [SerializeField] private LineRenderer _mapLineRenderer;
         [SerializeField] private Graphway _graphway;
 
         private Vector3 _targetPosition;
@@ -18,14 +21,17 @@ namespace Navigation
         private PathPoint? _pointA;
         private PathPoint? _pointB;
         private Vector3[][] _floorsPath;
-        
-        private Vector3? _positionA;
-        private Vector3? _positionB;
+
+        private delegate void FindPathHandler(Vector3[][] pathFloors);
+        public event Action PathFound;
 
         public DestinationPoint PriorityPoint { get; set; }
+        
         private Calibrator Calibrator => Global.Instance.Calibrator;
         private Transform UserTransform => Global.Instance.ArMain.CameraManager.transform;
         private DataBase DataBase => Global.Instance.DataBase;
+        private AREnvironment ArEnvironment => Global.Instance.ArEnvironment;
+        private FloorsSwitcher FloorsSwitcher => Global.Instance.FloorsSwitcher;
 
 
         private void OnEnable()
@@ -33,6 +39,8 @@ namespace Navigation
             /*Calibrator.Calibrated += ResetPath;
             Calibrator.Calibrated += ShowPath;
             Calibrator.CalibrationReset += HidePath;*/
+            PathFound += DrawFloorPath;
+            FloorsSwitcher.FloorSwitched += DrawFloorPath;
         }
 
         private void OnDisable()
@@ -40,6 +48,8 @@ namespace Navigation
             /*Calibrator.Calibrated -= ResetPath;
             Calibrator.Calibrated -= ShowPath;
             Calibrator.CalibrationReset -= HidePath;*/
+            PathFound -= DrawFloorPath;
+            FloorsSwitcher.FloorSwitched -= DrawFloorPath;
         }
 
 
@@ -71,15 +81,31 @@ namespace Navigation
                 .FirstOrDefault();
         }
         
-        public Point GetNearestPoint(PathPoint pointA, PointsGroup pointsGroup)
+        public IEnumerator FindNearestPoint(PathPoint pointA, PointsGroup pointsGroup, Action<Point> callback)
         {
-            return pointsGroup.Points.OrderBy(point =>
+            Point nearestPoint = null;
+            float? minDistance = null;
+            
+            foreach (var groupPoint in pointsGroup.Points)
             {
-                point.TryGetInfo(out PointInfo pointInfo);
-                var pointB = new PathPoint(point.GraphwayNodePosition, pointInfo.Address.FloorIndex);
-                var floorsPath = FindPath(pointA, pointB);
-                return CalculatePathDistance(floorsPath);
-            }).First();
+                groupPoint.TryGetInfo(out PointInfo pointInfo);
+                var pointB = new PathPoint(groupPoint.GraphwayNodePosition, pointInfo.Address.FloorIndex);
+                FindPathHandler findPathCallback = floorsPath =>
+                {
+                    var distance = CalculatePathDistance(floorsPath);
+
+                    if (distance < minDistance || minDistance.HasValue == false)
+                    {
+                        minDistance = distance;
+                        nearestPoint = groupPoint;
+                    }
+                };
+
+                yield return FindPath(pointA, pointB, findPathCallback);
+            }
+
+            if (nearestPoint != null)
+                callback.Invoke(nearestPoint);
         }
 
         public bool TryGetCurrentPathDistance(out float distance)
@@ -95,9 +121,10 @@ namespace Navigation
         
         public void ClearPath()
         {
+            _pointA = null;
+            _pointB = null;
             _floorsPath = null;
-            var floorIndex = 0;
-            DrawPath(floorIndex);
+            DrawEmptyPath();
         }
         
         private float CalculatePathDistance(Vector3[][] floorsPath)
@@ -115,41 +142,42 @@ namespace Navigation
             return distance;
         }
 
-        private void ResetPath()
-        {
-            /*if (_targetPosition == default)
-                return;
-            
-            ClearPath();
-            FindPath();
-            DrawPath();*/
-        }
-
         private void FindPath()
         {
             if (_pointA.HasValue == false || 
                 _pointB.HasValue == false) 
                 return;
-
-            _floorsPath = FindPath(_pointA.Value, _pointB.Value);
+            
+            StartCoroutine(FindPath(_pointA.Value, _pointB.Value, SetFloorsPath));
         }
         
-        private Vector3[][] FindPath(PathPoint pointA, PathPoint pointB)
+        private IEnumerator FindPath(PathPoint pointA, PathPoint pointB, params FindPathHandler[] callbacks)
         {
-            var startFloorIndex = pointA.FloorIndex;
+            int startFloorIndex = pointA.FloorIndex;
 
-            Vector3[][] floorsPath = null;
-            Action<GwWaypoint[]> callback = path => { DistributePathInFloors(path, out floorsPath); };
+            Action<GwWaypoint[]> graphwayCallback = path =>
+            {
+                DistributePathInFloors(pointA.Position, path, out Vector3[][] floorsPath);
+
+                foreach (var callback in callbacks)
+                    callback.Invoke(floorsPath);
+            };
 
             if (DataBase.TryGetFloorNodesIds(startFloorIndex, out List<int> availableNodeIds))
-                _graphway.PathFind(pointA.Position, pointB.Position, callback, availableNodeIds.ToArray());
+                _graphway.PathFind(pointA.Position, pointB.Position, graphwayCallback, availableNodeIds.ToArray());
             else
-                _graphway.PathFind(pointA.Position, pointB.Position, callback);
+                _graphway.PathFind(pointA.Position, pointB.Position, graphwayCallback);
 
-            return floorsPath;
+            yield break;
+        }
+        
+        private void SetFloorsPath(Vector3[][] floorsPath)
+        {
+            _floorsPath = floorsPath;
+            PathFound?.Invoke();
         }
 
-        private void DistributePathInFloors(GwWaypoint[] path, out Vector3[][] floorsPath)
+        private void DistributePathInFloors(Vector3 startPosition, GwWaypoint[] path, out Vector3[][] floorsPath)
         {
             floorsPath = new Vector3[DataBase.Floors.Count][];
             
@@ -158,44 +186,60 @@ namespace Navigation
 
             for (int i = 0; i < floorsPath.Length; i++)
             {
-                if (DataBase.TryGetFloorNodesPositions(i, out List<Vector3> floorNodesIds))
+                var floorNodesIDs = ArEnvironment.FirstBuilding.Floors[i].Graphway.GetAllNodes()
+                    .Select(node => node.nodeID).ToList();
+
+                var firstPathPoint = path[0];
+                var pathFloorNodesPositions = new List<Vector3>();
+                
+                if (firstPathPoint.nodeID.HasValue && 
+                    floorNodesIDs.Contains(firstPathPoint.nodeID.Value) && 
+                    firstPathPoint.position != startPosition)
                 {
-                    floorsPath[i] = path.
-                        Where(point => floorNodesIds.Contains(point.position)).
-                        Select(point => point.position).
-                        ToArray();
+                    pathFloorNodesPositions.Add(startPosition);
                 }
+
+                for (int j = 0; j < path.Length; j++)
+                {
+                    if (path[j].nodeID.HasValue && floorNodesIDs.Contains(path[j].nodeID.Value))
+                        pathFloorNodesPositions.Add(path[j].position);
+                }
+
+                floorsPath[i] = pathFloorNodesPositions.ToArray();
             }
         }
 
-        private void DrawPath(int floorIndex)
+        private void DrawFloorPath()
+        {
+            DrawFloorPath(FloorsSwitcher.CurrentFloorIndex);
+        }
+
+        private void DrawFloorPath(int floorIndex)
         {
             if (_floorsPath == null || _floorsPath.Length == 0)
                 return;
             
-            //TODO: OnFindPath, OnSwitchFloor
             var floorPath = _floorsPath[floorIndex];
-            
-            foreach (var lineRenderer in _lineRenderers)
+            var minPointsCount = 2;
+
+            if (floorPath.Length < minPointsCount)
+                DrawEmptyPath();
+            else
+                DrawPath(floorPath, _mapLineRenderer);
+        }
+
+        private void DrawPath(Vector3[] positions, params LineRenderer[] lineRenderers)
+        {
+            foreach (var lineRenderer in lineRenderers)
             {
-                for (int i = 0; i < floorPath.Length - 1; i++)
-                {
-                    lineRenderer.positionCount = floorPath.Length;
-                    lineRenderer.SetPositions(floorPath);
-                }   
+                lineRenderer.positionCount = positions.Length;
+                lineRenderer.SetPositions(positions);
             }
         }
 
-        private void ShowPath()
+        private void DrawEmptyPath()
         {
-            foreach (var lineRenderer in _lineRenderers)
-                lineRenderer.enabled = true;
-        }
-        
-        private void HidePath()
-        {
-            foreach (var lineRenderer in _lineRenderers)
-                lineRenderer.enabled = false;
+            DrawPath(Array.Empty<Vector3>(), _mapLineRenderer);
         }
     }
 

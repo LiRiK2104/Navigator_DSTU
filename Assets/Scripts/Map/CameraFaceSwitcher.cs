@@ -5,7 +5,7 @@ namespace Map
 {
     public class CameraFaceSwitcher : MonoBehaviour
     {
-        private const float MinScaleFactor = 1;
+        private const float MinScaleFactor = 0.2f;
         private const float MaxScaleFactor = 5;
 
         [SerializeField] [Range(MinScaleFactor, MaxScaleFactor)] private float _minimapScaleFactor;

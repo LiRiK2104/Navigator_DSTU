@@ -237,7 +237,7 @@ namespace Plugins.ZenythStudios.Graphway.Assets.Scripts
 
 		public List<GraphwayNode> GetAllNodes()
 		{
-			return transform.Find("Nodes").transform.GetComponentsInChildren<GraphwayNode>().ToList();
+			return transform.Find("Nodes").transform.GetComponentsInChildren<GraphwayNode>(true).ToList();
 		}
 		
 		public List<GraphwayConnection> GetAllConnections()
@@ -511,21 +511,21 @@ namespace Plugins.ZenythStudios.Graphway.Assets.Scripts
 					// Add waypoint
 					GwConnection connection = nodes[parentNodeID].connections[currentNodeID];
               
-					path.Add(new GwWaypoint(nodes[currentNodeID].transform.position, connection.speedWeight));
+					path.Add(new GwWaypoint(nodes[currentNodeID].transform.position, currentNodeID, connection.speedWeight));
                
 					// Add subnode waypoints
 					if (connection.subnodes != null && connection.subnodes.Length > 0)
 					{
 						for (int i = connection.subnodes.Length - 1 ; i >= 0 ; i--)
 						{
-							path.Add(new GwWaypoint(connection.subnodes[i].position, connection.speedWeight));
+							path.Add(new GwWaypoint(connection.subnodes[i].position, currentNodeID, connection.speedWeight));
 						}
 					}
 				}
 				else
 				{
 					// Add starting node
-					path.Add(new GwWaypoint( nodes[currentNodeID].transform.position));
+					path.Add(new GwWaypoint( nodes[currentNodeID].transform.position, currentNodeID));
 				}
             
 				// Update current node
