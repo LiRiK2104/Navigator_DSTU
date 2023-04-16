@@ -199,7 +199,6 @@ GameObject:
   - component: {fileID: 7539955851409596110}
   - component: {fileID: 9133373040416769348}
   - component: {fileID: 4971304255610444430}
-  - component: {fileID: 6493657117192785143}
   - component: {fileID: 7471933448675140230}
   m_Layer: 5
   m_Name: Path Point Info View
@@ -268,18 +267,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6493657117192785143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4308043533131412412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c20599a02ec414c9be276c7f360f78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7471933448675140230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,6 +818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c20599a02ec414c9be276c7f360f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fillingPathFieldType: 2
 --- !u!1 &7704146229244174711
 GameObject:
   m_ObjectHideFlags: 0

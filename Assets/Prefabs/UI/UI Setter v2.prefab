@@ -1283,6 +1283,7 @@ GameObject:
   - component: {fileID: 1146288991256168623}
   - component: {fileID: 1146288991256168594}
   - component: {fileID: 1146288991256168595}
+  - component: {fileID: 7037002340354316920}
   m_Layer: 5
   m_Name: Sliding Panel
   m_TagString: Untagged
@@ -1415,6 +1416,19 @@ MonoBehaviour:
     StateType: 1
   - TargetPoint: {fileID: 1146288991142815039}
     StateType: 0
+--- !u!114 &7037002340354316920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146288991256168621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 303046032fe7cba4baa9dbddc7d89914, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _searchableDropDown: {fileID: 3872887792684814395}
 --- !u!1 &1146288991352256699
 GameObject:
   m_ObjectHideFlags: 0
@@ -3248,6 +3262,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Search Window
       objectReference: {fileID: 0}
+    - target: {fileID: 7421674539254470024, guid: 2c03a08dbc9b2404584583f6f4751ca3, type: 3}
+      propertyPath: m_text
+      value: "\u041F\u043E\u0438\u0441\u043A"
+      objectReference: {fileID: 0}
     - target: {fileID: 7421674539390722824, guid: 2c03a08dbc9b2404584583f6f4751ca3, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -3827,6 +3845,14 @@ PrefabInstance:
       propertyPath: _directionSearchView
       value: 
       objectReference: {fileID: 6604093698226867280}
+    - target: {fileID: 7156564390010356951, guid: 8e68659ed2db32241b60ca575cb1aea4, type: 3}
+      propertyPath: _states.Array.data[2]
+      value: 
+      objectReference: {fileID: 2406201284523662982}
+    - target: {fileID: 8618923818198632625, guid: 8e68659ed2db32241b60ca575cb1aea4, type: 3}
+      propertyPath: _searchPanelView
+      value: 
+      objectReference: {fileID: 7037002340354316920}
     - target: {fileID: 8618923818198632625, guid: 8e68659ed2db32241b60ca575cb1aea4, type: 3}
       propertyPath: _searchableDropDown
       value: 
@@ -4533,6 +4559,17 @@ PrefabInstance:
       objectReference: {fileID: 3872887792684814395}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e68659ed2db32241b60ca575cb1aea4, type: 3}
+--- !u!114 &1146288992319993105 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8618923818595077286, guid: 8e68659ed2db32241b60ca575cb1aea4, type: 3}
+  m_PrefabInstance: {fileID: 8679842000002824631}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90187cb9873d19e4794d7c5d47fb5efd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1146288992206055598 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8618923819287892249, guid: 8e68659ed2db32241b60ca575cb1aea4, type: 3}
@@ -4553,6 +4590,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7271c28dd2dc927488f02cb67d083533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2406201284523662982 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6417758242770790193, guid: 8e68659ed2db32241b60ca575cb1aea4, type: 3}
+  m_PrefabInstance: {fileID: 8679842000002824631}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 406c74f59a4a1f0498e5bd2f7e521db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1956188600297602400 stripped
@@ -4577,6 +4625,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b5452af467f4064fb2a54008c3242fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1146288992599194645 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8618923818863265186, guid: 8e68659ed2db32241b60ca575cb1aea4, type: 3}
+  m_PrefabInstance: {fileID: 8679842000002824631}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2966efa1f49adb74dac2447eb5ebb1d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4274266817868272846 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4838485898098650489, guid: 8e68659ed2db32241b60ca575cb1aea4, type: 3}
@@ -4588,17 +4647,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef5648cb86f927468d3e247b842af0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1146288992319993105 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8618923818595077286, guid: 8e68659ed2db32241b60ca575cb1aea4, type: 3}
-  m_PrefabInstance: {fileID: 8679842000002824631}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90187cb9873d19e4794d7c5d47fb5efd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6048821765091440606 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3135988681781939817, guid: 8e68659ed2db32241b60ca575cb1aea4, type: 3}
@@ -4608,28 +4656,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f529da8c114840940a1bf735f9adeff3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2406201284523662982 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6417758242770790193, guid: 8e68659ed2db32241b60ca575cb1aea4, type: 3}
-  m_PrefabInstance: {fileID: 8679842000002824631}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 406c74f59a4a1f0498e5bd2f7e521db1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1146288992599194645 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8618923818863265186, guid: 8e68659ed2db32241b60ca575cb1aea4, type: 3}
-  m_PrefabInstance: {fileID: 8679842000002824631}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2966efa1f49adb74dac2447eb5ebb1d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1146288991114178822 stripped
