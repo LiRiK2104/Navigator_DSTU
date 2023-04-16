@@ -8,14 +8,22 @@ namespace UI.StateSystem.States
     public class PathPlanningState : State
     {
         [SerializeField] private PathPlanningView _pathPlanningView;
-
+        
         private DataBase DataBase => Global.Instance.DataBase;
         private PathFinder PathFinder => Global.Instance.Navigator.PathFinder;
-        
-        
-        public override void OnOpen() { }
+
+
+        public override void OnOpen()
+        {
+            _pathPlanningView.InitializePathInfoPanel();
+        }
 
         public override void OnClose() { }
+
+        public void InitializeView()
+        {
+            _pathPlanningView.Initialize(Swap);
+        }
 
         public void SetPoint(PointInfo pointInfo, FillingPathFieldType fillingType)
         {
@@ -74,6 +82,12 @@ namespace UI.StateSystem.States
                     SetB(pointInfo, pathPoint);
                     break;
             }
+        }
+
+        private void Swap()
+        {
+            _pathPlanningView.SwapFields();
+            PathFinder.Swap();
         }
     }
 

@@ -13,8 +13,8 @@ namespace UI
         [SerializeField] private SearchableDropDown _searchableDropDown;
         
         private PathPointStateSetter _pathPointStateSetter;
-
-        public SearchableDropDown SearchableDropDown => _searchableDropDown;
+        
+        private DataBase DataBase => Global.Instance.DataBase;
         
         
         private void Awake()
@@ -32,6 +32,23 @@ namespace UI
             _searchableDropDown.OptionSelected -= SetPathPoint;
         }
 
+
+        public void Initialize()
+        {
+            _searchableDropDown.Initialize(DataBase.GetPointsOptionInfos());
+        }
+        
+        public void Activate()
+        {
+            _searchableDropDown.InputFieldIsActive = true;
+        }
+        
+        public void Deactivate()
+        {
+            _searchableDropDown.InputFieldValue = string.Empty;
+            _searchableDropDown.Reset();
+            _searchableDropDown.InputFieldIsActive = false;
+        }
         
         private void SetPathPoint(IOptionInfo optionInfo)
         {

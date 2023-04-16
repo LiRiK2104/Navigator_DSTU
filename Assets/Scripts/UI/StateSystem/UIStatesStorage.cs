@@ -22,7 +22,7 @@ namespace UI.StateSystem
 
         public ReadOnlyCollection<StatesGroup> StatesGroups => _statesGroups.AsReadOnly();
 
-        public bool TryGetState(StateType stateType, out StateContainer foundStateContainer)
+        public bool TryGetStateContainer(StateType stateType, out StateContainer foundStateContainer)
         {
             foundStateContainer = null;
 
@@ -33,6 +33,20 @@ namespace UI.StateSystem
                     foundStateContainer = stateContainer;
                     return true;
                 }
+            }
+
+            return false;
+        }
+        
+        public bool TryGetState<T>(StateType stateType, out T state) where T : State
+        {
+            state = null;
+            
+            if (TryGetStateContainer(stateType, out StateContainer stateContainer) && 
+                stateContainer.State is T)
+            {
+                state = stateContainer.State as T;
+                return true;
             }
 
             return false;

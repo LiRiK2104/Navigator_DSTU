@@ -26,15 +26,17 @@ namespace UI
             _icon.gameObject.SetActive(false);
             _defaultIcon.gameObject.SetActive(true);
 
-            if (DataBase.TryGetPoint(pointInfo, out Point point) == false || 
-                point.SignCreator.SignPreset.HasIcon == false) 
+            if (DataBase.TryGetPoint(pointInfo, out Point point) == false) 
                 return;
-            
-            _defaultIcon.gameObject.SetActive(false);
-            _icon.gameObject.SetActive(true);
-            _icon.sprite = point.SignCreator.SignPreset.Icon;
-            
+
             _pathPointStateSetter.Initialize(pointInfo);
+            
+            if (point.SignCreator.SignPreset.HasIcon)
+            {
+                _defaultIcon.gameObject.SetActive(false);
+                _icon.gameObject.SetActive(true);
+                _icon.sprite = point.SignCreator.SignPreset.Icon;   
+            }
         }
     }
 }

@@ -27,6 +27,9 @@ public class DataBase : MonoBehaviour
     public void Initialize()
     {
         FillPointInfos();
+        
+        foreach (var point in GetAllPoints())
+            point.Initialize();
     }
     
     public bool TryGetVirtualMarker(List<ARTrackedImage> trackedImages, 
@@ -120,6 +123,30 @@ public class DataBase : MonoBehaviour
             select point.GraphwayNodePosition).ToList();
 
         return positions.Count != 0;
+    }
+
+    public List<IOptionInfo> GetAllOptionInfos()
+    {
+        var pointsOptionInfos = GetPointsOptionInfos();
+        var groupsOptionInfos = GetGroupsOptionInfos();
+        
+        return pointsOptionInfos.Concat(groupsOptionInfos).ToList();
+    }
+
+    public List<IOptionInfo> GetPointsOptionInfos()
+    {
+        var optionInfos = GetAllPoints().Select(point =>
+        {
+            TryGetPointInfo(point, out PointInfo pointInfo);
+            return pointInfo as IOptionInfo;
+        }).ToList();
+
+        return optionInfos;
+    }
+    
+    public List<IOptionInfo> GetGroupsOptionInfos()
+    {
+        return PointsGroups.Select(group => group as IOptionInfo).ToList();
     }
 
     private void FillPointInfos()

@@ -43,10 +43,8 @@ namespace UI.Search
         }
         
         
-        public void Initialize()
+        public void Initialize(List<IOptionInfo> optionInfos)
         {
-            var optionInfos = GetOptionInfos();
-            
             _cleanButton.onClick.AddListener(Reset);
             _inputField.onValueChanged.AddListener(OnInputValueChange);
             _inputField.onEndEdit.AddListener(OnEndEditing);

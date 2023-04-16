@@ -33,4 +33,11 @@ public class Global : Singleton<Global>
     public BordersSetter BordersSetter => _bordersSetter;
 
     public FloorsSwitcher FloorsSwitcher => _floorsSwitcher;
+    
+    
+    private void Start()
+    {
+        DataBase.Initialize(); 
+        UISetterV2.Initialize();
+    }
 }

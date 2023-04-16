@@ -27,10 +27,12 @@ namespace Map.Signs
                 StateSetter.SetState(StateType.PathPointInfo, out StateContainer stateContainer);
 
                 if (stateContainer.State is PathPointInfoState pathPointInfoState)
-                    pathPointInfoState.PathPointInfoView.Initialize(_pointInfo);
+                    pathPointInfoState.Initialize(_pointInfo);
             }
-            
-            SearchResultsSelector.SetPointInfoState(_pointInfo);
+            else
+            {
+                SearchResultsSelector.SetPointInfoState(_pointInfo);   
+            }
         }
     }
 }

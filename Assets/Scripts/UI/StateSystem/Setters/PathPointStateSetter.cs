@@ -9,15 +9,8 @@ namespace UI.StateSystem.Setters
         {
             SetState(StateType.PathPlanning);
 
-            if (UIStatesStorage.TryGetState(StateType.PathPlanning, out StateContainer pathPlanningStateContainer) == false)
-                return;
-
-            var pathPlanningState = pathPlanningStateContainer.State as PathPlanningState;
-
-            if (pathPlanningState == null)
-                return;
-            
-            pathPlanningState.SetPoint(pointInfo, fillingPathFieldType);
+            if (UIStatesStorage.TryGetState(StateType.PathPlanning, out PathPlanningState pathPlanningState))
+                pathPlanningState.SetPoint(pointInfo, fillingPathFieldType);
         }
     }
 }

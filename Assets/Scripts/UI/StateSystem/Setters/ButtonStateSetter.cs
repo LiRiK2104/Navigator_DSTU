@@ -54,6 +54,9 @@ namespace UI.StateSystem.Setters
                 _origin._stateType = (StateType)EditorGUILayout.EnumPopup("State", _origin._stateType);
 
                 serializedObject.ApplyModifiedProperties();
+                
+                if (GUI.changed)
+                    EditorUtility.SetDirty(target);
             }
             
             private void DrawScriptLink()

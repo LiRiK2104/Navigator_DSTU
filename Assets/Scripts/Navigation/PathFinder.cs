@@ -5,7 +5,6 @@ using Calibration;
 using Plugins.ZenythStudios.Graphway.Assets.Scripts;
 using TargetsSystem.Points;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Navigation
 {
@@ -15,17 +14,15 @@ namespace Navigation
         [SerializeField] private Graphway _graphway;
 
         private Vector3 _targetPosition;
-        private NavMeshPath _path;
 
         private PathPoint? _pointA;
         private PathPoint? _pointB;
-        private DestinationPoint _priorityPoint;
         private Vector3[][] _floorsPath;
         
         private Vector3? _positionA;
         private Vector3? _positionB;
 
-        public DestinationPoint PriorityPoint => _priorityPoint;
+        public DestinationPoint PriorityPoint { get; set; }
         private Calibrator Calibrator => Global.Instance.Calibrator;
         private Transform UserTransform => Global.Instance.ArMain.CameraManager.transform;
         private DataBase DataBase => Global.Instance.DataBase;
@@ -45,12 +42,7 @@ namespace Navigation
             Calibrator.CalibrationReset -= HidePath;*/
         }
 
-        private void Start()
-        {
-            _path = new NavMeshPath();
-        }
-        
-        
+
         public void SetA(PathPoint pathPoint)
         {
             _pointA = pathPoint;
@@ -60,6 +52,16 @@ namespace Navigation
         public void SetB(PathPoint pathPoint)
         {
             _pointB = pathPoint;
+            FindPath();
+        }
+        
+        public void Swap()
+        {
+            PathPoint? pointA = _pointA;
+            PathPoint? pointB = _pointB;
+            _pointA = pointB;
+            _pointB = pointA;
+            
             FindPath();
         }
 
@@ -168,6 +170,9 @@ namespace Navigation
 
         private void DrawPath(int floorIndex)
         {
+            if (_floorsPath == null || _floorsPath.Length == 0)
+                return;
+            
             //TODO: OnFindPath, OnSwitchFloor
             var floorPath = _floorsPath[floorIndex];
             

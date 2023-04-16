@@ -12,12 +12,12 @@ namespace UI.StateSystem.Setters
         {
             get
             {
-                if (UIStatesStorage.TryGetState(_currentState, out StateContainer _currentStateContainer) == false)
+                if (UIStatesStorage.TryGetStateContainer(_currentState, out StateContainer currentStateContainer) == false)
                     return null;
                 
                 foreach (var group in UIStatesStorage.StatesGroups)
                 {
-                    if (group.States.Contains(_currentStateContainer.State))
+                    if (group.States.Contains(currentStateContainer.State))
                         return group;
                 }
 
@@ -95,7 +95,7 @@ namespace UI.StateSystem.Setters
 
         private bool TryGetState(StateType stateType, out StateContainer stateContainer)
         {
-            return UIStatesStorage.TryGetState(stateType, out stateContainer);
+            return UIStatesStorage.TryGetStateContainer(stateType, out stateContainer);
         }
     }
 }

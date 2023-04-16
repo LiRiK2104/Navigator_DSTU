@@ -9,8 +9,7 @@ namespace UI.StateSystem.Groups
 
         public override void OnClose()
         {
-            if (UIStatesStorage.TryGetState(StateType.PathPlanning, out StateContainer stateContainer) && 
-                stateContainer.State is PathPlanningState pathPlanningState)
+            if (UIStatesStorage.TryGetState(StateType.PathPlanning, out PathPlanningState pathPlanningState))
             {
                 pathPlanningState.Clear();
             }

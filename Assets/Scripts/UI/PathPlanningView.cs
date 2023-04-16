@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -7,7 +9,15 @@ namespace UI
         [SerializeField] private FakeInputField _pointAField;
         [SerializeField] private FakeInputField _pointBField;
         [SerializeField] private PathInfoPanel _pathInfoPanel;
+        [SerializeField] private Button _swapButton;
+        
 
+        public void Initialize(Action swapCallback)
+        {
+            _swapButton.onClick.RemoveAllListeners();
+            _swapButton.onClick.AddListener(swapCallback.Invoke);
+        }
+        
         public void SetTextPointAField(string text)
         {
             _pointAField.SetText(text);
@@ -15,7 +25,7 @@ namespace UI
         
         public void SetTextPointBField(string text)
         {
-            _pointAField.SetText(text);
+            _pointBField.SetText(text);
         }
 
         public void Clear()

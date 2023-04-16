@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    [RequireComponent(typeof(PathPointButtonStateSetter))]
     public class PathPointInfoView : PointInfoView
     {
         [SerializeField] private GameObject _defaultState;

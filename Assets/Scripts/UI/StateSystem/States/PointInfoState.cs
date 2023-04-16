@@ -11,12 +11,14 @@ namespace UI.StateSystem.States
         
         private DataBase DataBase => Global.Instance.DataBase;
         private MapPointerSetter MapPointerSetter => Global.Instance.Navigator.MapPointerSetter;
-        private MapHandlePanel MapHandlePanel => Global.Instance.UISetterV2.MapHandlePanel;
-        
-        
+
+
         public override void OnOpen() { }
 
-        public override void OnClose() { }
+        public override void OnClose()
+        {
+            HidePointer();
+        }
         
         public void Initialize(PointInfo pointInfo)
         {
@@ -31,6 +33,11 @@ namespace UI.StateSystem.States
         {
             var pointerSetRequest = new PointerSetRequest(point.transform.position, PointerState.Default);
             MapPointerSetter.SetPointer(pointerSetRequest);
+        }
+
+        private void HidePointer()
+        {
+            MapPointerSetter.DeactivatePointers(PointerState.Default);
         }
     }
 }

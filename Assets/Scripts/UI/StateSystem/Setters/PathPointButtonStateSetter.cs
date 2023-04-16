@@ -6,11 +6,13 @@ using UnityEditor;
 
 namespace UI.StateSystem.Setters
 {
+    [RequireComponent(typeof(Button))]
     public partial class PathPointButtonStateSetter : PathPointStateSetter
     {
+        [SerializeField] private FillingPathFieldType _fillingPathFieldType;
+        
         private Button _button;
         private PointInfo _pointInfo;
-        private FillingPathFieldType _fillingPathFieldType;
 
 
         private void Awake()
@@ -61,6 +63,9 @@ namespace UI.StateSystem.Setters
                     (FillingPathFieldType)EditorGUILayout.EnumPopup("Filling field type", _origin._fillingPathFieldType);
 
                 serializedObject.ApplyModifiedProperties();
+
+                if (GUI.changed)
+                    EditorUtility.SetDirty(target);
             }
 
             private void DrawScriptLink()

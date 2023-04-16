@@ -1,23 +1,22 @@
-using UI.Search;
 using UnityEngine;
 
 namespace UI.StateSystem.States
 {
     public class SearchPanelState : State
     {
-        [SerializeField] private SearchableDropDown _searchableDropDown;
+        [SerializeField] private SearchPanelView _searchPanelView;
 
+        public SearchPanelView SearchPanelView => _searchPanelView;
+        
 
         public override void OnOpen()
         {
-            _searchableDropDown.InputFieldIsActive = true;
+            _searchPanelView.Activate();
         }
 
         public override void OnClose()
         {
-            _searchableDropDown.InputFieldValue = string.Empty;
-            _searchableDropDown.Reset();
-            _searchableDropDown.InputFieldIsActive = false;
+            _searchPanelView.Deactivate();
         }
     }
 }

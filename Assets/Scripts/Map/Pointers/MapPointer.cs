@@ -12,6 +12,8 @@ namespace Map
         [SerializeField] private GameObject _transitStairsState;
         [SerializeField] private GameObject _transitElevatorState;
 
+        private PointerState _state;
+
         public bool Active
         {
             get
@@ -24,34 +26,40 @@ namespace Map
             }
         }
 
-
-        public void SetState(PointerState pointerState)
+        public PointerState State
         {
-            HideAll();
-
-            switch (pointerState)
+            get => _state;
+            set
             {
-                case PointerState.Default:
-                    _defaultState.SetActive(true);
-                    break;
+                HideAll();
+
+                switch (value)
+                {
+                    case PointerState.Default:
+                        _defaultState.SetActive(true);
+                        break;
                 
-                case PointerState.PointA:
-                    _pointAState.SetActive(true);
-                    break;
+                    case PointerState.PointA:
+                        _pointAState.SetActive(true);
+                        break;
                 
-                case PointerState.PointB:
-                    _pointBState.SetActive(true);
-                    break;
+                    case PointerState.PointB:
+                        _pointBState.SetActive(true);
+                        break;
                 
-                case PointerState.TransitStairs:
-                    _transitStairsState.SetActive(true);
-                    break;
+                    case PointerState.TransitStairs:
+                        _transitStairsState.SetActive(true);
+                        break;
                 
-                case PointerState.TransitElevator:
-                    _transitElevatorState.SetActive(true);
-                    break;
+                    case PointerState.TransitElevator:
+                        _transitElevatorState.SetActive(true);
+                        break;
+                }
+
+                _state = value;
             }
         }
+        
 
         public void Hide() => HideAll();
 

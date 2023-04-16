@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Map;
@@ -26,14 +27,23 @@ namespace UI
             if (TryGetNotActivePointer(out MapPointer pointer) == false)
                 pointer = CreatePointer();
 
-            pointer.SetState(request.PointerState);
+            pointer.State = request.PointerState;
             pointer.transform.position = request.TargetPosition;
         }
 
-        public void DeactivateAllPointers()
+        public void DeactivatePointers(params PointerState[] states)
         {
             foreach (var pointer in _spawnedPointers)
-                pointer.Hide();
+            {
+                if (states.Contains(pointer.State))
+                    pointer.Hide();
+            }
+        }
+        
+        public void DeactivateAllPointers()
+        {
+            var states = (PointerState[])Enum.GetValues(typeof(PointerState));
+            DeactivatePointers(states);
         }
 
         private bool TryGetNotActivePointer(out MapPointer foundPointer)
