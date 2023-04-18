@@ -21,8 +21,7 @@ namespace UI.Search
     
         public event OnOptionSelectedDel OptionSelected;
         public event OnValueChangedDel ValueChanged;
-        public event OnValueChangedDel EndEditing;
-        
+
         private DataBase DataBase => Global.Instance.DataBase;
 
         public string InputFieldValue
@@ -47,8 +46,7 @@ namespace UI.Search
         {
             _cleanButton.onClick.AddListener(Reset);
             _inputField.onValueChanged.AddListener(OnInputValueChange);
-            _inputField.onEndEdit.AddListener(OnEndEditing);
-        
+
             _optionsList.Initialize(optionInfos, OnOptionClick);
         }
         
@@ -77,29 +75,6 @@ namespace UI.Search
             _inputField.text = string.Empty;
         }
 
-        private void OnEndEditing(string arg)
-        {
-            if (string.IsNullOrEmpty(arg))
-            {
-                Debug.Log("no value entered ");
-                return;
-            }
-        
-            StartCoroutine(CheckIfValidInput(arg));
-        }
-    
-        private IEnumerator CheckIfValidInput(string arg)
-        {
-            const int waitTime = 1;
-            yield return new WaitForSeconds(waitTime);
-
-            if (_optionsList.Contains(arg) == false)
-                _inputField.text = String.Empty;
-        
-            EndEditing?.Invoke(_inputField.text);
-        }
-        
-        
         private IEnumerator SelectOption(IOptionInfo optionInfo)
         {
             float delay = 1;
@@ -126,7 +101,6 @@ namespace UI.Search
 
             StopAllCoroutines();
             StartCoroutine(SelectOption(optionInfo));
-            StartCoroutine(CheckIfValidInput(optionInfo.Name));
         }
     }
 }

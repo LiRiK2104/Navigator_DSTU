@@ -22,14 +22,12 @@ namespace UI.Search
         private void OnEnable()
         {
             _searchableDropDown.ValueChanged += SwitchPanel;
-            _searchableDropDown.EndEditing += SwitchPanel;
             _searchableDropDown.OptionSelected += SetDefaultPanel;
         }
 
         private void OnDisable()
         {
             _searchableDropDown.ValueChanged -= SwitchPanel;
-            _searchableDropDown.EndEditing -= SwitchPanel;
             _searchableDropDown.OptionSelected -= SetDefaultPanel;
         }
 

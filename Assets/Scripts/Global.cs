@@ -1,6 +1,5 @@
 using Calibration;
 using Helpers;
-using Map;
 using Navigation;
 using UI;
 using UI.FloorsSwitch;
@@ -39,5 +38,6 @@ public class Global : Singleton<Global>
     {
         DataBase.Initialize(); 
         UISetterV2.Initialize();
+        TouchScreenKeyboard.Android.consumesOutsideTouches = false;
     }
 }
