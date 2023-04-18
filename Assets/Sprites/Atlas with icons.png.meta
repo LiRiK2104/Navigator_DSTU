@@ -81,7 +81,7 @@ TextureImporter:
       213: 1039044116695386623
     second: Atlas with icons_25
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -102,6 +102,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -140,6 +141,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -179,6 +181,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -748,6 +762,33 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Atlas with icons_0: 5535638517615751568
+      Atlas with icons_1: -7800617852392869288
+      Atlas with icons_10: 1234956379422554118
+      Atlas with icons_11: -3322227831944151154
+      Atlas with icons_12: -2656789694094787496
+      Atlas with icons_13: 3447628875374397732
+      Atlas with icons_14: 8553394925363969046
+      Atlas with icons_15: 4478352743529912396
+      Atlas with icons_16: -872439931872205654
+      Atlas with icons_17: -4578069327715406314
+      Atlas with icons_18: 7747123342861865244
+      Atlas with icons_19: -8017119942435776956
+      Atlas with icons_2: -3602377169374852498
+      Atlas with icons_20: -1477545779387216418
+      Atlas with icons_21: -5618031650887710253
+      Atlas with icons_22: 6034597403835798025
+      Atlas with icons_23: 3236270400922626276
+      Atlas with icons_24: -8651770396930576923
+      Atlas with icons_25: 1039044116695386623
+      Atlas with icons_3: -8034191886760308426
+      Atlas with icons_4: -581160383350014273
+      Atlas with icons_5: -279264103635859677
+      Atlas with icons_6: 3777404806460648603
+      Atlas with icons_7: -4623007001744816037
+      Atlas with icons_8: 7505435684364901353
+      Atlas with icons_9: 2017329111545053924
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
