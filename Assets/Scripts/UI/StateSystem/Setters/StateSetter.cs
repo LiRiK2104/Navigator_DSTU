@@ -27,14 +27,22 @@ namespace UI.StateSystem.Setters
         
         private UIStatesStorage UIStatesStorage => Global.Instance.UISetterV2.UIStatesStorage;
 
+
+        public void SetState(StateType stateType)
+        {
+            SetState(stateType, out StateContainer stateContainer);
+        }
         
         public void SetState(StateType stateType, out StateContainer stateContainer)
         {
             if (TryGetState(stateType, out stateContainer) == false)
                 return;
-            
-            _previousState = _currentState;
-            _currentState = stateType;
+
+            if (_currentState != stateType)
+            {
+                _previousState = _currentState;
+                _currentState = stateType;   
+            }
 
             foreach (var widget in stateContainer.Widgets)
                 widget.SetActive();
@@ -47,7 +55,7 @@ namespace UI.StateSystem.Setters
         
         public void SetPreviousState()
         {
-            SetState(_previousState, out StateContainer stateContainer);
+            SetState(_previousState);
         }
 
         private void InitializeState(StateContainer stateContainer)

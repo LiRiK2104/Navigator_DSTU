@@ -1,17 +1,26 @@
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using UI.StateSystem;
+using UI.StateSystem.Setters;
 
 namespace UI.SlidingPanel.Setters
 {
-    public partial class SlidingPanelSwitchObject : MonoBehaviour
+    public partial class SlidingPanelSwitchObject : ExternalStateSetter
     {
         [SerializeField] private SlidingPanelHandler _slidingPanelHandler;
         [SerializeField] protected int _index;
+        [SerializeField] private bool _instantlySet;
 
-        protected void SetState()
+        protected void SetPanelPosition()
         {
-            _slidingPanelHandler.SwitchPosition(_index);
+            _slidingPanelHandler.SwitchPosition(_index, SetState, _instantlySet);
+        }
+        
+        private void SetState(Transform targetPoint)
+        {
+            if (_slidingPanelHandler.StatesStorage.TryGetState(targetPoint, out StateType stateType))
+                SetState(stateType);
         }
     }
     
@@ -41,7 +50,9 @@ namespace UI.SlidingPanel.Setters
                     _origin._index = 
                         EditorGUILayout.Popup("Target Point", _origin._index, 
                             _origin._slidingPanelHandler.TargetPoints.Select(targetPoint => targetPoint.gameObject.name).ToArray(), 
-                            EditorStyles.popup);   
+                            EditorStyles.popup);
+                    
+                    _origin._instantlySet = EditorGUILayout.Toggle("Set instantly", _origin._instantlySet);
                 }
                 
                 serializedObject.ApplyModifiedProperties();

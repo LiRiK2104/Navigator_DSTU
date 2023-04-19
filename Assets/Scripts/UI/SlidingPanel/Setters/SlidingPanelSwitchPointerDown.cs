@@ -15,7 +15,7 @@ namespace UI.SlidingPanel.Setters
         {
             var pointerDown = new EventTrigger.Entry();
             pointerDown.eventID = EventTriggerType.PointerDown;
-            pointerDown.callback.AddListener(e => SetState());
+            pointerDown.callback.AddListener(e => SetPanelPosition());
             
             _eventTrigger = gameObject.AddComponent<EventTrigger>();
             _eventTrigger.triggers.Add(pointerDown);

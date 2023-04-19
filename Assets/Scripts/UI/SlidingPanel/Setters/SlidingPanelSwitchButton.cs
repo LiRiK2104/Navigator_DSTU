@@ -11,7 +11,7 @@ namespace UI.SlidingPanel.Setters
         private void Awake()
         {
             _button = GetComponent<Button>();
-            _button.onClick.AddListener(SetState);
+            _button.onClick.AddListener(SetPanelPosition);
         }
     }
 }

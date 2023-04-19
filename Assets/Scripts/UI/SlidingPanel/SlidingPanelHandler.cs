@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -7,6 +8,7 @@ using UnityEngine.EventSystems;
 
 namespace UI.SlidingPanel
 {
+    [RequireComponent(typeof(SlidingPanelStatesStorage))]
     public class SlidingPanelHandler : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         private const int DefaultIndex = 1;
@@ -21,17 +23,20 @@ namespace UI.SlidingPanel
         private float _beginDragY;
         private int _index = DefaultIndex;
         private Transform _currentTargetPoint;
+        private SlidingPanelStatesStorage _statesStorage;
+        
+        public SlidingPanelStatesStorage StatesStorage 
+        {
+            get
+            {
+                if (_statesStorage == null)
+                    _statesStorage = GetComponent<SlidingPanelStatesStorage>();
+
+                return _statesStorage;
+            }
+        }
         
         public List<Transform> TargetPoints => _targetPoints;
-
-        public event Action<Transform> PositionChanged;
-
-        
-        private void Start()
-        {
-            _offset = _content.transform.position - _panelTopPoint.position;
-            InstantlyMoveTo(_targetPoints[DefaultIndex]);
-        }
         
         
         public void OnBeginDrag(PointerEventData eventData)
@@ -42,23 +47,36 @@ namespace UI.SlidingPanel
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            SwitchPosition(eventData);
+            SwitchPosition(eventData, null);
         }
 
 
-        public void SwitchPosition(int index)
+        public void Initialize(Action<Transform> callback)
         {
-            if (index >= 0 && index < _targetPoints.Count)
-                MoveTo(_targetPoints[index]);
+            _offset = _content.transform.position - _panelTopPoint.position;
+            SwitchPosition(_targetPoints[DefaultIndex], callback, true);
         }
         
-        private void SwitchPosition(PointerEventData eventData)
+        public void SwitchPosition(int index, Action<Transform> callback, bool instantly = false)
+        {
+            if (index < 0 || index >= _targetPoints.Count) 
+                return;
+
+            SwitchPosition(_targetPoints[index], callback, instantly);
+        }
+        
+        private void SwitchPosition(PointerEventData eventData, Action<Transform> callback, bool instantly = false)
         {
             if (TryGetShortSwipeTargetPoint(eventData, out var nearestTargetPoint) == false)
                 nearestTargetPoint = GetNearestTargetPoint();
 
-            _currentTargetPoint = nearestTargetPoint;
-            MoveTo(nearestTargetPoint);
+            SwitchPosition(nearestTargetPoint, callback, instantly);
+        }
+        
+        private void SwitchPosition(Transform targetPoint, Action<Transform> callback, bool instantly = false)
+        {
+            _currentTargetPoint = targetPoint;
+            StartCoroutine(MoveTo(targetPoint, callback, instantly));
         }
         
         private bool TryGetShortSwipeTargetPoint(PointerEventData eventData, out Transform foundTargetPoint)
@@ -78,21 +96,30 @@ namespace UI.SlidingPanel
             return false;
         }
 
-        private void MoveTo(Transform targetPoint)
+        private IEnumerator MoveTo(Transform targetPoint, Action<Transform> callback, bool instantly = false)
+        {
+            if (instantly) 
+                yield return InstantlyMoveTo(targetPoint);
+            else
+                yield return AnimatedMoveTo(targetPoint);
+            
+            callback?.Invoke(targetPoint);
+        }
+
+        private IEnumerator AnimatedMoveTo(Transform targetPoint)
         {
             float duration = 0.15f;
-            _content.transform.DOMove(targetPoint.position + _offset, duration).OnComplete(() => InvokePositionChanged(targetPoint));
+            bool isComplete = false;
+            
+            _content.transform.DOMove(targetPoint.position + _offset, duration).OnComplete(() => isComplete = true);
+
+            yield return new WaitUntil(() => isComplete);
         }
 
-        private void InstantlyMoveTo(Transform targetPoint)
+        private IEnumerator InstantlyMoveTo(Transform targetPoint)
         {
             _content.transform.position = targetPoint.position + _offset;
-            InvokePositionChanged(targetPoint);
-        }
-
-        private void InvokePositionChanged(Transform targetPoint)
-        {
-            PositionChanged?.Invoke(targetPoint);
+            yield return null;
         }
 
         private Transform GetNearestTargetPoint()

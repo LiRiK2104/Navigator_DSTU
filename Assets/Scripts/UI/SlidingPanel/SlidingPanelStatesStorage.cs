@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UI.SlidingPanel;
+using UI.StateSystem;
 using UnityEditor;
 using UnityEngine;
 
-namespace UI.StateSystem.Setters
+namespace UI.SlidingPanel
 {
     [RequireComponent(typeof(SlidingPanelHandler))]
-    public partial class SlidingPanelStateSetter : ExternalStateSetter
+    public partial class SlidingPanelStatesStorage : MonoBehaviour
     {
         [SerializeField] private List<SearchPanelStatePreset> _statePresets;
 
@@ -24,31 +24,38 @@ namespace UI.StateSystem.Setters
                 return _slidingPanelHandler;
             }
         }
+        
+        private UIStatesStorage UIStatesStorage => Global.Instance.UISetterV2.UIStatesStorage;
 
         
-        protected override void OnEnable()
+        protected void OnEnable()
         {
-            base.OnEnable();
-            SlidingPanelHandler.PositionChanged += SetState;
+            UIStatesStorage.StateRemoved += UpdateIndex;
         }
 
-        protected override void OnDisable()
+        protected void OnDisable()
         {
-            base.OnDisable();
             UIStatesStorage.StateRemoved -= UpdateIndex;
         }
-        
 
-        private void SetState(Transform targetPoint)
+
+        public bool TryGetState(Transform point, out StateType stateType)
         {
+            stateType = StateType.Default;
+            
             foreach (var statePreset in _statePresets)
             {
-                if (statePreset.TargetPoint == targetPoint)
-                    SetState(statePreset.StateType);
+                if (statePreset.TargetPoint == point)
+                {
+                    stateType = statePreset.StateType;
+                    return true;
+                }
             }
+
+            return false;
         }
-        
-        protected override void UpdateIndex(int removedStateIndex)
+
+        private void UpdateIndex(int removedStateIndex)
         {
             for (int i = 0; i < _statePresets.Count; i++)
             {
@@ -62,7 +69,6 @@ namespace UI.StateSystem.Setters
                 _statePresets[i] = updatedPreset;
             }
         }
-
 
         private void UpdateStatePresets()
         {
@@ -107,17 +113,17 @@ namespace UI.StateSystem.Setters
     }
 
     #region Editor
-    public partial class SlidingPanelStateSetter
+    public partial class SlidingPanelStatesStorage
     {
 #if UNITY_EDITOR
-        [CustomEditor(typeof(SlidingPanelStateSetter))]
+        [CustomEditor(typeof(SlidingPanelStatesStorage))]
         public class SlidingPanelStateSetterEditor : Editor
         {
-            private SlidingPanelStateSetter _origin;
+            private SlidingPanelStatesStorage _origin;
             
             private void OnEnable()
             {
-                _origin = target as SlidingPanelStateSetter;
+                _origin = target as SlidingPanelStatesStorage;
             }
 
             public override void OnInspectorGUI()
@@ -145,7 +151,7 @@ namespace UI.StateSystem.Setters
             private void DrawScriptLink()
             {
                 GUI.enabled = false;
-                EditorGUILayout.ObjectField("Script:", MonoScript.FromMonoBehaviour(_origin), typeof(SlidingPanelStateSetter), false);
+                EditorGUILayout.ObjectField("Script:", MonoScript.FromMonoBehaviour(_origin), typeof(SlidingPanelStatesStorage), false);
                 GUI.enabled = true;
             }
         }

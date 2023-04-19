@@ -1,3 +1,4 @@
+using UI.SlidingPanel;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -62,7 +63,7 @@ namespace UI.StateSystem.Setters
             private void DrawScriptLink()
             {
                 GUI.enabled = false;
-                EditorGUILayout.ObjectField("Script:", MonoScript.FromMonoBehaviour(_origin), typeof(SlidingPanelStateSetter), false);
+                EditorGUILayout.ObjectField("Script:", MonoScript.FromMonoBehaviour(_origin), typeof(SlidingPanelStatesStorage), false);
                 GUI.enabled = true;
             }
         }
