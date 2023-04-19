@@ -1,5 +1,3 @@
-
-using System;
 using UnityEngine;
 
 namespace Map
@@ -10,21 +8,14 @@ namespace Map
         [SerializeField] private GameObject _pointAState;
         [SerializeField] private GameObject _pointBState;
         [SerializeField] private GameObject _transitStairsState;
-        [SerializeField] private GameObject _transitElevatorState;
 
         private PointerState _state;
 
-        public bool Active
-        {
-            get
-            {
-                return _defaultState.activeSelf ||
-                       _pointAState.activeSelf ||
-                       _pointBState.activeSelf ||
-                       _transitStairsState.activeSelf ||
-                       _transitElevatorState.activeSelf;
-            }
-        }
+        public bool Active =>
+            _defaultState.activeSelf ||
+            _pointAState.activeSelf ||
+            _pointBState.activeSelf /*||
+            _transitStairsState.activeSelf*/;
 
         public PointerState State
         {
@@ -48,11 +39,8 @@ namespace Map
                         break;
                 
                     case PointerState.TransitStairs:
-                        _transitStairsState.SetActive(true);
-                        break;
-                
                     case PointerState.TransitElevator:
-                        _transitElevatorState.SetActive(true);
+                        _transitStairsState.SetActive(true);
                         break;
                 }
 
@@ -69,7 +57,6 @@ namespace Map
             _pointAState.SetActive(false);
             _pointBState.SetActive(false);
             _transitStairsState.SetActive(false);
-            _transitElevatorState.SetActive(false);
         }
     }
 

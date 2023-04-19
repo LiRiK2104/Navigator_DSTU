@@ -25,6 +25,8 @@ namespace Navigation
         private delegate void FindPathHandler(Vector3[][] pathFloors);
         public event Action PathFound;
 
+        public PathPoint? PointA => _pointA;
+        public PathPoint? PointB => _pointB;
         public DestinationPoint PriorityPoint { get; set; }
         
         private Calibrator Calibrator => Global.Instance.Calibrator;

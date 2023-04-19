@@ -1,6 +1,8 @@
 using System;
+using Map;
 using Navigation;
 using TargetsSystem.Points;
+using UI.FloorsSwitch;
 using UnityEngine;
 
 namespace UI.StateSystem.States
@@ -11,16 +13,20 @@ namespace UI.StateSystem.States
         
         private DataBase DataBase => Global.Instance.DataBase;
         private PathFinder PathFinder => Global.Instance.Navigator.PathFinder;
+        private MapPointerSetter MapPointerSetter => Global.Instance.Navigator.MapPointerSetter;
+        private FloorsSwitcher FloorsSwitcher => Global.Instance.FloorsSwitcher;
 
 
         private void OnEnable()
         {
             PathFinder.PathFound += _pathPlanningView.InitializePathInfoPanel;
+            FloorsSwitcher.FloorSwitched += UpdatePointers;
         }
 
         private void OnDisable()
         {
             PathFinder.PathFound -= _pathPlanningView.InitializePathInfoPanel;
+            FloorsSwitcher.FloorSwitched -= UpdatePointers;
         }
         
 
@@ -72,12 +78,14 @@ namespace UI.StateSystem.States
         {
             _pathPlanningView.SetTextPointAField(pointInfo.Name);
             PathFinder.SetA(pathPoint);
+            UpdatePointer(pathPoint, FloorsSwitcher.CurrentFloorIndex, PointerState.PointA);
         }
         
         private void SetB(PointInfo pointInfo, PathPoint pathPoint)
         {
             _pathPlanningView.SetTextPointBField(pointInfo.Name);
             PathFinder.SetB(pathPoint);
+            UpdatePointer(pathPoint, FloorsSwitcher.CurrentFloorIndex, PointerState.PointB);
         }
         
         private void SetPriority(PointInfo pointInfo, PathPoint pathPoint)
@@ -99,6 +107,31 @@ namespace UI.StateSystem.States
         {
             _pathPlanningView.SwapFields();
             PathFinder.Swap();
+            UpdatePointers(FloorsSwitcher.CurrentFloorIndex);
+        }
+
+        private void UpdatePointers(int currentFloor)
+        {
+            UpdatePointer(PathFinder.PointA, currentFloor, PointerState.PointA);
+            UpdatePointer(PathFinder.PointB, currentFloor, PointerState.PointB);
+        }
+        
+        private void UpdatePointer(PathPoint? pathPoint, int currentFloorIndex, PointerState pointerState)
+        {
+            if (pathPoint.HasValue && currentFloorIndex == pathPoint.Value.FloorIndex)
+                SetPointer(pathPoint.Value, pointerState);
+            else
+                HidePointer(pointerState);
+        }
+        
+        private void SetPointer(PathPoint pathPoint, PointerState pointerState)
+        { 
+            MapPointerSetter.SetPointer(new PointerSetRequest(pathPoint.Position, pointerState));
+        }
+        
+        private void HidePointer(PointerState pointerState)
+        { 
+            MapPointerSetter.DeactivatePointers(pointerState);
         }
     }
 

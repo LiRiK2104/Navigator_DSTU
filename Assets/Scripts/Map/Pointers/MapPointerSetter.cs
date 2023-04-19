@@ -24,7 +24,7 @@ namespace UI
 
         public void SetPointer(PointerSetRequest request)
         {
-            if (TryGetNotActivePointer(out MapPointer pointer) == false)
+            if (TryGetPointer(request, out MapPointer pointer) == false)
                 pointer = CreatePointer();
 
             pointer.State = request.PointerState;
@@ -46,9 +46,9 @@ namespace UI
             DeactivatePointers(states);
         }
 
-        private bool TryGetNotActivePointer(out MapPointer foundPointer)
+        private bool TryGetPointer(PointerSetRequest request, out MapPointer foundPointer)
         {
-            foundPointer = _spawnedPointers.FirstOrDefault(pointer => pointer.Active);
+            foundPointer = _spawnedPointers.FirstOrDefault(pointer => pointer.State == request.PointerState);
             return foundPointer != null;
         }
 
