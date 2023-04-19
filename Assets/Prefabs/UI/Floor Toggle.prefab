@@ -375,7 +375,8 @@ GameObject:
   - component: {fileID: 6781950042232868240}
   - component: {fileID: 3374497258771210760}
   - component: {fileID: 451520352822940572}
-  - component: {fileID: 4939563065334486906}
+  - component: {fileID: 2912595779969576677}
+  - component: {fileID: 3451401633543746056}
   - component: {fileID: 6976282482748386903}
   m_Layer: 5
   m_Name: Floor Toggle
@@ -446,7 +447,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4939563065334486906
+--- !u!114 &2912595779969576677
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -455,7 +456,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5326124306271718737}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -487,13 +488,22 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 451520352822940572}
-  toggleTransition: 1
-  graphic: {fileID: 1941219611107300327}
-  m_Group: {fileID: 0}
-  onValueChanged:
+  m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 0
+--- !u!114 &3451401633543746056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5326124306271718737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 951f34d9f987a6e44a220ad94b32b866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _selection: {fileID: 3880065444503715644}
 --- !u!114 &6976282482748386903
 MonoBehaviour:
   m_ObjectHideFlags: 0

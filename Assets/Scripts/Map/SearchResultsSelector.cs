@@ -1,6 +1,7 @@
 using System;
 using Navigation;
 using TargetsSystem.Points;
+using UI.FloorsSwitch;
 using UI.Search;
 using UI.Search.Options;
 using UI.StateSystem;
@@ -15,6 +16,9 @@ namespace Map
         [SerializeField] private SearchableDropDown _searchableDropDown;
         
         private StateSetter StateSetter => Global.Instance.UISetterV2.StateSetter;
+        private MapControl MapControl => Global.Instance.UISetterV2.MapHandlePanel.MapControl;
+        private FloorsSwitcher FloorsSwitcher => Global.Instance.FloorsSwitcher;
+        private DataBase DataBase => Global.Instance.DataBase;
 
 
         private void OnEnable()
@@ -41,6 +45,11 @@ namespace Map
             switch (optionInfo)
             {
                 case PointInfo pointInfo:
+                    FloorsSwitcher.SwitchFloor(pointInfo.Address.FloorIndex);
+
+                    if (DataBase.TryGetPoint(pointInfo, out Point point))
+                        MapControl.GoToTarget(point.transform, false, true);
+                    
                     SetPointInfoState(pointInfo);
                     break;
                 

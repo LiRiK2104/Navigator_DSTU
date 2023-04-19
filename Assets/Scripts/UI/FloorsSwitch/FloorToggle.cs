@@ -1,6 +1,7 @@
 using TMPro;
+using UI.Toggles;
 using UnityEngine;
-using UnityEngine.UI;
+using Toggle = UI.Toggles.Toggle;
 
 namespace UI.FloorsSwitch
 {
@@ -8,15 +9,10 @@ namespace UI.FloorsSwitch
     public class FloorToggle : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _number;
-        
-        private Toggle _toggle;
 
 
-        public void Initialize(ToggleGroup toggleGroup, int number)
-        {
-            _toggle = GetComponent<Toggle>();
-            
-            _toggle.group = toggleGroup;
+        public void Initialize(int number)
+        { 
             _number.text = number.ToString();
         }
     }

@@ -3,15 +3,17 @@ using Helpers;
 using Map;
 using UnityEngine;
 using UnityEngine.UI;
+using Toggle = UI.Toggles.Toggle;
+using ToggleGroup = UI.Toggles.ToggleGroup;
 
 namespace UI.FloorsSwitch
 {
-    [RequireComponent(typeof(BetterToggleGroup))]
+    [RequireComponent(typeof(ToggleGroup))]
     public class FloorsSwitcher : MonoBehaviour
     {
         [SerializeField] private FloorToggle _toggleTemplate;
     
-        private BetterToggleGroup _toggleGroup;
+        private ToggleGroup _toggleGroup;
 
         public delegate void FloorSwitchInfo(int floorIndex);
         public event FloorSwitchInfo FloorSwitched;
@@ -22,11 +24,12 @@ namespace UI.FloorsSwitch
 
         private void Awake()
         {
-            _toggleGroup = GetComponent<BetterToggleGroup>();
+            _toggleGroup = GetComponent<ToggleGroup>();
         }
 
         private void OnEnable()
         {
+            ChangeToggle(CurrentFloorIndex);
             _toggleGroup.ToggleChanged += OnToggleChanged;
         }
 
@@ -43,7 +46,10 @@ namespace UI.FloorsSwitch
 
         public void SwitchFloor(int floorIndex)
         {
-            ChangeToggle(floorIndex);
+            if (_toggleGroup.gameObject.activeSelf)
+                ChangeToggle(floorIndex);
+            else
+                SelectFloor(floorIndex);
         }
 
         private void Initialize()
@@ -61,7 +67,7 @@ namespace UI.FloorsSwitch
         private void CreateToggle(int number)
         {
             var toggle = Instantiate(_toggleTemplate, transform);
-            toggle.Initialize(_toggleGroup, number);
+            toggle.Initialize(number);
         }
 
         private void ChangeToggle(int floorIndex)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace Map
         public const int ZoomMin = 10;
         public const int ZoomMax = 220;
         private const float ZoomSensitivity = 0.03f;
+
+        private IEnumerator _animatedMoveCoroutine;
 
         public event Action StartedDrag;
         
@@ -38,6 +41,7 @@ namespace Map
         public void OnPointerDown(PointerEventData eventData)
         {
             StartedDrag?.Invoke();
+            StopAnimatedMove();
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -66,7 +70,12 @@ namespace Map
 
             ClampCameraPosition();
         }
-        
+
+
+        public void GoToTarget(Transform target, bool needSetRotation, bool instantly, params Action[] callbacks)
+        {
+            StartCoroutine(GoToTargetRoutine(target, needSetRotation, instantly, callbacks));
+        }
 
         private void Zoom(Touch touchA, Touch touchB)
         {
@@ -142,6 +151,74 @@ namespace Map
                 (new Vector3(0, cameraPosition.y, BordersSetter.TopBorder) + screenCenter - topScreenPoint).z);
         
             Camera.transform.position = new Vector3(x, cameraPosition.y, z);
+        }
+        
+        private IEnumerator GoToTargetRoutine(Transform target, bool needSetRotation, bool instantly, params Action[] callbacks)
+        {
+            if (instantly)
+            {
+                yield return GoToTargetInstantly(target, needSetRotation);
+            }
+            else
+            {
+                _animatedMoveCoroutine = GoToTargetAnimated(target, needSetRotation);
+                yield return _animatedMoveCoroutine;
+            }
+
+            foreach (var callback in callbacks)
+                callback?.Invoke();
+        }
+        
+        private IEnumerator GoToTargetInstantly(Transform target, bool needSetRotation)
+        {
+            Camera.transform.position = GetTargetPosition(target);
+            
+            if (needSetRotation)
+                Camera.transform.rotation = GetTargetRotation(target);
+            
+            yield return null;
+        }
+
+        private IEnumerator GoToTargetAnimated(Transform target, bool needSetRotation)
+        {
+            float speed = 2;
+            float minDistance = 0.1f;
+            float distance;
+
+            do
+            {
+                Vector3 targetPosition = GetTargetPosition(target);
+                Camera.transform.position = Vector3.Lerp(Camera.transform.position, targetPosition, Time.deltaTime * speed);
+
+                if (needSetRotation)
+                {
+                    Quaternion transformRotation = GetTargetRotation(target);
+                    Camera.transform.rotation = Quaternion.Lerp(Camera.transform.rotation, transformRotation, Time.deltaTime * speed);   
+                }
+
+                distance = Vector3.Distance(Camera.transform.position, targetPosition);
+                yield return null;
+            } 
+            while (distance > minDistance);
+        }
+
+        private void StopAnimatedMove()
+        {
+            if (_animatedMoveCoroutine == null)
+                return;
+            
+            StopCoroutine(_animatedMoveCoroutine);
+            _animatedMoveCoroutine = null;
+        }
+
+        private Vector3 GetTargetPosition(Transform target)
+        {
+            return new Vector3(target.position.x, Camera.transform.position.y, target.position.z);
+        }
+        
+        private Quaternion GetTargetRotation(Transform target)
+        {
+            return Quaternion.Euler(0, target.rotation.eulerAngles.y, 0) * Quaternion.Euler(90, 0, 0);
         }
     }
 }
