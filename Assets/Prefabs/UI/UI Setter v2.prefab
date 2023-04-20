@@ -920,6 +920,7 @@ GameObject:
   - component: {fileID: 7544980804444405240}
   - component: {fileID: 7314455174160980408}
   - component: {fileID: 5357491876668146911}
+  - component: {fileID: 5032418689401544043}
   m_Layer: 5
   m_Name: Sliding Panel View
   m_TagString: Untagged
@@ -1029,6 +1030,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _searchableDropDown: {fileID: 3872887792684814395}
+--- !u!114 &5032418689401544043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921051732381766124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c59de26b8faec94b9d31b1a1a169e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slidingPanelHandler: {fileID: 1146288991256168594}
 --- !u!1001 &56976629008201966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1249,6 +1263,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1146288991053234137}
     m_Modifications:
+    - target: {fileID: 1832880570767958720, guid: 77b3f1f943a11bf4294540c79e689b4f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1891676349592020545, guid: 77b3f1f943a11bf4294540c79e689b4f, type: 3}
       propertyPath: m_Material
       value: 
@@ -1358,8 +1376,21 @@ PrefabInstance:
       value: -96.830086
       objectReference: {fileID: 0}
     - target: {fileID: 1891676351111093380, guid: 77b3f1f943a11bf4294540c79e689b4f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 419
+      objectReference: {fileID: 0}
+    - target: {fileID: 1891676351111093380, guid: 77b3f1f943a11bf4294540c79e689b4f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -85
+      value: -58
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665439865835364975, guid: 77b3f1f943a11bf4294540c79e689b4f, type: 3}
+      propertyPath: m_text
+      value: "2 \u044D\u0442\u0430\u0436, \u043B\u0435\u0432\u043E\u0435 \u043A\u0440\u044B\u043B\u043E,
+        <nobr>\u0430\u0443\u0434. 1-234</nobr>"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2665439865835364975, guid: 77b3f1f943a11bf4294540c79e689b4f, type: 3}
+      propertyPath: m_margin.z
+      value: 0.33413884
       objectReference: {fileID: 0}
     - target: {fileID: 4078656622957126896, guid: 77b3f1f943a11bf4294540c79e689b4f, type: 3}
       propertyPath: m_Color.b
@@ -1394,8 +1425,16 @@ PrefabInstance:
       value: -105.57731
       objectReference: {fileID: 0}
     - target: {fileID: 8460682773266241846, guid: 77b3f1f943a11bf4294540c79e689b4f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -363.6512
+      objectReference: {fileID: 0}
+    - target: {fileID: 8460682773266241846, guid: 77b3f1f943a11bf4294540c79e689b4f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 30.174316
+      objectReference: {fileID: 0}
+    - target: {fileID: 8460682773266241846, guid: 77b3f1f943a11bf4294540c79e689b4f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -140.69995
+      value: -113.69997
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77b3f1f943a11bf4294540c79e689b4f, type: 3}
@@ -1892,6 +1931,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bottom Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 8217259117175016151, guid: 6438322f143d86649af533576467cb41, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6438322f143d86649af533576467cb41, type: 3}
 --- !u!224 &948518708494327997 stripped
@@ -2060,6 +2103,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0.0026855469
       objectReference: {fileID: 0}
+    - target: {fileID: 3100638246452957012, guid: c8d3c234bffee024f905081db4058a34, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4308043533131412412, guid: c8d3c234bffee024f905081db4058a34, type: 3}
       propertyPath: m_Name
       value: Path Point Info View
@@ -2067,6 +2114,22 @@ PrefabInstance:
     - target: {fileID: 4308043533131412412, guid: c8d3c234bffee024f905081db4058a34, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805645595787902667, guid: c8d3c234bffee024f905081db4058a34, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043887061628111734, guid: c8d3c234bffee024f905081db4058a34, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -426.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043887061628111734, guid: c8d3c234bffee024f905081db4058a34, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 11.854004
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043887061628111734, guid: c8d3c234bffee024f905081db4058a34, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -126.832
       objectReference: {fileID: 0}
     - target: {fileID: 7085464235452908169, guid: c8d3c234bffee024f905081db4058a34, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2159,6 +2222,14 @@ PrefabInstance:
     - target: {fileID: 7539955851409596110, guid: c8d3c234bffee024f905081db4058a34, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8040976098402751684, guid: c8d3c234bffee024f905081db4058a34, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 68.614
+      objectReference: {fileID: 0}
+    - target: {fileID: 8040976098402751684, guid: c8d3c234bffee024f905081db4058a34, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -47
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8d3c234bffee024f905081db4058a34, type: 3}
@@ -2566,6 +2637,18 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8136187709393708713, guid: 4b4f78a1f5be9974cb8634c2c18ff8b2, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8954495818146884573, guid: 4b4f78a1f5be9974cb8634c2c18ff8b2, type: 3}
+      propertyPath: _index
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8954495818146884573, guid: 4b4f78a1f5be9974cb8634c2c18ff8b2, type: 3}
+      propertyPath: _slidingPanelHandler
+      value: 
+      objectReference: {fileID: 1146288991256168594}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b4f78a1f5be9974cb8634c2c18ff8b2, type: 3}
 --- !u!1 &1146288992374898812 stripped
@@ -3704,147 +3787,147 @@ MonoBehaviour:
   - Type: 0
     State: {fileID: 1146288992206055598}
     Widgets:
-    - rid: 8901773044705396685
-    - rid: 8901773044705396686
-    - rid: 8901773044705396687
-    - rid: 8901773044705396688
-    - rid: 8901773044705396689
-    - rid: 8901773044705396690
-    - rid: 8901773044705396691
-    - rid: 8901773044705396692
-    - rid: 8901773044705396693
-    - rid: 8901773044705396694
-    - rid: 8901773044705396695
-    - rid: 8901773044705396696
-    - rid: 8901773044705396697
+    - rid: 8901773045698396543
+    - rid: 8901773045698396544
+    - rid: 8901773045698396545
+    - rid: 8901773045698396546
+    - rid: 8901773045698396547
+    - rid: 8901773045698396548
+    - rid: 8901773045698396549
+    - rid: 8901773045698396550
+    - rid: 8901773045698396551
+    - rid: 8901773045698396552
+    - rid: 8901773045698396553
+    - rid: 8901773045698396554
+    - rid: 8901773045698396555
   - Type: 1
     State: {fileID: 1146288991321788102}
     Widgets:
-    - rid: 8901773044705396698
-    - rid: 8901773044705396699
-    - rid: 8901773044705396700
-    - rid: 8901773044705396701
-    - rid: 8901773044705396702
-    - rid: 8901773044705396703
-    - rid: 8901773044705396704
-    - rid: 8901773044705396705
-    - rid: 8901773044705396706
-    - rid: 8901773044705396707
-    - rid: 8901773044705396708
-    - rid: 8901773044705396709
-    - rid: 8901773044705396710
+    - rid: 8901773045698396556
+    - rid: 8901773045698396557
+    - rid: 8901773045698396558
+    - rid: 8901773045698396559
+    - rid: 8901773045698396560
+    - rid: 8901773045698396561
+    - rid: 8901773045698396562
+    - rid: 8901773045698396563
+    - rid: 8901773045698396564
+    - rid: 8901773045698396565
+    - rid: 8901773045698396566
+    - rid: 8901773045698396567
+    - rid: 8901773045698396568
   - Type: 2
     State: {fileID: 1146288991114178822}
     Widgets:
-    - rid: 8901773044705396711
-    - rid: 8901773044705396712
-    - rid: 8901773044705396713
-    - rid: 8901773044705396714
-    - rid: 8901773044705396715
-    - rid: 8901773044705396716
-    - rid: 8901773044705396717
-    - rid: 8901773044705396718
-    - rid: 8901773044705396719
-    - rid: 8901773044705396720
-    - rid: 8901773044705396721
-    - rid: 8901773044705396722
-    - rid: 8901773044705396723
+    - rid: 8901773045698396569
+    - rid: 8901773045698396570
+    - rid: 8901773045698396571
+    - rid: 8901773045698396572
+    - rid: 8901773045698396573
+    - rid: 8901773045698396574
+    - rid: 8901773045698396575
+    - rid: 8901773045698396576
+    - rid: 8901773045698396577
+    - rid: 8901773045698396578
+    - rid: 8901773045698396579
+    - rid: 8901773045698396580
+    - rid: 8901773045698396581
   - Type: 3
     State: {fileID: 1146288992599194645}
     Widgets:
-    - rid: 8901773044705396724
-    - rid: 8901773044705396725
-    - rid: 8901773044705396726
-    - rid: 8901773044705396727
-    - rid: 8901773044705396728
-    - rid: 8901773044705396729
-    - rid: 8901773044705396730
-    - rid: 8901773044705396731
-    - rid: 8901773044705396732
-    - rid: 8901773044705396733
-    - rid: 8901773044705396734
-    - rid: 8901773044705396735
-    - rid: 8901773044706181120
+    - rid: 8901773045698396582
+    - rid: 8901773045698396583
+    - rid: 8901773045698396584
+    - rid: 8901773045698396585
+    - rid: 8901773045698396586
+    - rid: 8901773045698396587
+    - rid: 8901773045698396588
+    - rid: 8901773045698396589
+    - rid: 8901773045698396590
+    - rid: 8901773045698396591
+    - rid: 8901773045698396592
+    - rid: 8901773045698396593
+    - rid: 8901773045698396594
   - Type: 4
     State: {fileID: 1146288992319993105}
     Widgets:
-    - rid: 8901773044706181121
-    - rid: 8901773044706181122
-    - rid: 8901773044706181123
-    - rid: 8901773044706181124
-    - rid: 8901773044706181125
-    - rid: 8901773044706181126
-    - rid: 8901773044706181127
-    - rid: 8901773044706181128
-    - rid: 8901773044706181129
-    - rid: 8901773044706181130
-    - rid: 8901773044706181131
-    - rid: 8901773044706181132
-    - rid: 8901773044706181133
+    - rid: 8901773045698396595
+    - rid: 8901773045698396596
+    - rid: 8901773045698396597
+    - rid: 8901773045698396598
+    - rid: 8901773045698396599
+    - rid: 8901773045698396600
+    - rid: 8901773045698396601
+    - rid: 8901773045698396602
+    - rid: 8901773045698396603
+    - rid: 8901773045698396604
+    - rid: 8901773045698396605
+    - rid: 8901773045698396606
+    - rid: 8901773045698396607
   - Type: 5
     State: {fileID: 5660340146777322052}
     Widgets:
-    - rid: 8901773044706181134
-    - rid: 8901773044706181135
-    - rid: 8901773044706181136
-    - rid: 8901773044706181137
-    - rid: 8901773044706181138
-    - rid: 8901773044706181139
-    - rid: 8901773044706181140
-    - rid: 8901773044706181141
-    - rid: 8901773044706181142
-    - rid: 8901773044706181143
-    - rid: 8901773044706181144
-    - rid: 8901773044706181145
-    - rid: 8901773044706181146
+    - rid: 8901773045698396608
+    - rid: 8901773045698396609
+    - rid: 8901773045698396610
+    - rid: 8901773045698396611
+    - rid: 8901773045698396612
+    - rid: 8901773045698396613
+    - rid: 8901773045698396614
+    - rid: 8901773045698396615
+    - rid: 8901773045698396616
+    - rid: 8901773045698396617
+    - rid: 8901773045698396618
+    - rid: 8901773045698396619
+    - rid: 8901773045698396620
   - Type: 6
     State: {fileID: 4274266817868272846}
     Widgets:
-    - rid: 8901773044706181147
-    - rid: 8901773044706181148
-    - rid: 8901773044706181149
-    - rid: 8901773044706181150
-    - rid: 8901773044706181151
-    - rid: 8901773044706181152
-    - rid: 8901773044706181153
-    - rid: 8901773044706181154
-    - rid: 8901773044706181155
-    - rid: 8901773044706181156
-    - rid: 8901773044706181157
-    - rid: 8901773044706181158
-    - rid: 8901773044706181159
+    - rid: 8901773045698396621
+    - rid: 8901773045698396622
+    - rid: 8901773045698396623
+    - rid: 8901773045698396624
+    - rid: 8901773045698396625
+    - rid: 8901773045698396626
+    - rid: 8901773045698396627
+    - rid: 8901773045698396628
+    - rid: 8901773045698396629
+    - rid: 8901773045698396630
+    - rid: 8901773045698396631
+    - rid: 8901773045698396632
+    - rid: 8901773045698396633
   - Type: 7
     State: {fileID: 2406201284523662982}
     Widgets:
-    - rid: 8901773044706181160
-    - rid: 8901773044706181161
-    - rid: 8901773044706181162
-    - rid: 8901773044706181163
-    - rid: 8901773044706181164
-    - rid: 8901773044706181165
-    - rid: 8901773044706181166
-    - rid: 8901773044706181167
-    - rid: 8901773044706181168
-    - rid: 8901773044706181169
-    - rid: 8901773044706181170
-    - rid: 8901773044706181171
-    - rid: 8901773044706181172
+    - rid: 8901773045698396634
+    - rid: 8901773045698396635
+    - rid: 8901773045698396636
+    - rid: 8901773045698396637
+    - rid: 8901773045698396638
+    - rid: 8901773045698396639
+    - rid: 8901773045698396640
+    - rid: 8901773045698396641
+    - rid: 8901773045698396642
+    - rid: 8901773045698396643
+    - rid: 8901773045698396644
+    - rid: 8901773045698396645
+    - rid: 8901773045698396646
   - Type: 8
     State: {fileID: 6048821765091440606}
     Widgets:
-    - rid: 8901773044706181173
-    - rid: 8901773044706181174
-    - rid: 8901773044706181175
-    - rid: 8901773044706181176
-    - rid: 8901773044706181177
-    - rid: 8901773044706181178
-    - rid: 8901773044706181179
-    - rid: 8901773044706181180
-    - rid: 8901773044706181181
-    - rid: 8901773044706181182
-    - rid: 8901773044706181183
-    - rid: 8901773044706181184
-    - rid: 8901773044706181185
+    - rid: 8901773045698396647
+    - rid: 8901773045698396648
+    - rid: 8901773045698396649
+    - rid: 8901773045698396650
+    - rid: 8901773045698396651
+    - rid: 8901773045698396652
+    - rid: 8901773045698396653
+    - rid: 8901773045698396654
+    - rid: 8901773045698396655
+    - rid: 8901773045698396656
+    - rid: 8901773045698396657
+    - rid: 8901773045698396658
+    - rid: 8901773045698396659
   _widgetsDefault:
   - rid: 126
   - rid: 127
@@ -3930,587 +4013,587 @@ MonoBehaviour:
       data:
         GameObject: {fileID: 8153140920719989439}
         Active: 0
-    - rid: 8901773044705396685
+    - rid: 8901773045698396543
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992018886221}
         Active: 1
-    - rid: 8901773044705396686
+    - rid: 8901773045698396544
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992360398378}
         Active: 0
-    - rid: 8901773044705396687
+    - rid: 8901773045698396545
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5207346069664310037}
         Active: 1
-    - rid: 8901773044705396688
+    - rid: 8901773045698396546
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7921051732381766124}
         Active: 1
-    - rid: 8901773044705396689
+    - rid: 8901773045698396547
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992374898812}
         Active: 0
-    - rid: 8901773044705396690
+    - rid: 8901773045698396548
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992548455808}
         Active: 0
-    - rid: 8901773044705396691
+    - rid: 8901773045698396549
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514118}
         Active: 1
-    - rid: 8901773044705396692
+    - rid: 8901773045698396550
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514117}
         Active: 1
-    - rid: 8901773044705396693
+    - rid: 8901773045698396551
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5453590313675184881}
         Active: 1
-    - rid: 8901773044705396694
+    - rid: 8901773045698396552
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7000563025869930132}
         Active: 0
-    - rid: 8901773044705396695
+    - rid: 8901773045698396553
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8622044767950896316}
         Active: 0
-    - rid: 8901773044705396696
+    - rid: 8901773045698396554
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 825522860596714011}
         Active: 0
-    - rid: 8901773044705396697
+    - rid: 8901773045698396555
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8153140920719989439}
         Active: 0
-    - rid: 8901773044705396698
+    - rid: 8901773045698396556
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992018886221}
         Active: 1
-    - rid: 8901773044705396699
+    - rid: 8901773045698396557
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992360398378}
         Active: 0
-    - rid: 8901773044705396700
+    - rid: 8901773045698396558
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5207346069664310037}
         Active: 1
-    - rid: 8901773044705396701
+    - rid: 8901773045698396559
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7921051732381766124}
         Active: 1
-    - rid: 8901773044705396702
+    - rid: 8901773045698396560
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992374898812}
         Active: 0
-    - rid: 8901773044705396703
+    - rid: 8901773045698396561
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992548455808}
         Active: 0
-    - rid: 8901773044705396704
+    - rid: 8901773045698396562
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514118}
         Active: 1
-    - rid: 8901773044705396705
+    - rid: 8901773045698396563
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514117}
         Active: 0
-    - rid: 8901773044705396706
+    - rid: 8901773045698396564
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5453590313675184881}
         Active: 0
-    - rid: 8901773044705396707
+    - rid: 8901773045698396565
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7000563025869930132}
         Active: 0
-    - rid: 8901773044705396708
+    - rid: 8901773045698396566
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8622044767950896316}
         Active: 0
-    - rid: 8901773044705396709
+    - rid: 8901773045698396567
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 825522860596714011}
         Active: 0
-    - rid: 8901773044705396710
+    - rid: 8901773045698396568
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8153140920719989439}
         Active: 0
-    - rid: 8901773044705396711
+    - rid: 8901773045698396569
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992018886221}
         Active: 0
-    - rid: 8901773044705396712
+    - rid: 8901773045698396570
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992360398378}
         Active: 1
-    - rid: 8901773044705396713
+    - rid: 8901773045698396571
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5207346069664310037}
         Active: 0
-    - rid: 8901773044705396714
+    - rid: 8901773045698396572
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7921051732381766124}
         Active: 1
-    - rid: 8901773044705396715
+    - rid: 8901773045698396573
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992374898812}
         Active: 0
-    - rid: 8901773044705396716
+    - rid: 8901773045698396574
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992548455808}
         Active: 0
-    - rid: 8901773044705396717
+    - rid: 8901773045698396575
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514118}
         Active: 0
-    - rid: 8901773044705396718
+    - rid: 8901773045698396576
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514117}
         Active: 0
-    - rid: 8901773044705396719
+    - rid: 8901773045698396577
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5453590313675184881}
         Active: 0
-    - rid: 8901773044705396720
+    - rid: 8901773045698396578
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7000563025869930132}
         Active: 0
-    - rid: 8901773044705396721
+    - rid: 8901773045698396579
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8622044767950896316}
         Active: 0
-    - rid: 8901773044705396722
+    - rid: 8901773045698396580
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 825522860596714011}
         Active: 0
-    - rid: 8901773044705396723
+    - rid: 8901773045698396581
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8153140920719989439}
         Active: 0
-    - rid: 8901773044705396724
+    - rid: 8901773045698396582
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992018886221}
         Active: 0
-    - rid: 8901773044705396725
+    - rid: 8901773045698396583
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992360398378}
         Active: 0
-    - rid: 8901773044705396726
+    - rid: 8901773045698396584
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5207346069664310037}
         Active: 0
-    - rid: 8901773044705396727
+    - rid: 8901773045698396585
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7921051732381766124}
         Active: 0
-    - rid: 8901773044705396728
+    - rid: 8901773045698396586
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992374898812}
         Active: 1
-    - rid: 8901773044705396729
+    - rid: 8901773045698396587
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992548455808}
         Active: 0
-    - rid: 8901773044705396730
+    - rid: 8901773045698396588
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514118}
         Active: 1
-    - rid: 8901773044705396731
+    - rid: 8901773045698396589
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514117}
         Active: 1
-    - rid: 8901773044705396732
+    - rid: 8901773045698396590
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5453590313675184881}
         Active: 1
-    - rid: 8901773044705396733
+    - rid: 8901773045698396591
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7000563025869930132}
         Active: 0
-    - rid: 8901773044705396734
+    - rid: 8901773045698396592
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8622044767950896316}
         Active: 0
-    - rid: 8901773044705396735
+    - rid: 8901773045698396593
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 825522860596714011}
         Active: 0
-    - rid: 8901773044706181120
+    - rid: 8901773045698396594
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8153140920719989439}
         Active: 0
-    - rid: 8901773044706181121
+    - rid: 8901773045698396595
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992018886221}
         Active: 0
-    - rid: 8901773044706181122
+    - rid: 8901773045698396596
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992360398378}
         Active: 0
-    - rid: 8901773044706181123
+    - rid: 8901773045698396597
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5207346069664310037}
         Active: 0
-    - rid: 8901773044706181124
+    - rid: 8901773045698396598
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7921051732381766124}
         Active: 0
-    - rid: 8901773044706181125
+    - rid: 8901773045698396599
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992374898812}
         Active: 0
-    - rid: 8901773044706181126
+    - rid: 8901773045698396600
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992548455808}
         Active: 1
-    - rid: 8901773044706181127
+    - rid: 8901773045698396601
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514118}
         Active: 1
-    - rid: 8901773044706181128
+    - rid: 8901773045698396602
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514117}
         Active: 1
-    - rid: 8901773044706181129
+    - rid: 8901773045698396603
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5453590313675184881}
         Active: 0
-    - rid: 8901773044706181130
+    - rid: 8901773045698396604
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7000563025869930132}
         Active: 0
-    - rid: 8901773044706181131
+    - rid: 8901773045698396605
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8622044767950896316}
         Active: 0
-    - rid: 8901773044706181132
+    - rid: 8901773045698396606
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 825522860596714011}
         Active: 0
-    - rid: 8901773044706181133
+    - rid: 8901773045698396607
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8153140920719989439}
         Active: 0
-    - rid: 8901773044706181134
+    - rid: 8901773045698396608
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992018886221}
         Active: 0
-    - rid: 8901773044706181135
+    - rid: 8901773045698396609
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992360398378}
         Active: 0
-    - rid: 8901773044706181136
+    - rid: 8901773045698396610
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5207346069664310037}
         Active: 0
-    - rid: 8901773044706181137
+    - rid: 8901773045698396611
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7921051732381766124}
         Active: 0
-    - rid: 8901773044706181138
+    - rid: 8901773045698396612
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992374898812}
         Active: 0
-    - rid: 8901773044706181139
+    - rid: 8901773045698396613
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992548455808}
         Active: 0
-    - rid: 8901773044706181140
+    - rid: 8901773045698396614
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514118}
         Active: 1
-    - rid: 8901773044706181141
+    - rid: 8901773045698396615
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514117}
         Active: 0
-    - rid: 8901773044706181142
+    - rid: 8901773045698396616
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5453590313675184881}
         Active: 1
-    - rid: 8901773044706181143
+    - rid: 8901773045698396617
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7000563025869930132}
         Active: 1
-    - rid: 8901773044706181144
+    - rid: 8901773045698396618
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8622044767950896316}
         Active: 0
-    - rid: 8901773044706181145
+    - rid: 8901773045698396619
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 825522860596714011}
         Active: 0
-    - rid: 8901773044706181146
+    - rid: 8901773045698396620
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8153140920719989439}
         Active: 0
-    - rid: 8901773044706181147
+    - rid: 8901773045698396621
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992018886221}
         Active: 0
-    - rid: 8901773044706181148
+    - rid: 8901773045698396622
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992360398378}
         Active: 0
-    - rid: 8901773044706181149
+    - rid: 8901773045698396623
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5207346069664310037}
         Active: 0
-    - rid: 8901773044706181150
+    - rid: 8901773045698396624
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7921051732381766124}
         Active: 0
-    - rid: 8901773044706181151
+    - rid: 8901773045698396625
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992374898812}
         Active: 0
-    - rid: 8901773044706181152
+    - rid: 8901773045698396626
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992548455808}
         Active: 0
-    - rid: 8901773044706181153
+    - rid: 8901773045698396627
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514118}
         Active: 1
-    - rid: 8901773044706181154
+    - rid: 8901773045698396628
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514117}
         Active: 0
-    - rid: 8901773044706181155
+    - rid: 8901773045698396629
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5453590313675184881}
         Active: 1
-    - rid: 8901773044706181156
+    - rid: 8901773045698396630
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7000563025869930132}
         Active: 0
-    - rid: 8901773044706181157
+    - rid: 8901773045698396631
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8622044767950896316}
         Active: 1
-    - rid: 8901773044706181158
+    - rid: 8901773045698396632
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 825522860596714011}
         Active: 0
-    - rid: 8901773044706181159
+    - rid: 8901773045698396633
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8153140920719989439}
         Active: 0
-    - rid: 8901773044706181160
+    - rid: 8901773045698396634
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992018886221}
         Active: 0
-    - rid: 8901773044706181161
+    - rid: 8901773045698396635
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992360398378}
         Active: 0
-    - rid: 8901773044706181162
+    - rid: 8901773045698396636
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5207346069664310037}
         Active: 0
-    - rid: 8901773044706181163
+    - rid: 8901773045698396637
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7921051732381766124}
         Active: 0
-    - rid: 8901773044706181164
+    - rid: 8901773045698396638
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992374898812}
         Active: 0
-    - rid: 8901773044706181165
+    - rid: 8901773045698396639
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992548455808}
         Active: 0
-    - rid: 8901773044706181166
+    - rid: 8901773045698396640
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514118}
         Active: 0
-    - rid: 8901773044706181167
+    - rid: 8901773045698396641
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514117}
         Active: 0
-    - rid: 8901773044706181168
+    - rid: 8901773045698396642
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5453590313675184881}
         Active: 0
-    - rid: 8901773044706181169
+    - rid: 8901773045698396643
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7000563025869930132}
         Active: 0
-    - rid: 8901773044706181170
+    - rid: 8901773045698396644
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8622044767950896316}
         Active: 0
-    - rid: 8901773044706181171
+    - rid: 8901773045698396645
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 825522860596714011}
         Active: 1
-    - rid: 8901773044706181172
+    - rid: 8901773045698396646
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8153140920719989439}
         Active: 0
-    - rid: 8901773044706181173
+    - rid: 8901773045698396647
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992018886221}
         Active: 0
-    - rid: 8901773044706181174
+    - rid: 8901773045698396648
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992360398378}
         Active: 0
-    - rid: 8901773044706181175
+    - rid: 8901773045698396649
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5207346069664310037}
         Active: 0
-    - rid: 8901773044706181176
+    - rid: 8901773045698396650
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7921051732381766124}
         Active: 0
-    - rid: 8901773044706181177
+    - rid: 8901773045698396651
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992374898812}
         Active: 0
-    - rid: 8901773044706181178
+    - rid: 8901773045698396652
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 1146288992548455808}
         Active: 0
-    - rid: 8901773044706181179
+    - rid: 8901773045698396653
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514118}
         Active: 1
-    - rid: 8901773044706181180
+    - rid: 8901773045698396654
       type: {class: BehaviourWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         Behaviour: {fileID: 1146288990947514117}
         Active: 1
-    - rid: 8901773044706181181
+    - rid: 8901773045698396655
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 5453590313675184881}
         Active: 1
-    - rid: 8901773044706181182
+    - rid: 8901773045698396656
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 7000563025869930132}
         Active: 0
-    - rid: 8901773044706181183
+    - rid: 8901773045698396657
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8622044767950896316}
         Active: 0
-    - rid: 8901773044706181184
+    - rid: 8901773045698396658
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 825522860596714011}
         Active: 0
-    - rid: 8901773044706181185
+    - rid: 8901773045698396659
       type: {class: GameObjectWidget, ns: UI.StateSystem, asm: Assembly-CSharp}
       data:
         GameObject: {fileID: 8153140920719989439}

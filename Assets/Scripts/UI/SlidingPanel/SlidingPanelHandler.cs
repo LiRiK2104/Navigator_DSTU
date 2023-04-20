@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 namespace UI.SlidingPanel
 {
     [RequireComponent(typeof(SlidingPanelStatesStorage))]
-    public class SlidingPanelHandler : MonoBehaviour, IBeginDragHandler, IEndDragHandler
+    public class SlidingPanelHandler : MonoBehaviour
     {
         private const int DefaultIndex = 1;
         private const int ShortDragMillisecondsLimit = 100;
@@ -37,18 +37,6 @@ namespace UI.SlidingPanel
         }
         
         public List<Transform> TargetPoints => _targetPoints;
-        
-        
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            _beginDragY = eventData.position.y;
-            _beginDragTime = DateTime.Now.TimeOfDay;
-        }
-
-        public void OnEndDrag(PointerEventData eventData)
-        {
-            SwitchPosition(eventData, null);
-        }
 
 
         public void Initialize(Action<Transform> callback)
@@ -64,8 +52,14 @@ namespace UI.SlidingPanel
 
             SwitchPosition(_targetPoints[index], callback, instantly);
         }
+
+        public void SetBeginDrag(PointerEventData eventData)
+        {
+            _beginDragY = eventData.position.y;
+            _beginDragTime = DateTime.Now.TimeOfDay;
+        }
         
-        private void SwitchPosition(PointerEventData eventData, Action<Transform> callback, bool instantly = false)
+        public void SwitchPosition(PointerEventData eventData, Action<Transform> callback, bool instantly = false)
         {
             if (TryGetShortSwipeTargetPoint(eventData, out var nearestTargetPoint) == false)
                 nearestTargetPoint = GetNearestTargetPoint();

@@ -165,7 +165,7 @@ public class DataBase : MonoBehaviour
     
     private PointInfo CreatePointInfo(Point point, int floorIndex, string blockName)
     {
-        string id = point is AccessibleRoom accessibleRoom ? accessibleRoom.Id : "0";
+        string id = point is AccessibleRoom accessibleRoom ? accessibleRoom.Id : String.Empty;
         var pointType = point.SignCreator.SignPreset.PointType;
 
         Address address = TryGetPointTypeNumber(point, out int typerNumber) ? 

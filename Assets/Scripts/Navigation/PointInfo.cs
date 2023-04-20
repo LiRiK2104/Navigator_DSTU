@@ -79,10 +79,12 @@ namespace Navigation
             string result = $"Этаж {Floor}, {BlockName}";
 
             if (PointType != PointType.None)
-                result += $", {TypesNames[PointType]}, {PointNumber}";
+                result += $", {TypesNames[PointType]} {PointNumber}";
             
-            if (RoomId != string.Empty)
-                result += $", ауд. {RoomId}";
+            if (RoomId != string.Empty && 
+                PointType != PointType.ManToilet && 
+                PointType != PointType.WomanToilet)
+                result += $", <nobr>ауд. {RoomId}</nobr>";
 
             return result;
         }
