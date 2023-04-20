@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UI.SlidingPanel;
+using UI.StateSystem;
+using UI.StateSystem.Setters;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -19,6 +22,8 @@ namespace Map
         
         private Camera Camera => Global.Instance?.CameraContainer.MapCamera;
         private BordersSetter BordersSetter => Global.Instance?.BordersSetter;
+        private StateSetter StateSetter => Global.Instance.UISetterV2.StateSetter;
+        private SlidingPanelHandler SlidingPanelHandler => Global.Instance.UISetterV2.SlidingPanelHandler;
     
     
         private void OnDrawGizmos()
@@ -42,6 +47,7 @@ namespace Map
         {
             StartedDrag?.Invoke();
             StopAnimatedMove();
+            SetMapViewPosition();
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -219,6 +225,24 @@ namespace Map
         private Quaternion GetTargetRotation(Transform target)
         {
             return Quaternion.Euler(0, target.rotation.eulerAngles.y, 0) * Quaternion.Euler(90, 0, 0);
+        }
+
+        private void SetMapViewPosition()
+        {
+            if (StateSetter.CurrentState != StateType.Default) 
+                return;
+            
+            int bottomIndex = 0;
+            Action<Transform> callback = point =>
+            {
+                if (SlidingPanelHandler.StatesStorage.TryGetState(point, out StateType stateType) &&
+                    stateType == StateType.MapView)
+                {
+                    StateSetter.SetState(StateType.MapView);
+                }
+            };
+
+            SlidingPanelHandler.SwitchPosition(bottomIndex, callback);
         }
     }
 }

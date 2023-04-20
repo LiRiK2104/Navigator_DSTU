@@ -8,6 +8,8 @@ namespace UI.StateSystem.Setters
         private StateType _previousState;
         private StateType _currentState;
 
+        public StateType CurrentState => _currentState;
+
         public StatesGroup CurrentGroup
         {
             get

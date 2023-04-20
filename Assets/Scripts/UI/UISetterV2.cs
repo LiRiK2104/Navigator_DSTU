@@ -22,7 +22,9 @@ namespace UI
         public SearchResultsSelector SearchResultsSelector => _searchResultsSelector;
         public MapHandlePanel MapHandlePanel => _mapHandlePanel;
 
-        
+        public SlidingPanelHandler SlidingPanelHandler => _slidingPanelHandler;
+
+
         public void Initialize()
         {
             if (_uiStatesStorage.TryGetState(StateType.SearchPanel, out SearchPanelState searchPanelState))
