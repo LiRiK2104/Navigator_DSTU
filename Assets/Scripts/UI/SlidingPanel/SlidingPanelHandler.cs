@@ -12,7 +12,7 @@ namespace UI.SlidingPanel
     public class SlidingPanelHandler : MonoBehaviour
     {
         private const int DefaultIndex = 1;
-        private const int ShortDragMillisecondsLimit = 100;
+        private const int ShortDragMillisecondsLimit = 200;
         
         [SerializeField] private GameObject _content;
         [SerializeField] private Transform _panelTopPoint;
