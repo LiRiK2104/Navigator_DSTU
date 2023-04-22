@@ -2,14 +2,18 @@ using UnityEngine;
 
 namespace UI.AR
 {
-    public class ARPanelView : MonoBehaviour
+    public class ARPanelView : MonoBehaviour, IARContentUI
     {
         [SerializeField] private GameObject _offPanel;
         [SerializeField] private GameObject _onPanel;
-
+        
+        public ARMain ARMain => Global.Instance.ArMain;
+        
 
         private void OnEnable()
         {
+            ValidateAREnabled();
+            
             //TODO: Calibrated += Activate;
             //TODO: ARExit += Deactivate;
             //TODO: if (AR.active) Activate(); else Deactivate();
@@ -32,6 +36,11 @@ namespace UI.AR
         {
             _offPanel.SetActive(true);
             _onPanel.SetActive(false);
+        }
+
+        public void ValidateAREnabled()
+        {
+            gameObject.SetActive(ARMain.Enabled);
         }
     }
 }

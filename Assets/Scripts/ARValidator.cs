@@ -19,15 +19,15 @@ public class ARValidator : MonoBehaviour
         }
         
         ARSession.stateChanged += OnARSessionStateChanged;
-        Calibrator.Calibrated += SuccessValidation;
-        Calibrator.CalibrationReset += StartMarkersFinding;
+        //Calibrator.Calibrated += SuccessValidation;
+        //Calibrator.CalibrationReset += StartMarkersFinding;
     }
     
     private void OnDisable()
     {
         ARSession.stateChanged -= OnARSessionStateChanged;
-        Calibrator.Calibrated -= SuccessValidation;
-        Calibrator.CalibrationReset -= StartMarkersFinding;
+        //Calibrator.Calibrated -= SuccessValidation;
+        //Calibrator.CalibrationReset -= StartMarkersFinding;
     }
 
     private void OnARSessionStateChanged(ARSessionStateChangedEventArgs obj)
@@ -35,25 +35,25 @@ public class ARValidator : MonoBehaviour
         switch (ARSession.state)
         {
             case ARSessionState.CheckingAvailability:
-                UISetter.SetState(SessionStates.Loading, "Проверка доступности...");
+                //UISetter.SetState(SessionStates.Loading, "Проверка доступности...");
                 Debug.Log("Still Checking Availability...");
                 break;
             
             case ARSessionState.NeedsInstall:
-                UISetter.SetState(SessionStates.Loading);
+                //UISetter.SetState(SessionStates.Loading);
                 Debug.Log("Supported, not installed, requesting installation");
                 //TODO: Request ARCore services apk installation and install only if user allows
                 StartCoroutine(InstallARCoreApp());
                 break;
             
             case ARSessionState.Installing:
-                UISetter.SetState(SessionStates.Loading, "Установка данных...");
+                //UISetter.SetState(SessionStates.Loading, "Установка данных...");
                 Debug.Log("Supported, apk installing");
                 StartCoroutine(InstallARCoreApp());
                 break;
             
             case ARSessionState.Ready:
-                UISetter.SetState(SessionStates.Loading, "Данные установлены");
+                //UISetter.SetState(SessionStates.Loading, "Данные установлены");
                 Debug.Log("Supported and installed");
                 break;
             
@@ -67,7 +67,7 @@ public class ARValidator : MonoBehaviour
                 break;
             
             default:
-                UISetter.SetState(SessionStates.Failed, "Устройство не поддерживает AR");
+                //UISetter.SetState(SessionStates.Failed, "Устройство не поддерживает AR");
                 Debug.Log("Unsupported, Device Not Capable");
                 break;
         }
@@ -75,14 +75,18 @@ public class ARValidator : MonoBehaviour
 
     private void StartMarkersFinding()
     {
-        if (Calibrator.IsCalibrated == false)
+        /*if (Calibrator.IsCalibrated == false)
+        {
             UISetter.SetState(SessionStates.Calibration, "Найдите маркер и, поместив его в рамку, отклаибруйте");
+        }*/
     }
 
     private void SuccessValidation()
     {
-        if (Calibrator.IsCalibrated)
+        /*if (Calibrator.IsCalibrated)
+        {
             UISetter.SetState(SessionStates.Tracking);
+        }*/
     }
      
     private IEnumerator InstallARCoreApp()
