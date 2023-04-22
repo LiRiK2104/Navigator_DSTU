@@ -9,7 +9,7 @@ namespace UI.AR
 {
     public class CalibrationAnimation : MonoBehaviour
     {
-        [SerializeField] private Transform _phoneImage;
+        [SerializeField] private RectTransform _phoneImage;
         [SerializeField] private List<Transform> _phonePathPoints = new List<Transform>();
         [SerializeField] private List<Image> _circles = new List<Image>();
 
