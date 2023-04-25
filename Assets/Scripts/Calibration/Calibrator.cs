@@ -52,6 +52,7 @@ namespace Calibration
             StopCoroutine(_calibrationRoutine);
             
             State = CalibrationState.Failed;
+            ArEnvironment.gameObject.SetActive(true);
             Debug.Log("Calibration: Failed.");
             Failed?.Invoke();
         }
@@ -60,7 +61,6 @@ namespace Calibration
         {
             ResetCalibration();
             _calibrationRoutine = CalibrateRoutine();
-
             return _calibrationRoutine;
         }
 
@@ -76,7 +76,7 @@ namespace Calibration
         {
             if (State == CalibrationState.Completed)
                 yield break;
-
+            
             Started?.Invoke();
             State = CalibrationState.MarkersSearch;
             Debug.Log("Calibration: Started.");

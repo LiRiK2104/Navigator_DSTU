@@ -31,7 +31,7 @@ public class ARMain : MonoBehaviour
 
     private void Awake()
     {
-        EnableSession(false);
+        DisableSession();
     }
     
 
@@ -48,7 +48,8 @@ public class ARMain : MonoBehaviour
     {
         Active = false;
         _enterRoutine = null;
-        EnableSession(false);
+        DisableSession();
+        Debug.Log("AR session ended.");
         Exited?.Invoke();
     }
     
@@ -57,12 +58,12 @@ public class ARMain : MonoBehaviour
         if (_available == false)
             yield break;
         
-        EnableSession(true);
+        EnableSession();
         yield return Validator.CheckAvailability();
 
         if (Validator.State != ARValidationState.Completed)
         {
-            EnableSession(false);
+            DisableSession();
             yield break;   
         }
         
@@ -70,18 +71,25 @@ public class ARMain : MonoBehaviour
 
         if (Calibrator.State != CalibrationState.Completed)
         {
-            EnableSession(false);
+            DisableSession();
             yield break;   
         }
         
+        Debug.Log("AR session started.");
         Active = true;
         Entered?.Invoke();
     }
 
-    private void EnableSession(bool enabled)
+    private void EnableSession()
     {
-        Session.gameObject.SetActive(enabled);
-        SessionOrigin.gameObject.SetActive(enabled);
+        Session.gameObject.SetActive(true);
+        SessionOrigin.gameObject.SetActive(true);
+    }
+    
+    private void DisableSession()
+    {
+        Session.gameObject.SetActive(false);
+        SessionOrigin.gameObject.SetActive(false);
     }
 }
 

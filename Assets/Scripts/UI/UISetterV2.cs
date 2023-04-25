@@ -1,13 +1,6 @@
-using System;
 using Calibration;
 using Helpers;
-using Map;
-using UI.AR;
 using UI.AR.Views;
-using UI.SlidingPanel;
-using UI.StateSystem;
-using UI.StateSystem.Setters;
-using UI.StateSystem.States;
 using UI.Views;
 using UnityEngine;
 

@@ -60,6 +60,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2788924526396392352}
     m_Modifications:
+    - target: {fileID: 2616142513154941731, guid: a37417d93cd144a4d9e8487019e790dd, type: 3}
+      propertyPath: m_Alpha
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5588982559085253852, guid: a37417d93cd144a4d9e8487019e790dd, type: 3}
       propertyPath: m_Name
       value: Calibrating Button
@@ -249,6 +253,10 @@ PrefabInstance:
     - target: {fileID: 8328292985299427000, guid: e36f45fae9aca0849968e0f2276cf13b, type: 3}
       propertyPath: m_Name
       value: Map Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 9192664262276626391, guid: e36f45fae9aca0849968e0f2276cf13b, type: 3}
+      propertyPath: m_Alpha
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e36f45fae9aca0849968e0f2276cf13b, type: 3}
@@ -461,3 +469,21 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6686822331958593320, guid: 2ecf6dd61679e3c49a73c0220d263485, type: 3}
   m_PrefabInstance: {fileID: 2359858284728139121}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8967717857294105182 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6686822331958593327, guid: 2ecf6dd61679e3c49a73c0220d263485, type: 3}
+  m_PrefabInstance: {fileID: 2359858284728139121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8899870119258940263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8967717857294105182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 309144f73252dcf4eb62c071fb0b7b5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewMode: 0
