@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 4437764421548640347}
   - component: {fileID: 7585651108346237411}
   - component: {fileID: 2616142513154941731}
+  - component: {fileID: 3499159263017473301}
   m_Layer: 5
   m_Name: Calibrating Button
   m_TagString: Untagged
@@ -227,3 +228,15 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &3499159263017473301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5588982559085253852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd0baff580fb64438a5db9a8c8d3f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

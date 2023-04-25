@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UI.AR
 {
-    public class ARPanelView : MonoBehaviour, IARContentUI
+    public class ARPanel : MonoBehaviour, IARContentUI
     {
         [SerializeField] private GameObject _offPanel;
         [SerializeField] private GameObject _onPanel;
@@ -12,17 +12,22 @@ namespace UI.AR
 
         private void OnEnable()
         {
-            ValidateAREnabled();
+            if (ValidateArAvailable() == false)
+                return;
+
+            if (ARMain.Active)
+                Activate();
+            else
+                Deactivate();
             
-            //TODO: Calibrated += Activate;
-            //TODO: ARExit += Deactivate;
-            //TODO: if (AR.active) Activate(); else Deactivate();
+            ARMain.Entered += Activate;
+            ARMain.Exited += Deactivate;
         }
 
         private void OnDisable()
         {
-            //TODO: Calibrated -= Activate;
-            //TODO: ARExit -= Deactivate;
+            ARMain.Entered -= Activate;
+            ARMain.Exited -= Deactivate;
         }
 
 
@@ -38,9 +43,10 @@ namespace UI.AR
             _onPanel.SetActive(false);
         }
 
-        public void ValidateAREnabled()
+        public bool ValidateArAvailable()
         {
-            gameObject.SetActive(ARMain.Enabled);
+            gameObject.SetActive(ARMain.Available);
+            return ARMain.Available;
         }
     }
 }

@@ -13,7 +13,7 @@ public class ScreenPointer : MonoBehaviour
     private DestinationSetter DestinationSetter => Global.Instance.Navigator.DestinationSetter;
     private ARCameraManager ArCameraManager => Global.Instance.ArMain.CameraManager;
     private PathFinder PathFinder => Global.Instance.Navigator.PathFinder;
-    private Calibrator Calibrator => Global.Instance.Calibrator;
+    private Calibrator Calibrator => Global.Instance.ArMain.Calibrator;
     private Vector3 UserPosition => ArCameraManager.transform.position + ArCameraManager.transform.forward;
     private int UserFloorIndex => 0;
     //TODO: Узнать этаж пользователя
@@ -28,15 +28,15 @@ public class ScreenPointer : MonoBehaviour
     private void OnEnable()
     {
         DestinationSetter.TargetSet += StartPoint;
-        Calibrator.Calibrated += StartPoint;
-        Calibrator.CalibrationReset += StopPoint;
+        Calibrator.Completed += StartPoint;
+        Calibrator.Failed += StopPoint;
     }
 
     private void OnDisable()
     {
         DestinationSetter.TargetSet -= StartPoint;
-        Calibrator.Calibrated -= StartPoint;
-        Calibrator.CalibrationReset -= StopPoint;
+        Calibrator.Completed -= StartPoint;
+        Calibrator.Failed -= StopPoint;
     }
 
     

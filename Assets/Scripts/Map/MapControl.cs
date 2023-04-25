@@ -22,8 +22,8 @@ namespace Map
         
         private Camera Camera => Global.Instance?.CameraContainer.MapCamera;
         private BordersSetter BordersSetter => Global.Instance?.BordersSetter;
-        private StateSetter StateSetter => Global.Instance.UISetterV2.StateSetter;
-        private SlidingPanelHandler SlidingPanelHandler => Global.Instance.UISetterV2.SlidingPanelHandler;
+        private StateSetter StateSetter => Global.Instance.UISetterV2.MapView.StateSetter;
+        private SlidingPanelHandler SlidingPanelHandler => Global.Instance.UISetterV2.MapView.SlidingPanelHandler;
     
     
         private void OnDrawGizmos()

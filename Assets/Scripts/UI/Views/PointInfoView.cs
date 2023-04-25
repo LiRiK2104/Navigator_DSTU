@@ -1,11 +1,11 @@
 using Navigation;
 using TargetsSystem.Points;
-using UnityEngine;
 using TMPro;
 using UI.StateSystem.Setters;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.Views
 {
     public class PointInfoView : MonoBehaviour
     {

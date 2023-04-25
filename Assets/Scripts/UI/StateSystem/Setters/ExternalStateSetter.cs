@@ -4,8 +4,8 @@ namespace UI.StateSystem.Setters
 {
     public abstract class ExternalStateSetter : MonoBehaviour
     {
-        protected UIStatesStorage UIStatesStorage => Global.Instance.UISetterV2.UIStatesStorage;
-        private StateSetter StateSetter => Global.Instance.UISetterV2.StateSetter;
+        protected UIStatesStorage UIStatesStorage => Global.Instance.UISetterV2.MapView.UIStatesStorage;
+        private StateSetter StateSetter => Global.Instance.UISetterV2.MapView.StateSetter;
 
 
         protected virtual void OnEnable()

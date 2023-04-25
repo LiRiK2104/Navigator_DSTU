@@ -2,99 +2,111 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UI.Menus;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 
 namespace Calibration
 {
     public class Calibrator : MonoBehaviour
     {
-        private bool _shouldCalibrate;
-
-        public event Action CalibrationReset;
-        public event Action Calibrated;
+        private TriadMarker _triadMarker;
+        private IEnumerator _calibrationRoutine;
+        
+        public event Action Started;
+        public event Action Completed;
+        public event Action Failed;
+        
     
-        public bool IsCalibrated { get; private set; } = true;
-    
-        private Button CalibrationButton => Global.Instance.UiSetter.CalibrationMenu.CalibrationButton;
-        private List<Button> RecalibrationButtons => Global.Instance.UiSetter.TrackingMenu.RecalibrationButtons;
-        private CalibrationMenu CalibrationMenu => Global.Instance.UiSetter.CalibrationMenu;
+        public CalibrationState State { get; private set; } = CalibrationState.None;
         private DataBase DataBase => Global.Instance.DataBase;
-        private ARSession ArSession => Global.Instance.ArMain.Session;
-        private ARSessionOrigin ArSessionOrigin => Global.Instance.ArMain.SessionOrigin;
-        private ARCameraManager ArCameraManager => Global.Instance.ArMain.CameraManager;
-        private ARTrackedImageManager ArTrackedImageManager => Global.Instance.ArMain.TrackedImageManager;
+        private ARMain ARMain => Global.Instance.ArMain;
+        private ARSession ArSession => ARMain.Session;
+        private ARSessionOrigin ArSessionOrigin => ARMain.SessionOrigin;
+        private ARCameraManager ArCameraManager => ARMain.CameraManager;
+        private ARTrackedImageManager ArTrackedImageManager => ARMain.TrackedImageManager;
         private AREnvironment ArEnvironment => Global.Instance.ArEnvironment;
-
-    
+        
 
         private void OnEnable()
         {
-            ArTrackedImageManager.trackedImagesChanged += StartCalibration;
-            RecalibrationButtons.ForEach(button => button.onClick.AddListener(ResetCalibration));
-            CalibrationButton.onClick.AddListener(SetShouldCalibrate);
+            ArTrackedImageManager.trackedImagesChanged += FindTriadMarker;
+            ARMain.Exited += StopCalibration;
         }
 
         private void OnDisable()
         {
-            ArTrackedImageManager.trackedImagesChanged -= StartCalibration;
-            RecalibrationButtons.ForEach(button => button.onClick.RemoveListener(ResetCalibration));
-            CalibrationButton.onClick.RemoveListener(SetShouldCalibrate);
+            ArTrackedImageManager.trackedImagesChanged -= FindTriadMarker;
+            ARMain.Exited -= StopCalibration;
         }
 
-
-        private void Calibrate(Anchor anchor)
+        public void StartCalibration()
         {
-            if (IsCalibrated/* || _shouldCalibrate == false*/)
+            StartCoroutine(GetPreparedCalibrationRoutine());
+        }
+
+        public void StopCalibration()
+        {
+            if (_calibrationRoutine == null)
                 return;
-        
-            UpdateOrigin(anchor);
-            //UpdateMarkerLocation(anchor);
-            UpdateEnvironmentLocation(anchor);
-            ArEnvironment.gameObject.SetActive(true);
             
-            IsCalibrated = true;
-            _shouldCalibrate = false;
-            Calibrated?.Invoke();
+            StopCoroutine(_calibrationRoutine);
+            
+            State = CalibrationState.Failed;
+            Debug.Log("Calibration: Failed.");
+            Failed?.Invoke();
+        }
+        
+        public IEnumerator GetPreparedCalibrationRoutine()
+        {
+            ResetCalibration();
+            _calibrationRoutine = CalibrateRoutine();
+
+            return _calibrationRoutine;
         }
 
         private void ResetCalibration()
         {
             ArSession.Reset();
             ArEnvironment.gameObject.SetActive(false);
-            IsCalibrated = false;
-            CalibrationReset?.Invoke();
+            State = CalibrationState.None;
+            _calibrationRoutine = null;
         }
 
-        private void SetShouldCalibrate()
+        private IEnumerator CalibrateRoutine()
         {
-            if (IsCalibrated)
-                return;
+            if (State == CalibrationState.Completed)
+                yield break;
 
-            StopCoroutine(WaitCalibration());
-            StartCoroutine(WaitCalibration());
+            Started?.Invoke();
+            State = CalibrationState.MarkersSearch;
+            Debug.Log("Calibration: Started.");
+
+            while (State != CalibrationState.Completed &&
+                   State != CalibrationState.Failed)
+            {
+                if (State == CalibrationState.MarkerFound)
+                    Calibrate(_triadMarker.Triad.Anchor);
+
+                yield return null;
+            }
         }
 
-        private IEnumerator WaitCalibration()
+        private void Calibrate(Anchor anchor)
         {
-            float time = 5f;
+            UpdateOrigin(anchor);
+            UpdateEnvironmentLocation(anchor);
+            ArEnvironment.gameObject.SetActive(true);
+            
+            State = CalibrationState.Completed;
+            Debug.Log("Calibration: Completed.");
+            Completed?.Invoke();
+        }
         
-            CalibrationMenu.SetCalibrationState();
-            _shouldCalibrate = true;
-            yield return new WaitForSeconds(time);
-            _shouldCalibrate = false;
-            CalibrationMenu.SetPointingState();
-        }
-
-        private void StartCalibration(ARTrackedImagesChangedEventArgs args)
+        private void FindTriadMarker(ARTrackedImagesChangedEventArgs args)
         {
-            if (IsCalibrated/* || _shouldCalibrate == false*/)
+            if (State != CalibrationState.MarkersSearch)
                 return;
-        
-            //Debug.Log("Calibration started!");
-
+            
             if (DataBase.TryGetVirtualMarker(GetActiveMarkers(args), 
                     out TriadMarker triadMarker,
                     out ARTrackedImage image1st, 
@@ -102,12 +114,10 @@ namespace Calibration
                     out ARTrackedImage image3rd))
             {
                 triadMarker.ApplyTransformation(image1st.transform, image2nd.transform, image3rd.transform);
-                Calibrate(triadMarker.Triad.Anchor);
-                Debug.Log("Calibration successfully!");
-            }
-            else
-            {
-                //Debug.Log("Calibration failed!");
+                _triadMarker = triadMarker;
+                State = CalibrationState.MarkerFound;
+
+                Debug.Log("Calibration: TriadMarker found.");
             }
         }
 
@@ -132,5 +142,14 @@ namespace Calibration
         {
             return args.added.Concat(args.updated).ToList();
         }
+    }
+
+    public enum CalibrationState
+    {
+        None,
+        MarkersSearch,
+        MarkerFound,
+        Completed,
+        Failed
     }
 }

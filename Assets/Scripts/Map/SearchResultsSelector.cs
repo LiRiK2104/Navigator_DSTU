@@ -15,8 +15,8 @@ namespace Map
     {
         [SerializeField] private SearchableDropDown _searchableDropDown;
         
-        private StateSetter StateSetter => Global.Instance.UISetterV2.StateSetter;
-        private MapControl MapControl => Global.Instance.UISetterV2.MapHandlePanel.MapControl;
+        private StateSetter StateSetter => Global.Instance.UISetterV2.MapView.StateSetter;
+        private MapControl MapControl => Global.Instance.UISetterV2.MapView.MapHandlePanel.MapControl;
         private FloorsSwitcher FloorsSwitcher => Global.Instance.FloorsSwitcher;
         private DataBase DataBase => Global.Instance.DataBase;
 

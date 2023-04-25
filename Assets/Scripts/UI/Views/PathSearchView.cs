@@ -5,7 +5,7 @@ using UI.StateSystem.Setters;
 using UI.StateSystem.States;
 using UnityEngine;
 
-namespace UI
+namespace UI.Views
 {
     [RequireComponent(typeof(PathPointStateSetter))]
     public class PathSearchView : MonoBehaviour

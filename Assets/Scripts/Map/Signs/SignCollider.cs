@@ -11,8 +11,8 @@ namespace Map.Signs
     public class SignCollider : MonoBehaviour
     {
         private PointInfo _pointInfo;
-        private SearchResultsSelector SearchResultsSelector => Global.Instance.UISetterV2.SearchResultsSelector;
-        private StateSetter StateSetter => Global.Instance.UISetterV2.StateSetter;
+        private SearchResultsSelector SearchResultsSelector => Global.Instance.UISetterV2.MapView.SearchResultsSelector;
+        private StateSetter StateSetter => Global.Instance.UISetterV2.MapView.StateSetter;
         
 
         public void Initialize(PointInfo pointInfo)

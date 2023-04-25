@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 8820088589835975098}
   - component: {fileID: 6380673107964496674}
   - component: {fileID: 891442410043478682}
+  - component: {fileID: 7306847553804089342}
   m_Layer: 5
   m_Name: AR Info Button
   m_TagString: Untagged
@@ -227,3 +228,15 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &7306847553804089342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2921324735842998181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82f20ce764d866742b95353a2428d9cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

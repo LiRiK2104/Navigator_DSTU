@@ -4,7 +4,7 @@ namespace UI.StateSystem.Groups
 {
     public class NavigationGroup : StatesGroup
     {
-        private UIStatesStorage UIStatesStorage => Global.Instance.UISetterV2.UIStatesStorage;
+        private UIStatesStorage UIStatesStorage => Global.Instance.UISetterV2.MapView.UIStatesStorage;
         private MapPointerSetter MapPointerSetter => Global.Instance.Navigator.MapPointerSetter;
         
         

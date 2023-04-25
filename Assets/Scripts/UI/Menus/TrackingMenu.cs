@@ -16,11 +16,7 @@ namespace UI.Menus
         [SerializeField] private Button _closeFullMapButton;
         [SerializeField] private Button _followButton;
         
-        public event Action ToMapSwitched;
-        public event Action ToArSwitched;
-
-        public List<Button> RecalibrationButtons => _recalibrationButtons;
-        public SearchPanel SearchPanel => _searchPanel;
+        
         private Camera FullMapCamera => Global.Instance.CameraContainer.MapCamera;
         public Button FollowButton => _followButton;
         public ViewMode ViewMode { get; private set; } = ViewMode.Map;
@@ -56,22 +52,16 @@ namespace UI.Menus
             FullMapCamera.gameObject.SetActive(true);
             _fullMapMode.SetActive(true);
             _minimapMode.SetActive(false);
-            ToMapSwitched?.Invoke();
+            //ToMapSwitched?.Invoke();
         }
         
         private void SwitchToAr()
         {
-            ViewMode = ViewMode.AR;
+            //ViewMode = ViewMode.AR;
             FullMapCamera.gameObject.SetActive(false);
             _fullMapMode.SetActive(false);
             _minimapMode.SetActive(true);
-            ToArSwitched?.Invoke();
+            //ToArSwitched?.Invoke();
         }
-    }
-
-    public enum ViewMode
-    {
-        Map,
-        AR
     }
 }

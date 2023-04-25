@@ -25,7 +25,7 @@ namespace UI.SlidingPanel
             }
         }
         
-        private UIStatesStorage UIStatesStorage => Global.Instance.UISetterV2.UIStatesStorage;
+        private UIStatesStorage UIStatesStorage => Global.Instance.UISetterV2.MapView.UIStatesStorage;
 
         
         protected void OnEnable()

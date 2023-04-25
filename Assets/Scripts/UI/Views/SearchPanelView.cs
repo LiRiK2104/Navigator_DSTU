@@ -1,7 +1,7 @@
 using UI.Search;
 using UnityEngine;
 
-namespace UI
+namespace UI.Views
 {
     public class SearchPanelView : MonoBehaviour
     {

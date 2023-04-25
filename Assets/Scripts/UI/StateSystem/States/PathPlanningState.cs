@@ -3,6 +3,7 @@ using Map;
 using Navigation;
 using TargetsSystem.Points;
 using UI.FloorsSwitch;
+using UI.Views;
 using UnityEngine;
 
 namespace UI.StateSystem.States

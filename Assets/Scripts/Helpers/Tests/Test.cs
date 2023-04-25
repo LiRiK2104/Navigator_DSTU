@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
@@ -5,33 +7,31 @@ namespace Helpers.Tests
 {
     public class Test : MonoBehaviour
     {
-        [SerializeField] private ARSession _arSession;
-        [SerializeField] private ARSessionOrigin _arSessionOrigin;
-        [SerializeField] private ARValidator _arValidator;
+        private IEnumerator _myRoutine;
 
-        public void EnableValidator() => SetValidatorEnable(true);
-        public void DisableValidator() => SetValidatorEnable(false);
-        
-        public void EnableArSession() => SetArSessionEnable(true);
-        public void DisableArSession() => SetArSessionEnable(false);
-        
-        public void EnableArSessionOrigin() => SetArSessionOriginEnable(true);
-        public void DisableArSessionOrigin() => SetArSessionOriginEnable(false);
-        
-
-        private void SetValidatorEnable(bool enable)
+        private void Update()
         {
-            _arValidator.gameObject.SetActive(enable);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                StartCoroutine(AnotherRoutine());
+            }
+        }
+
+        private IEnumerator AnotherRoutine()
+        {
+            yield return GetPreparedMyRoutine();
         }
         
-        private void SetArSessionEnable(bool enable)
+        private IEnumerator GetPreparedMyRoutine()
         {
-            _arSession.gameObject.SetActive(enable);
+            Debug.Log("Prepared");
+            return MyRoutine();
         }
         
-        private void SetArSessionOriginEnable(bool enable)
+        private IEnumerator MyRoutine()
         {
-            _arSessionOrigin.gameObject.SetActive(enable);
+            Debug.Log("Started");
+            yield return null;
         }
     }
 }

@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 3231550735463820443}
   - component: {fileID: 1023247235212877315}
   - component: {fileID: 6548501816173332411}
+  - component: {fileID: 129721787136750500}
   m_Layer: 5
   m_Name: AR Off Button
   m_TagString: Untagged
@@ -227,3 +228,16 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &129721787136750500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9094272657236738692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56b5620287c998341809b1b398dfe0a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _arEnable: 0

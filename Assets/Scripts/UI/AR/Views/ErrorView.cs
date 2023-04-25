@@ -1,9 +1,8 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.AR
+namespace UI.AR.Views
 {
     public class ErrorView : MonoBehaviour
     {
@@ -20,7 +19,7 @@ namespace UI.AR
         }
         
 
-        public void Initialize(ErrorType errorType)
+        public void SetError(ErrorType errorType = ErrorType.Default)
         {
             _retryButton.gameObject.SetActive(false);
             

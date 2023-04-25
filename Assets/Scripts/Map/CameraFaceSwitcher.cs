@@ -1,3 +1,4 @@
+using UI;
 using UI.Menus;
 using UnityEngine;
 
@@ -89,7 +90,7 @@ namespace Map
                     SetMapPreset();
                     break;
             
-                case ViewMode.AR:
+                case ViewMode.Worldspace:
                     SetMinimapPreset();
                     break;
             }

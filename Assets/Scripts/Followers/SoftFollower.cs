@@ -12,7 +12,7 @@ namespace Followers
         private bool _shouldFollow;
 
         private Button FollowButton => Global.Instance.UiSetter.TrackingMenu.FollowButton;
-        private MapControl MapControl => Global.Instance.UISetterV2.MapHandlePanel.MapControl;
+        private MapControl MapControl => Global.Instance.UISetterV2.MapView.MapHandlePanel.MapControl;
 
 
         private void OnEnable()

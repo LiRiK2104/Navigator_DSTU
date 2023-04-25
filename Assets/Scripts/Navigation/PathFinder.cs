@@ -29,7 +29,7 @@ namespace Navigation
         public PathPoint? PointB => _pointB;
         public DestinationPoint PriorityPoint { get; set; }
         
-        private Calibrator Calibrator => Global.Instance.Calibrator;
+        private Calibrator Calibrator => Global.Instance.ArMain.Calibrator;
         private Transform UserTransform => Global.Instance.ArMain.CameraManager.transform;
         private DataBase DataBase => Global.Instance.DataBase;
         private AREnvironment ArEnvironment => Global.Instance.ArEnvironment;

@@ -3,7 +3,7 @@ using Navigation;
 using TMPro;
 using UnityEngine;
 
-namespace UI
+namespace UI.Views
 {
     public class PathInfoPanel : MonoBehaviour
     {

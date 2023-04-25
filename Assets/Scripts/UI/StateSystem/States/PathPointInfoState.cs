@@ -1,6 +1,7 @@
 using Map;
 using Navigation;
 using TargetsSystem.Points;
+using UI.Views;
 using UnityEngine;
 
 namespace UI.StateSystem.States

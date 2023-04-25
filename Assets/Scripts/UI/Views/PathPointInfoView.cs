@@ -1,9 +1,7 @@
 using Navigation;
 using UnityEngine;
-using UI.StateSystem.Setters;
-using UnityEngine.UI;
 
-namespace UI
+namespace UI.Views
 {
     public class PathPointInfoView : PointInfoView
     {

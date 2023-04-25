@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 2123105181133942315}
   - component: {fileID: 5306778223173384083}
   - component: {fileID: 3659978115142077712}
+  - component: {fileID: 8836243583466013709}
   m_Layer: 5
   m_Name: Worldspace Button
   m_TagString: Untagged
@@ -227,3 +228,16 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &8836243583466013709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7886046858234098348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 309144f73252dcf4eb62c071fb0b7b5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _viewMode: 1

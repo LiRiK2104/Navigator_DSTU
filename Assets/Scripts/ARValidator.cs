@@ -1,14 +1,16 @@
+using System;
 using System.Collections;
-using Calibration;
-using UI;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
 public class ARValidator : MonoBehaviour
 {
-    private UISetter UISetter => Global.Instance.UiSetter;
-    private Calibrator Calibrator => Global.Instance.Calibrator;
-    
+    public event Action Loading;
+    public event Action Completed;
+    public event Action Failed;
+
+    public ARValidationState State { get; private set; } = ARValidationState.None;
+
 
     private void OnEnable()
     {
@@ -19,78 +21,105 @@ public class ARValidator : MonoBehaviour
         }
         
         ARSession.stateChanged += OnARSessionStateChanged;
-        //Calibrator.Calibrated += SuccessValidation;
-        //Calibrator.CalibrationReset += StartMarkersFinding;
     }
     
     private void OnDisable()
     {
         ARSession.stateChanged -= OnARSessionStateChanged;
-        //Calibrator.Calibrated -= SuccessValidation;
-        //Calibrator.CalibrationReset -= StartMarkersFinding;
     }
 
+    
+    public IEnumerator CheckAvailability()
+    {
+        var availabilityCheckingRoutine = CheckAvailabilityRoutine();
+        StartCoroutine(availabilityCheckingRoutine);
+
+        return availabilityCheckingRoutine;
+    }
+    
+    private IEnumerator CheckAvailabilityRoutine()
+    {
+        yield return ARSession.CheckAvailability();
+        ProcessState();
+    }
+    
     private void OnARSessionStateChanged(ARSessionStateChangedEventArgs obj)
+    {
+        ProcessState();
+    }
+
+    private void ProcessState()
     {
         switch (ARSession.state)
         {
             case ARSessionState.CheckingAvailability:
-                //UISetter.SetState(SessionStates.Loading, "Проверка доступности...");
+                SetLoadingState();
                 Debug.Log("Still Checking Availability...");
                 break;
             
             case ARSessionState.NeedsInstall:
-                //UISetter.SetState(SessionStates.Loading);
+                SetLoadingState();
                 Debug.Log("Supported, not installed, requesting installation");
                 //TODO: Request ARCore services apk installation and install only if user allows
                 StartCoroutine(InstallARCoreApp());
                 break;
             
             case ARSessionState.Installing:
-                //UISetter.SetState(SessionStates.Loading, "Установка данных...");
+                SetLoadingState();
                 Debug.Log("Supported, apk installing");
                 StartCoroutine(InstallARCoreApp());
                 break;
             
             case ARSessionState.Ready:
-                //UISetter.SetState(SessionStates.Loading, "Данные установлены");
+                SetCompleteState();
                 Debug.Log("Supported and installed");
                 break;
             
             case ARSessionState.SessionInitializing:
+                SetCompleteState();
                 Debug.Log("Supported, apk installed. SessionInitializing...");
                 break;
             
             case ARSessionState.SessionTracking:
-                SuccessValidation();
+                SetCompleteState();
                 Debug.Log("Supported, apk installed. SessionTracking...");
                 break;
             
             default:
-                //UISetter.SetState(SessionStates.Failed, "Устройство не поддерживает AR");
+                SetFailedState();
                 Debug.Log("Unsupported, Device Not Capable");
                 break;
         }
     }
 
-    private void StartMarkersFinding()
+    private void SetLoadingState()
     {
-        /*if (Calibrator.IsCalibrated == false)
-        {
-            UISetter.SetState(SessionStates.Calibration, "Найдите маркер и, поместив его в рамку, отклаибруйте");
-        }*/
+        State = ARValidationState.Loading;
+        Loading?.Invoke();
+    }
+    
+    private void SetCompleteState()
+    {
+        State = ARValidationState.Completed;
+        Completed?.Invoke();
+    }
+    
+    private void SetFailedState()
+    {
+        State = ARValidationState.Failed;
+        Failed?.Invoke();
     }
 
-    private void SuccessValidation()
-    {
-        /*if (Calibrator.IsCalibrated)
-        {
-            UISetter.SetState(SessionStates.Tracking);
-        }*/
-    }
-     
     private IEnumerator InstallARCoreApp()
     {
        yield return ARSession.Install();
     }
+}
+
+public enum ARValidationState
+{
+    None,
+    Loading,
+    Completed,
+    Failed
 }

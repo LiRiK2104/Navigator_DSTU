@@ -27,7 +27,7 @@ namespace UI.StateSystem.Setters
             }
         }
         
-        private UIStatesStorage UIStatesStorage => Global.Instance.UISetterV2.UIStatesStorage;
+        private UIStatesStorage UIStatesStorage => Global.Instance.UISetterV2.MapView.UIStatesStorage;
 
 
         public void SetState(StateType stateType)

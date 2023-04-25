@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace UI.AR
+namespace UI.AR.Views
 {
     public class ARTutorialView : MonoBehaviour
     {
