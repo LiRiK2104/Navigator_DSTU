@@ -1,5 +1,6 @@
 using System;
 using Calibration;
+using Helpers;
 using Map;
 using UI.AR;
 using UI.AR.Views;
@@ -14,6 +15,8 @@ namespace UI
 {
     public class UISetterV2 : MonoBehaviour
     {
+        private const string SeenTutorialKey = "seen_tutorial";
+        
         [SerializeField] private MapView _mapView;
         [SerializeField] private WorldspaceView _worldspaceView;
         [SerializeField] private CalibrationView _calibrationView;
@@ -58,15 +61,25 @@ namespace UI
             MapView.Initialize();
             SetMapView();
         }
-        
-        public void HideError()
+
+        public void ShowTutorialIfNotSeen()
         {
-            _errorView.gameObject.SetActive(false);
+            if (PlayerPrefs.HasKey(SeenTutorialKey) && 
+                PlayerPrefs.GetInt(SeenTutorialKey).ToBool())
+                return;
+
+            PlayerPrefs.SetInt(SeenTutorialKey, true.ToInt());
+            ShowTutorial();
         }
         
         public void ShowTutorial()
         {
             _arTutorialView.gameObject.SetActive(true);
+        }
+
+        public void HideError()
+        {
+            _errorView.gameObject.SetActive(false);
         }
 
         public void SetView(ViewMode viewMode)

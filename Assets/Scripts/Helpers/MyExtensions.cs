@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins;
@@ -26,6 +27,17 @@ namespace Helpers
                 new Path(pathType, path, resolution, gizmoColor), duration).SetTarget(target);
             tweenerCore.plugOptions.mode = pathMode;
             return tweenerCore;
+        }
+
+        public static int ToInt(this bool target)
+        {
+            return target ? 1 : 0;
+        }
+        
+        public static bool ToBool(this int value)
+        {
+            value = Math.Clamp(value, 0, 1);
+            return value == 1;
         }
     }
 }
