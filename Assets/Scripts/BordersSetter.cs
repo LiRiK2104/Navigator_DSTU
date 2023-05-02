@@ -9,10 +9,17 @@ public class BordersSetter : MonoBehaviour
     [SerializeField] private float _leftBorder = -10;
     [SerializeField] private float _rightBorder = 10;
 
-    public float TopBorder => _topBorder;
-    public float BottomBorder => _bottomBorder;
-    public float LeftBorder => _leftBorder;
-    public float RightBorder => _rightBorder;
+    public float TopBorder => transform.position.z + _topBorder;
+    public float BottomBorder => transform.position.z + _bottomBorder;
+    public float LeftBorder => transform.position.x + _leftBorder;
+    public float RightBorder => transform.position.x + _rightBorder;
+    
+    public Vector3[] Corners => new [] { LeftTop, LeftBottom, RightTop, RightBottom };
+    
+    private Vector3 LeftTop => ToLocalSpace(new Vector3(_leftBorder, transform.position.y,_topBorder));
+    private Vector3 RightTop => ToLocalSpace(new Vector3(_rightBorder, transform.position.y, _topBorder));
+    private Vector3 LeftBottom => ToLocalSpace(new Vector3(_leftBorder, transform.position.y, _bottomBorder));
+    private Vector3 RightBottom => ToLocalSpace(new Vector3(_rightBorder, transform.position.y, _bottomBorder));
 
 
     private void OnValidate()
@@ -23,17 +30,15 @@ public class BordersSetter : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        var height = transform.position.y;
-        
-        Vector3 leftTop = new Vector3(_leftBorder, height,_topBorder);
-        Vector3 rightTop = new Vector3(_rightBorder, height, _topBorder);
-        Vector3 leftBottom = new Vector3(_leftBorder, height, _bottomBorder);
-        Vector3 rightBottom = new Vector3(_rightBorder, height, _bottomBorder);
-        
-        Gizmos.DrawLine(leftTop, rightTop);
-        Gizmos.DrawLine(leftTop, leftBottom);
-        Gizmos.DrawLine(rightTop, rightBottom);
-        Gizmos.DrawLine(leftBottom, rightBottom);
+        Gizmos.DrawLine(LeftTop, RightTop);
+        Gizmos.DrawLine(LeftTop, LeftBottom);
+        Gizmos.DrawLine(RightTop, RightBottom);
+        Gizmos.DrawLine(LeftBottom, RightBottom);
+    }
+
+    private Vector3 ToLocalSpace(Vector3 position)
+    {
+        return transform.position + /*transform.rotation **/ position;
     }
     
     
