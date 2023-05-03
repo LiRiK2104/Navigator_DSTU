@@ -15,6 +15,7 @@ public class ARMain : MonoBehaviour
     [SerializeField] private bool _available;
 
     private IEnumerator _enterRoutine;
+    private int _userFloorIndex;
     
     public event Action Entered;
     public event Action Exited;
@@ -27,13 +28,24 @@ public class ARMain : MonoBehaviour
     public Calibrator Calibrator => _calibrator;
     public bool Available => _available;
     public bool Active { get; private set; } = false;
+    public int UserFloorIndex => _userFloorIndex;
 
 
     private void Awake()
     {
         DisableSession();
     }
-    
+
+    private void OnEnable()
+    {
+        Calibrator.MarkerFound += SetUserFloorIndex;
+    }
+
+    private void OnDisable()
+    {
+        Calibrator.MarkerFound -= SetUserFloorIndex;
+    }
+
 
     public void Enter()
     {
@@ -90,6 +102,11 @@ public class ARMain : MonoBehaviour
     {
         Session.gameObject.SetActive(false);
         SessionOrigin.gameObject.SetActive(false);
+    }
+
+    private void SetUserFloorIndex(int floorIndex)
+    {
+        _userFloorIndex = floorIndex;
     }
 }
 

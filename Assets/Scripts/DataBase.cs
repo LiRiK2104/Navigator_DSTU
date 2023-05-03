@@ -13,13 +13,11 @@ using UnityEngine.XR.ARFoundation;
 
 public class DataBase : MonoBehaviour
 {
-    [SerializeField] private List<TriadMarker> _triadMarkers;
     [SerializeField] private List<PointsGroup> _pointsGroups;
     [SerializeField] private List<Floor> _floors;
 
     private Dictionary<Point, PointInfo> _pointInfos = new Dictionary<Point, PointInfo>();
-
-    public List<TriadMarker> TriadMarker => new List<TriadMarker>(_triadMarkers);
+    
     public List<PointsGroup> PointsGroups => new List<PointsGroup>(_pointsGroups);
     public List<Floor> Floors =>  new List<Floor>(_floors);
     
@@ -36,19 +34,28 @@ public class DataBase : MonoBehaviour
         out TriadMarker foundMarker,
         out ARTrackedImage image1st, 
         out ARTrackedImage image2nd, 
-        out ARTrackedImage image3rd)
+        out ARTrackedImage image3rd,
+        out int floorIndex)
     {
         foundMarker = null;
         image1st = null;
         image2nd = null;
         image3rd = null;
+        floorIndex = 0;
 
-        foreach (var triadMarker in _triadMarkers)
+        for (int i = 0; i < _floors.Count; i++)
         {
-            if (triadMarker.Triad.HasTrackedImage(trackedImages, out image1st, out image2nd, out image3rd))
+            foreach (var block in _floors[i].Blocks)
             {
-                foundMarker = triadMarker;
-                return true;
+                foreach (var triadMarker in block.TriadMarkers)
+                {
+                    if (triadMarker.Triad.HasTrackedImage(trackedImages, out image1st, out image2nd, out image3rd))
+                    {
+                        foundMarker = triadMarker;
+                        floorIndex = i;
+                        return true;
+                    }
+                }
             }
         }
 
@@ -217,6 +224,7 @@ public class DataBase : MonoBehaviour
     {
         public string Name; 
         public List<Point> Points = new List<Point>();
+        public List<TriadMarker> TriadMarkers;
     }
 }
 

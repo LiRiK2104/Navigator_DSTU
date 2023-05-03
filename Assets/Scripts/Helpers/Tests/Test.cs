@@ -7,31 +7,14 @@ namespace Helpers.Tests
 {
     public class Test : MonoBehaviour
     {
-        private IEnumerator _myRoutine;
+        public event Action TestEvent;
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                StartCoroutine(AnotherRoutine());
+                TestEvent?.Invoke();
             }
-        }
-
-        private IEnumerator AnotherRoutine()
-        {
-            yield return GetPreparedMyRoutine();
-        }
-        
-        private IEnumerator GetPreparedMyRoutine()
-        {
-            Debug.Log("Prepared");
-            return MyRoutine();
-        }
-        
-        private IEnumerator MyRoutine()
-        {
-            Debug.Log("Started");
-            yield return null;
         }
     }
 }

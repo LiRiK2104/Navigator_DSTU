@@ -2,42 +2,50 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Helpers;
+using Calibration;
+using Helpers.Tests;
 using UI.SlidingPanel;
 using UI.StateSystem;
 using UI.StateSystem.Setters;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Map
 {
-    public class MapControl : MonoBehaviour, IPointerDownHandler, IDragHandler
+    public class MapControl : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler
     {
         public const int ZoomMin = 10;
-        public const int ZoomMax = 220;
+        public const int ZoomMax = 140;
         private const float ZoomSensitivity = 0.03f;
 
         private IEnumerator _animatedMoveCoroutine;
-        
-        private Vector3 _leftBordersCorner;
-        private Vector3 _rightBordersCorner;
-        private Vector3 _bottomBordersCorner;
-        private Vector3 _topBordersCorner;
-        
-        private Vector3 _leftScreenCorner;
-        private Vector3 _rightScreenCorner;
-        private Vector3 _bottomScreenCorner;
-        private Vector3 _topScreenCorner;
+        private Vector3 _relativePosition;
+        private Quaternion _relativeRotation;
 
         public event Action StartedDrag;
         
         private Camera Camera => Global.Instance?.CameraContainer.MapCamera;
         private BordersSetter BordersSetter => Global.Instance?.BordersSetter;
         private StateSetter StateSetter => Global.Instance.UISetterV2.MapView.StateSetter;
+        private Calibrator Calibrator => Global.Instance.ArMain.Calibrator;
         private SlidingPanelHandler SlidingPanelHandler => Global.Instance.UISetterV2.MapView.SlidingPanelHandler;
-    
-    
+
+        private void Awake()
+        {
+            SetRelativePositionRotation();
+        }
+
+        private void OnEnable()
+        {
+            SynchronizeTransform();
+            Calibrator.Completed += SynchronizeTransform;
+        }
+
+        private void OnDisable()
+        {
+            Calibrator.Completed -= SynchronizeTransform;
+        }
+
         private void OnDrawGizmos()
         {
             if (Camera == null)
@@ -53,21 +61,8 @@ namespace Map
 
             int radius = 5;
 
-            /*foreach (var point in cameraAnglesPoints)
-                Gizmos.DrawSphere(point, radius);*/
-            
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(_leftBordersCorner, radius);
-            Gizmos.DrawSphere(_leftScreenCorner, radius);
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(_rightBordersCorner, radius);
-            Gizmos.DrawSphere(_rightScreenCorner, radius);
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(_topBordersCorner, radius);
-            Gizmos.DrawSphere(_topScreenCorner, radius);
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(_bottomBordersCorner, radius);
-            Gizmos.DrawSphere(_bottomScreenCorner, radius);
+            foreach (var point in cameraAnglesPoints)
+                Gizmos.DrawSphere(point, radius);
         }
     
         public void OnPointerDown(PointerEventData eventData)
@@ -103,6 +98,11 @@ namespace Map
 
             ClampCameraPosition();
         }
+        
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            SetRelativePositionRotation();
+        }
 
 
         public void GoToTarget(Transform target, bool needSetRotation, bool instantly, params Action[] callbacks)
@@ -137,6 +137,19 @@ namespace Map
             var vector = ConVertVectorYToZ(ConvertToUnits(touch.deltaPosition));
             var rotatedVector = Quaternion.AngleAxis(Camera.transform.rotation.eulerAngles.y, -Camera.transform.forward) * vector;
             Camera.transform.position -= rotatedVector * sensitivity;
+        }
+
+        private void SetRelativePositionRotation()
+        {
+            _relativePosition = Camera.transform.position - BordersSetter.transform.position;
+            _relativeRotation = Quaternion.Inverse(BordersSetter.transform.rotation) * Camera.transform.rotation;
+        }
+
+        private void SynchronizeTransform()
+        {
+            Camera.transform.position = _relativePosition + BordersSetter.transform.position;
+            Camera.transform.rotation = BordersSetter.transform.rotation * _relativeRotation;
+            ClampCameraPosition();
         }
     
         private float ConvertToUnits(float pixels)
@@ -184,288 +197,6 @@ namespace Map
                 (new Vector3(0, cameraPosition.y, BordersSetter.TopBorder) + screenCenter - topScreenPoint).z);
         
             Camera.transform.position = new Vector3(x, cameraPosition.y, z);
-        }
-        
-        private void ClampCameraPositionV2(Vector2 delta)
-        {
-            var cameraCornersPoints = new []
-            {
-                Camera.ScreenToWorldPoint(Vector3.zero),
-                Camera.ScreenToWorldPoint(new Vector3(0, Camera.pixelHeight, 0)),
-                Camera.ScreenToWorldPoint(new Vector3(Camera.pixelWidth, 0, 0)),
-                Camera.ScreenToWorldPoint(new Vector3(Camera.pixelWidth, Camera.pixelHeight, 0))
-            };
-
-            GetRectCornersPointsInWorldspace(cameraCornersPoints, 
-                out Vector3 leftScreenCorner, 
-                out Vector3 rightScreenCorner, 
-                out Vector3 bottomScreenCorner, 
-                out Vector3 topScreenCorner);
-            
-            _leftScreenCorner = leftScreenCorner;
-            _rightScreenCorner = rightScreenCorner;
-            _topScreenCorner = topScreenCorner;
-            _bottomScreenCorner = bottomScreenCorner;
-            
-            float screenHalfWidth = Camera.pixelWidth / 2;
-            float screenHalfHeight = Camera.pixelHeight / 2;
-            Vector3 screenCenter = Camera.ScreenToWorldPoint(new Vector3(screenHalfWidth, screenHalfHeight, 0));
-            Vector3 leftCornerCenterDifferent = screenCenter - leftScreenCorner;
-            Vector3 rightCornerCenterDifferent = screenCenter - rightScreenCorner;
-            Vector3 topCornerCenterDifferent = screenCenter - topScreenCorner;
-            Vector3 bottomCornerCenterDifferent = screenCenter - bottomScreenCorner;
-
-            GetRectCornersPointsInWorldspace(BordersSetter.Corners, 
-                out Vector3 leftBordersCorner, 
-                out Vector3 rightBordersCorner, 
-                out Vector3 bottomBordersCorner, 
-                out Vector3 topBordersCorner);
-
-            _leftBordersCorner = leftBordersCorner;
-            _rightBordersCorner = rightBordersCorner;
-            _topBordersCorner = topBordersCorner;
-            _bottomBordersCorner = bottomBordersCorner;
-
-            float leftXBorder;
-            float rightXBorder;
-            float leftZBorder;
-            float rightZBorder;
-            
-            float topZBorder;
-            float bottomZBorder;
-            
-            //todo ClampCameraPosition v1
-            if (IsRightAngleRect(leftBordersCorner, topBordersCorner, rightBordersCorner, bottomBordersCorner) ||
-                IsRightAngleRect(leftScreenCorner, topScreenCorner, rightScreenCorner, bottomScreenCorner))
-            {
-                
-            }
-
-            
-            /*leftScreenCorner.x = Mathf.Clamp(leftScreenCorner.x, leftBordersCorner.x, rightBordersCorner.x);
-            leftScreenCorner.z = Mathf.Clamp(leftScreenCorner.z, bottomBordersCorner.z, topBordersCorner.z);
-            rightScreenCorner.x = Mathf.Clamp(rightScreenCorner.x, leftBordersCorner.x, rightBordersCorner.x);
-            rightScreenCorner.z = Mathf.Clamp(rightScreenCorner.x, bottomBordersCorner.z, topBordersCorner.z);
-            bottomScreenCorner.x = Mathf.Clamp(bottomScreenCorner.x, leftBordersCorner.x, rightBordersCorner.x);
-            bottomScreenCorner.z = Mathf.Clamp(bottomScreenCorner.z, bottomBordersCorner.z, topBordersCorner.z);
-            topScreenCorner.x = Mathf.Clamp(topScreenCorner.x, leftBordersCorner.x, rightBordersCorner.x);
-            topScreenCorner.z = Mathf.Clamp(topScreenCorner.z, bottomBordersCorner.z, topBordersCorner.z);*/
-
-            // TODO:
-            // Если угол камеры находится за границей, то нужно определить вектор, по которому двигалась камера.
-            // Берем противоположный вектор и находим точку пересечения с границей.
-            // По этому же вектору определяем противоположную точку.
-
-            Vector3 newCameraPosition = Camera.transform.position;
-
-            var cameraYRotation = Quaternion.Euler(0, Camera.transform.rotation.eulerAngles.y, 0);
-            var deltaXZ = new Vector3(delta.x, 0, delta.y);
-            var rotatedDelta = cameraYRotation * deltaXZ;
-            Debug.DrawLine(leftScreenCorner, leftScreenCorner + rotatedDelta, Color.blue);
-
-            var leftTopBorder = new StraightLineXZ(leftBordersCorner, topBordersCorner);
-            var leftBottomBorder = new StraightLineXZ(leftBordersCorner, bottomBordersCorner);
-            var rightTopBorder = new StraightLineXZ(rightBordersCorner, topBordersCorner);
-            var rightBottomBorder = new StraightLineXZ(rightBordersCorner, bottomBordersCorner);
-            
-            newCameraPosition = ClampScreenCorner(newCameraPosition, leftScreenCorner, leftCornerCenterDifferent, rotatedDelta,
-                leftTopBorder, leftBottomBorder, Dimension.X, ClampType.Max);
-            
-            newCameraPosition = ClampScreenCorner(newCameraPosition, rightScreenCorner, rightCornerCenterDifferent, rotatedDelta,
-                rightTopBorder, rightBottomBorder, Dimension.X, ClampType.Min);
-            
-            newCameraPosition = ClampScreenCorner(newCameraPosition, bottomScreenCorner, bottomCornerCenterDifferent, rotatedDelta,
-                leftBottomBorder, rightBottomBorder, Dimension.Z, ClampType.Max);
-            
-            newCameraPosition = ClampScreenCorner(newCameraPosition, topScreenCorner, topCornerCenterDifferent, rotatedDelta,
-                leftTopBorder, rightTopBorder, Dimension.Z, ClampType.Min);
-
-            
-            //Debug.DrawLine(leftScreenCorner, new Vector3(leftXBorder, leftScreenCorner.y, leftScreenCorner.z), Color.blue);
-            
-            /*var rightTopXBorder = GetClampedXInStraightLine(rightBordersCorner, topBordersCorner, rightScreenCorner.z, Side.Below);
-            var rightBottomXBorder = GetClampedXInStraightLine(rightBordersCorner, bottomBordersCorner, rightScreenCorner.z, Side.Higher);
-            rightXBorder = Mathf.Min(rightTopXBorder, rightBottomXBorder);
-            Debug.DrawLine(rightScreenCorner, new Vector3(rightXBorder, rightScreenCorner.y, rightScreenCorner.z), Color.blue);*/
-            
-            /*var leftTopZBorder = GetClampedZInStraightLine(leftBordersCorner, topBordersCorner, leftScreenCorner.x, Side.Below);
-            var leftBottomZBorder = GetClampedZInStraightLine(leftBordersCorner, bottomBordersCorner, leftScreenCorner.x, Side.Higher);
-            leftZBorder = Mathf.Max(leftTopZBorder, leftBottomZBorder);
-
-            var rightTopZBorder = GetClampedZInStraightLine(rightBordersCorner, topBordersCorner, rightScreenCorner.z, Side.Below);
-            var rightBottomZBorder = GetClampedZInStraightLine(rightBordersCorner, bottomBordersCorner, rightScreenCorner.z, Side.Higher);
-            rightZBorder = Mathf.Min(rightTopZBorder, rightBottomZBorder);*/
-
-            /*newCameraPosition.x = Mathf.Clamp(newCameraPosition.x, 
-                leftXBorder + leftCornerCenterDifferent.x, 
-                rightXBorder + rightCornerCenterDifferent.x);*/
-            
-            // newCameraPosition.z = Mathf.Clamp(newCameraPosition.z, 
-            //     leftZBorder + leftCornerCenterDifferent.z, 
-            //     rightZBorder + rightCornerCenterDifferent.z);
-            
-            
-            /*var leftTopZBorder = GetClampedZInStraightLine(leftBordersCorner, topBordersCorner, topScreenCorner.x, Side.Right);
-            var rightTopZBorder = GetClampedZInStraightLine(rightBordersCorner, topBordersCorner, topScreenCorner.x, Side.Left);
-            topZBorder = Mathf.Min(leftTopZBorder, rightTopZBorder);
-            Debug.DrawLine(topScreenCorner, new Vector3(topScreenCorner.x, topScreenCorner.y, topZBorder), Color.blue);
-            
-            var leftBottomZBorder = GetClampedZInStraightLine(leftBordersCorner, bottomBordersCorner, bottomScreenCorner.x, Side.Right);
-            var rightBottomZBorder = GetClampedZInStraightLine(rightBordersCorner, bottomBordersCorner, bottomScreenCorner.x, Side.Left);
-            bottomZBorder = Mathf.Max(leftBottomZBorder, rightBottomZBorder);
-            Debug.DrawLine(bottomScreenCorner, new Vector3(bottomScreenCorner.x, bottomScreenCorner.y, bottomZBorder), Color.blue);
-            
-            newCameraPosition.z = Mathf.Clamp(newCameraPosition.z, 
-                bottomZBorder + bottomCornerCenterDifferent.z, 
-                topZBorder + topCornerCenterDifferent.z);*/
-
-            Camera.transform.position = newCameraPosition;
-        }
-        
-        private Vector3 ClampScreenCorner(
-            Vector3 cameraPosition, 
-            Vector3 screenCorner, 
-            Vector3 cornerCenterDifferent,
-            Vector3 delta,
-            StraightLineXZ borderlineA,
-            StraightLineXZ borderlineB, 
-            Dimension dimension,
-            ClampType clampType)
-        {
-            float dimensionValue = 0;
-
-            switch (dimension)
-            {
-                case Dimension.Z:
-                    dimensionValue = screenCorner.x;
-                    break;
-                
-                case Dimension.X:
-                    dimensionValue = screenCorner.z;
-                    break;
-            }
-            
-            GetDimensionBorder(borderlineA, borderlineB, dimension, dimensionValue, clampType, 
-                out float dimensionBorder, 
-                out StraightLineXZ nearestLine);
-
-            if ((dimension == Dimension.X && 
-                ((clampType == ClampType.Min && screenCorner.x > dimensionBorder) || 
-                (clampType == ClampType.Max && screenCorner.x < dimensionBorder))) ||
-                (dimension == Dimension.Z && 
-                 ((clampType == ClampType.Min && screenCorner.z > dimensionBorder) || 
-                 (clampType == ClampType.Max && screenCorner.z < dimensionBorder))))
-            {
-                cameraPosition = ClampScreenCorner(cameraPosition, screenCorner, cornerCenterDifferent, nearestLine, delta);
-            }
-            
-            return cameraPosition;
-        }
-        
-        private Vector3 ClampScreenCorner(
-            Vector3 cameraPosition, 
-            Vector3 screenCorner, 
-            Vector3 cornerCenterDifferent, 
-            StraightLineXZ nearestBorder, 
-            Vector3 delta)
-        {
-            var deltaLine = new StraightLineXZ(screenCorner, screenCorner + delta);
-            StraightLineXZ.IntersectLineSegments2D(nearestBorder, deltaLine, out Vector3 intersection);
-            cameraPosition.x = intersection.x + cornerCenterDifferent.x;
-            cameraPosition.z = intersection.z + cornerCenterDifferent.z;
-
-            return cameraPosition;
-        }
-
-        private void GetDimensionBorder(
-            StraightLineXZ borderlineA,
-            StraightLineXZ borderlineB, 
-            Dimension dimension,
-            float dimensionValue, 
-            ClampType clampType, 
-            out float dimensionBorder, 
-            out StraightLineXZ nearestLine)
-        {
-            float borderA = 0;
-            float borderB = 0;
-            
-            switch (dimension)
-            {
-                case Dimension.X:
-                    borderA = borderlineA.GetX(dimensionValue);
-                    borderB = borderlineB.GetX(dimensionValue);
-                    break;
-                
-                case Dimension.Z:
-                    borderA = borderlineA.GetZ(dimensionValue);
-                    borderB = borderlineB.GetZ(dimensionValue);
-                    break;
-            }
-            
-            GetNearestBorderAndLine(borderlineA, borderlineB, borderA, borderB, clampType, out dimensionBorder, out nearestLine);
-        }
-
-        private void GetNearestBorderAndLine(
-            StraightLineXZ linaA, 
-            StraightLineXZ lineB, 
-            float borderA, 
-            float borderB, 
-            ClampType clampType, 
-            out float border, 
-            out StraightLineXZ nearestLine)
-        {
-            border = 0;
-            
-            switch (clampType)
-            {
-                case ClampType.Min:
-                    border = Mathf.Min(borderA, borderB);
-                    break;
-                
-                case ClampType.Max:
-                    border = Mathf.Max(borderA, borderB);
-                    break;
-                
-                case ClampType.None:
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(clampType), clampType, null);
-            }
-            
-            nearestLine = border == borderA ? linaA : lineB;
-        }
-
-        private bool IsRightAngleRect(Vector3 leftCorner, Vector3 topCorner, Vector3 rightCorner, Vector3 bottomCorner)
-        {
-            return leftCorner.z == topCorner.z ||
-                   topCorner.x == rightCorner.x ||
-                   rightCorner.z == bottomCorner.z ||
-                   bottomCorner.x == leftCorner.x;
-        }
-
-        private void GetRectCornersPointsInWorldspace(
-            Vector3[] corners, 
-            out Vector3 leftCorner, 
-            out Vector3 rightCorner, 
-            out Vector3 bottomCorner, 
-            out Vector3 topCorner)
-        {
-            const int rectCornersCount = 4;
-
-            leftCorner = Vector3.zero; 
-            rightCorner = Vector3.zero;
-            bottomCorner = Vector3.zero;
-            topCorner = Vector3.zero;
-            
-            if (corners.Length != rectCornersCount)
-                return;
-            
-            var sortedByX = corners.OrderBy(point => point.x);
-            var sortedByZ = corners.OrderBy(point => point.z);
-
-            leftCorner = sortedByX.First();
-            rightCorner = sortedByX.Last();
-            bottomCorner = sortedByZ.First();
-            topCorner = sortedByZ.Last();
         }
 
         private IEnumerator GoToTargetRoutine(Transform target, bool needSetRotation, bool instantly, params Action[] callbacks)

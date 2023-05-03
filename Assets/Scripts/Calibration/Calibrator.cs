@@ -13,6 +13,7 @@ namespace Calibration
         private IEnumerator _calibrationRoutine;
         
         public event Action Started;
+        public event Action<int> MarkerFound;
         public event Action Completed;
         public event Action Failed;
         
@@ -38,6 +39,7 @@ namespace Calibration
             ArTrackedImageManager.trackedImagesChanged -= FindTriadMarker;
             ARMain.Exited -= StopCalibration;
         }
+
 
         public void StartCalibration()
         {
@@ -111,11 +113,13 @@ namespace Calibration
                     out TriadMarker triadMarker,
                     out ARTrackedImage image1st, 
                     out ARTrackedImage image2nd, 
-                    out ARTrackedImage image3rd))
+                    out ARTrackedImage image3rd,
+                    out int markerFloorIndex))
             {
                 triadMarker.ApplyTransformation(image1st.transform, image2nd.transform, image3rd.transform);
                 _triadMarker = triadMarker;
                 State = CalibrationState.MarkerFound;
+                MarkerFound?.Invoke(markerFloorIndex);
 
                 Debug.Log("Calibration: TriadMarker found.");
             }

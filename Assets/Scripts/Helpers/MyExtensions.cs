@@ -39,5 +39,10 @@ namespace Helpers
             value = Math.Clamp(value, 0, 1);
             return value == 1;
         }
+        
+        public static Vector3 YtoZ(this Vector3 original)
+        {
+            return new Vector3(original.x, original.z);
+        }
     }
 }

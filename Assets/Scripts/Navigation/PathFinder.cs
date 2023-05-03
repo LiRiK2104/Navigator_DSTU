@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Calibration;
-using Map;
 using Plugins.ZenythStudios.Graphway.Assets.Scripts;
 using TargetsSystem.Points;
 using UI.FloorsSwitch;
@@ -14,6 +13,7 @@ namespace Navigation
     public class PathFinder : MonoBehaviour
     {
         [SerializeField] private LineRenderer _mapLineRenderer;
+        [SerializeField] private LineRenderer _worldviewLineRenderer;
         [SerializeField] private Graphway _graphway;
 
         private Vector3 _targetPosition;
@@ -30,7 +30,6 @@ namespace Navigation
         public DestinationPoint PriorityPoint { get; set; }
         
         private Calibrator Calibrator => Global.Instance.ArMain.Calibrator;
-        private Transform UserTransform => Global.Instance.ArMain.CameraManager.transform;
         private DataBase DataBase => Global.Instance.DataBase;
         private AREnvironment ArEnvironment => Global.Instance.ArEnvironment;
         private FloorsSwitcher FloorsSwitcher => Global.Instance.FloorsSwitcher;
@@ -38,18 +37,14 @@ namespace Navigation
 
         private void OnEnable()
         {
-            /*Calibrator.Calibrated += ResetPath;
-            Calibrator.Calibrated += ShowPath;
-            Calibrator.CalibrationReset += HidePath;*/
+            Calibrator.Completed += FindPath;
             PathFound += DrawFloorPath;
             FloorsSwitcher.FloorSwitched += DrawFloorPath;
         }
 
         private void OnDisable()
         {
-            /*Calibrator.Calibrated -= ResetPath;
-            Calibrator.Calibrated -= ShowPath;
-            Calibrator.CalibrationReset -= HidePath;*/
+            Calibrator.Completed -= FindPath;
             PathFound -= DrawFloorPath;
             FloorsSwitcher.FloorSwitched -= DrawFloorPath;
         }
@@ -227,7 +222,7 @@ namespace Navigation
             if (floorPath.Length < minPointsCount)
                 DrawEmptyPath();
             else
-                DrawPath(floorPath, _mapLineRenderer);
+                DrawPath(floorPath, _mapLineRenderer, _worldviewLineRenderer);
         }
 
         private void DrawPath(Vector3[] positions, params LineRenderer[] lineRenderers)
@@ -241,7 +236,7 @@ namespace Navigation
 
         private void DrawEmptyPath()
         {
-            DrawPath(Array.Empty<Vector3>(), _mapLineRenderer);
+            DrawPath(Array.Empty<Vector3>(), _mapLineRenderer, _worldviewLineRenderer);
         }
     }
 

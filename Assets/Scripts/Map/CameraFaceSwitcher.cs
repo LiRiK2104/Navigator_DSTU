@@ -17,7 +17,7 @@ namespace Map
         private CameraFacePreset _minimapPreset;
         private CameraFacePreset _mapPreset;
 
-        //private TrackingMenu TrackingMenu => Global.Instance.UiSetter.TrackingMenu;
+        private UISetterV2 UISetterV2 => Global.Instance.UISetterV2;
 
         private Canvas Canvas
         {
@@ -63,35 +63,29 @@ namespace Map
             }
         }
     
-        //TODO: Обновить AR-режим
-        /*private void OnEnable()
+        
+        private void OnEnable()
         {
-            TrackingMenu.ToArSwitched += SetMinimapPreset;
-            TrackingMenu.ToMapSwitched += SetMapPreset;
+            SetPresetByViewMode(UISetterV2.CurrentViewMode);
+            UISetterV2.ViewSet += SetPresetByViewMode;
         }
 
         private void OnDisable()
         {
-            TrackingMenu.ToArSwitched -= SetMinimapPreset;
-            TrackingMenu.ToMapSwitched -= SetMapPreset;
-        }*/
-
-        private void Start()
-        {
-            SetPresetByViewMode();
+            UISetterV2.ViewSet -= SetPresetByViewMode;
         }
 
 
-        private void SetPresetByViewMode()
+        private void SetPresetByViewMode(ViewMode viewMode)
         {
-            switch (ViewMode.Map/*TrackingMenu.ViewMode*/)
+            switch (viewMode)
             {
                 case ViewMode.Map:
                     SetMapPreset();
                     break;
             
                 case ViewMode.Worldspace:
-                    SetMinimapPreset();
+                    SetWorldspacePreset();
                     break;
             }
         }
@@ -102,7 +96,7 @@ namespace Map
             SetCameraToCanvas(MapPreset);
         }
     
-        private void SetMinimapPreset()
+        private void SetWorldspacePreset()
         {
             CameraFace.SetPreset(MinimapPreset);
             SetCameraToCanvas(MinimapPreset);
@@ -110,6 +104,9 @@ namespace Map
 
         private void SetCameraToCanvas(CameraFacePreset preset)
         {
+            if (Canvas == null)
+                return;
+            
             Canvas.worldCamera = preset.Camera;
         }
     }

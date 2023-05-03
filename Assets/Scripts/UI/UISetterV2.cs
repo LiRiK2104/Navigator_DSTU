@@ -1,3 +1,4 @@
+using System;
 using Calibration;
 using Helpers;
 using UI.AR.Views;
@@ -17,6 +18,9 @@ namespace UI
         [SerializeField] private LoadingView _loadingView;
         [SerializeField] private ErrorView _errorView;
 
+        public event Action<ViewMode> ViewSet;
+        
+        public ViewMode CurrentViewMode { get; private set; }
         public MapView MapView => _mapView;
         private Camera MapCamera => Global.Instance.CameraContainer.MapCamera;
         private ARMain ARMain => Global.Instance.ArMain;
@@ -98,6 +102,9 @@ namespace UI
                     _calibrationView.gameObject.SetActive(true);
                     break;
             }
+
+            CurrentViewMode = viewMode;
+            ViewSet?.Invoke(viewMode);
         }
         
         private void SetCalibrationView()

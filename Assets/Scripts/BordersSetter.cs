@@ -14,7 +14,6 @@ public class BordersSetter : MonoBehaviour
     public float LeftBorder => transform.position.x + _leftBorder;
     public float RightBorder => transform.position.x + _rightBorder;
     
-    public Vector3[] Corners => new [] { LeftTop, LeftBottom, RightTop, RightBottom };
     
     private Vector3 LeftTop => ToLocalSpace(new Vector3(_leftBorder, transform.position.y,_topBorder));
     private Vector3 RightTop => ToLocalSpace(new Vector3(_rightBorder, transform.position.y, _topBorder));
