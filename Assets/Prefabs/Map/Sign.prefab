@@ -1281,7 +1281,7 @@ MonoBehaviour:
   - {fileID: 8583762419162568626}
   - {fileID: 3184564256145329545}
   _stopScalingHeight: 70
-  _stopDisplayHeight: 110
+  _stopDisplayHeight: 125
 --- !u!114 &8583762419851497185
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -29,6 +29,7 @@ namespace Calibration
         
         private void Start ()
         {
+            transform.parent = null;
             var wrongInitPosition = _triad.Anchor.transform.position;
             _initPosition = new UnityEngine.Vector3(-wrongInitPosition.x, wrongInitPosition.z, wrongInitPosition.y);
             _initRotation = _triad.Anchor.transform.rotation;        

@@ -1,9 +1,7 @@
 using System.Collections.ObjectModel;
 using Calibration;
-using Helpers;
 using Map;
 using UnityEngine;
-using UnityEngine.UI;
 using Toggle = UI.Toggles.Toggle;
 using ToggleGroup = UI.Toggles.ToggleGroup;
 
@@ -26,7 +24,8 @@ namespace UI.FloorsSwitch
 
         private void OnEnable()
         {
-            ChangeToggle(CurrentFloorIndex);
+            ChangeToggleToCurrentFloor();
+            _toggleGroup.Enabled += ChangeToggleToCurrentFloor;
             _toggleGroup.ToggleChanged += OnToggleChanged;
             Calibrator.Completed += SwitchFloorToUser;
             UISetterV2.ViewSet += SwitchFloorToUser;
@@ -34,6 +33,7 @@ namespace UI.FloorsSwitch
 
         private void OnDisable()
         {
+            _toggleGroup.Enabled -= ChangeToggleToCurrentFloor;
             _toggleGroup.ToggleChanged -= OnToggleChanged;
             Calibrator.Completed -= SwitchFloorToUser;
             UISetterV2.ViewSet -= SwitchFloorToUser;
@@ -47,7 +47,7 @@ namespace UI.FloorsSwitch
 
         public void SwitchFloor(int floorIndex)
         {
-            if (_toggleGroup.gameObject.activeSelf)
+            if (_toggleGroup.gameObject.activeInHierarchy)
                 ChangeToggle(floorIndex);
             else
                 SelectFloor(floorIndex);
@@ -82,6 +82,11 @@ namespace UI.FloorsSwitch
             toggle.Initialize(number);
         }
 
+        private void ChangeToggleToCurrentFloor()
+        {
+            ChangeToggle(CurrentFloorIndex);
+        }
+
         private void ChangeToggle(int floorIndex)
         {
             if (_toggleGroup.TryGetToggle(floorIndex, out Toggle toggle))
@@ -92,9 +97,8 @@ namespace UI.FloorsSwitch
         {
             if (_toggleGroup.TryGetIndex(toggle, out int index) == false) 
                 return;
-        
+            
             SelectFloor(index);
-            FloorSwitched?.Invoke(index);
         }
     
         private void SelectFloor(int floorIndex)
@@ -104,6 +108,7 @@ namespace UI.FloorsSwitch
         
             Floors[floorIndex].gameObject.SetActive(true);
             CurrentFloorIndex = floorIndex;
+            FloorSwitched?.Invoke(floorIndex);
         }
 
         private void SetFirstFloor()

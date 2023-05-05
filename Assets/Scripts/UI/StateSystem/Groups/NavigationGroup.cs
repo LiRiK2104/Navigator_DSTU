@@ -15,7 +15,7 @@ namespace UI.StateSystem.Groups
             if (UIStatesStorage.TryGetState(StateType.PathPlanning, out PathPlanningState pathPlanningState))
                 pathPlanningState.Clear();
             
-            MapPointerSetter.DeactivatePointers(PointerState.PointA, PointerState.PointB);
+            MapPointerSetter.HidePointers(true, PointerState.PointA, PointerState.PointB);
         }
     }
 }

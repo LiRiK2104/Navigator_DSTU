@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,6 +11,13 @@ namespace UI.Toggles
 
         public delegate void ChangedEventHandler(Toggle newActive);
         public event ChangedEventHandler ToggleChanged;
+        public event Action Enabled;
+
+
+        private void OnEnable()
+        {
+            Enabled?.Invoke();
+        }
 
 
         public void Initialize()

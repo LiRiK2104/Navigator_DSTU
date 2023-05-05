@@ -21,13 +21,11 @@ namespace UI.StateSystem.States
         private void OnEnable()
         {
             PathFinder.PathFound += _pathPlanningView.InitializePathInfoPanel;
-            FloorsSwitcher.FloorSwitched += UpdatePointers;
         }
 
         private void OnDisable()
         {
             PathFinder.PathFound -= _pathPlanningView.InitializePathInfoPanel;
-            FloorsSwitcher.FloorSwitched -= UpdatePointers;
         }
         
 
@@ -132,7 +130,7 @@ namespace UI.StateSystem.States
         
         private void HidePointer(PointerState pointerState)
         { 
-            MapPointerSetter.DeactivatePointers(pointerState);
+            MapPointerSetter.HidePointers(true, pointerState);
         }
     }
 

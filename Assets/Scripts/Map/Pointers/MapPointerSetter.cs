@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Map;
-using Navigation;
+using UI.FloorsSwitch;
 using UnityEngine;
 
 namespace UI
@@ -14,41 +14,52 @@ namespace UI
         private List<MapPointer> _spawnedPointers = new List<MapPointer>();
         
         private AREnvironment Environment => Global.Instance.ArEnvironment;
+        private FloorsSwitcher FloorsSwitcher => Global.Instance.FloorsSwitcher;
 
-        
-        public void SetPointers(List<PointerSetRequest> requests)
+
+        private void OnEnable()
         {
-            foreach (var request in requests)
-                SetPointer(request);
+            FloorsSwitcher.FloorSwitched += UpdatePointers;
         }
 
+        private void OnDisable()
+        {
+            FloorsSwitcher.FloorSwitched -= UpdatePointers;
+        }
+        
+        
         public void SetPointer(PointerSetRequest request)
         {
             if (TryGetPointer(request, out MapPointer pointer) == false)
                 pointer = CreatePointer();
 
-            pointer.State = request.PointerState;
+            pointer.SetState(request.PointerState, FloorsSwitcher.CurrentFloorIndex);
             pointer.transform.position = request.TargetPosition;
         }
 
-        public void DeactivatePointers(params PointerState[] states)
+        public void HidePointers(bool clearFloor, params PointerState[] states)
         {
             foreach (var pointer in _spawnedPointers)
             {
-                if (states.Contains(pointer.State))
-                    pointer.Hide();
+                if (states.Contains(pointer.LastState))
+                    pointer.Hide(clearFloor);
             }
         }
         
         public void DeactivateAllPointers()
         {
             var states = (PointerState[])Enum.GetValues(typeof(PointerState));
-            DeactivatePointers(states);
+            HidePointers(true, states);
+        }
+        
+        public void UpdatePointers(int currentFloor)
+        {
+            _spawnedPointers.ForEach(pointer => UpdatePointer(pointer, currentFloor));
         }
 
         private bool TryGetPointer(PointerSetRequest request, out MapPointer foundPointer)
         {
-            foundPointer = _spawnedPointers.FirstOrDefault(pointer => pointer.State == request.PointerState);
+            foundPointer = _spawnedPointers.FirstOrDefault(pointer => pointer.LastState == request.PointerState);
             return foundPointer != null;
         }
 
@@ -58,6 +69,14 @@ namespace UI
             _spawnedPointers.Add(pointer);
 
             return pointer;
+        }
+
+        private void UpdatePointer(MapPointer pointer, int currentFloor)
+        {
+            if (pointer.FloorIndex.HasValue && pointer.FloorIndex.Value == currentFloor)
+                pointer.SetLastState();
+            else
+                pointer.Hide();
         }
     }
 

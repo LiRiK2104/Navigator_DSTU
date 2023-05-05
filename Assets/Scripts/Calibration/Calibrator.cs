@@ -9,6 +9,8 @@ namespace Calibration
 {
     public class Calibrator : MonoBehaviour
     {
+        [SerializeField] private Anchor _anchor;
+        
         private TriadMarker _triadMarker;
         private IEnumerator _calibrationRoutine;
         
@@ -38,6 +40,14 @@ namespace Calibration
         {
             ArTrackedImageManager.trackedImagesChanged -= FindTriadMarker;
             ARMain.Exited -= StopCalibration;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                UpdateEnvironmentLocation(_anchor);   
+            }
         }
 
 

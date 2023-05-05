@@ -38,7 +38,7 @@ namespace UI.StateSystem.States
 
         private void HidePointer()
         {
-            MapPointerSetter.DeactivatePointers(PointerState.Default);
+            MapPointerSetter.HidePointers(true, PointerState.Default);
         }
     }
 }

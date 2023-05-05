@@ -194,7 +194,6 @@ MonoBehaviour:
   _pointAState: {fileID: 7853255519002886471}
   _pointBState: {fileID: 7855623536257997068}
   _transitStairsState: {fileID: 6568793851329406418}
-  _transitElevatorState: {fileID: 0}
 --- !u!1 &1135720654366378443
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a04426cc82328847a32e9ea98556a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minimapScaleFactor: 2
+  _minimapScaleFactor: 4.7
   _mapScaleFactor: 2.51
 --- !u!114 &1135720654366378445
 MonoBehaviour:
