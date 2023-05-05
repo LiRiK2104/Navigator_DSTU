@@ -14,13 +14,7 @@ namespace UI.SlidingPanel.Setters
 
         protected void SetPanelPosition()
         {
-            _slidingPanelHandler.SwitchPosition(_index, SetState, _instantlySet);
-        }
-        
-        private void SetState(Transform targetPoint)
-        {
-            if (_slidingPanelHandler.StatesStorage.TryGetState(targetPoint, out StateType stateType))
-                SetState(stateType);
+            _slidingPanelHandler.SwitchPosition(_index, null, _instantlySet);
         }
     }
     

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using UI.StateSystem;
+using UI.StateSystem.Setters;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -37,6 +39,7 @@ namespace UI.SlidingPanel
         }
         
         public List<Transform> TargetPoints => _targetPoints;
+        private StateSetter StateSetter => Global.Instance.UISetterV2.MapView.StateSetter;
 
 
         public void Initialize(Action<Transform> callback)
@@ -52,12 +55,6 @@ namespace UI.SlidingPanel
 
             SwitchPosition(_targetPoints[index], callback, instantly);
         }
-
-        public void SetBeginDrag(PointerEventData eventData)
-        {
-            _beginDragY = eventData.position.y;
-            _beginDragTime = DateTime.Now.TimeOfDay;
-        }
         
         public void SwitchPosition(PointerEventData eventData, Action<Transform> callback, bool instantly = false)
         {
@@ -66,9 +63,21 @@ namespace UI.SlidingPanel
 
             SwitchPosition(nearestTargetPoint, callback, instantly);
         }
-        
-        private void SwitchPosition(Transform targetPoint, Action<Transform> callback, bool instantly = false)
+
+        public void SetBeginDrag(PointerEventData eventData)
         {
+            _beginDragY = eventData.position.y;
+            _beginDragTime = DateTime.Now.TimeOfDay;
+        }
+
+        private void SwitchPosition(Transform targetPoint, Action<Transform> callback = null, bool instantly = false)
+        {
+            callback ??= targetPoint =>
+            {
+                if (StatesStorage.TryGetState(targetPoint, out StateType stateType))
+                    StateSetter.SetState(stateType);
+            };
+            
             _currentTargetPoint = targetPoint;
             StartCoroutine(MoveTo(targetPoint, callback, instantly));
         }

@@ -21,8 +21,8 @@ namespace UI.Views
         public StateSetter StateSetter => _stateSetter;
         public SearchResultsSelector SearchResultsSelector => _searchResultsSelector;
         public MapHandlePanel MapHandlePanel => _mapHandlePanel;
-
         public SlidingPanelHandler SlidingPanelHandler => _slidingPanelHandler;
+        
         
         public void Initialize()
         {
