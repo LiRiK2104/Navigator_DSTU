@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f45c348b4d6ae8943a37c7284f4f4d3c, type: 3}
+  m_Name: TriadMarkersLibrary
+  m_EditorClassIdentifier: 
+  _redSpherePrefab: {fileID: 5440482750519874879, guid: fe414a5ee7bab8645abb778bdddfd4be, type: 3}
+  _greenSpherePrefab: {fileID: 5440482750519874879, guid: 08be9c4298368c845a034a63d86dbd74, type: 3}
+  _blueSpherePrefab: {fileID: 5440482750519874879, guid: eb1ab517bc94ff547bbff0859c6c13aa, type: 3}
+  _width: 0.1
+  _triadMarkers:
+  - Name: 1-11
+    MarkerA: {fileID: 2800000, guid: fa9f9de18e546014987c0a9b063dc24a, type: 3}
+    MarkerB: {fileID: 2800000, guid: 4b831a23c73aaac4a84c731eb3a6b9df, type: 3}
+    MarkerC: {fileID: 2800000, guid: b4b4143d5a76e4840987f5a36de22e50, type: 3}
+  - Name: 1-21
+    MarkerA: {fileID: 2800000, guid: ce04b68fc18ff9a43a9acc0ecc7b700a, type: 3}
+    MarkerB: {fileID: 2800000, guid: 0a00c0d8c4537a2478f6a8c7e5f5c30a, type: 3}
+    MarkerC: {fileID: 2800000, guid: f6c34bf63936c144a93c4e561cd8c950, type: 3}

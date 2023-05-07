@@ -18,7 +18,14 @@ namespace Calibration
         public VirtualMarker RefMarker2Nd => _refMarker2nd;
         public VirtualMarker RefMarker3Rd => _refMarker3rd;
         public Anchor Anchor => _anchor;
-        
+
+
+        public void Initialize(string name)
+        {
+            _refMarker1st.Initialize($"{name}a");
+            _refMarker2nd.Initialize($"{name}b");
+            _refMarker3rd.Initialize($"{name}c");
+        }
         
         public bool HasTrackedImage(List<ARTrackedImage> trackedImages, 
             out ARTrackedImage image1st, 

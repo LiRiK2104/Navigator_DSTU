@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Calibration;
+using Helpers;
 using Map.Signs;
 using Navigation;
 using TargetsSystem;
@@ -17,9 +19,33 @@ public class DataBase : MonoBehaviour
     [SerializeField] private List<Floor> _floors;
 
     private Dictionary<Point, PointInfo> _pointInfos = new Dictionary<Point, PointInfo>();
-    
+    private List<TriadMarker> _allTriadMarkers;
+
     public List<PointsGroup> PointsGroups => new List<PointsGroup>(_pointsGroups);
     public List<Floor> Floors =>  new List<Floor>(_floors);
+    private ReadOnlyCollection<TriadMarker> AllTriadMarkers
+    {
+        get
+        {
+            if (_allTriadMarkers.IsNullOrEmpty())
+            {
+                _allTriadMarkers = new List<TriadMarker>();
+                
+                foreach (var floor in _floors)
+                {
+                    foreach (var block in floor.Blocks)
+                    {
+                        foreach (var triadMarker in block.TriadMarkers)
+                        {
+                            _allTriadMarkers.Add(triadMarker);
+                        }
+                    }
+                }
+            }
+
+            return _allTriadMarkers.AsReadOnly();
+        }
+    }
     
     
     public void Initialize()
@@ -28,6 +54,9 @@ public class DataBase : MonoBehaviour
         
         foreach (var point in GetAllPoints())
             point.Initialize();
+
+        foreach (var triadMarker in AllTriadMarkers)
+            triadMarker.Initialize();
     }
     
     public bool TryGetVirtualMarker(List<ARTrackedImage> trackedImages, 

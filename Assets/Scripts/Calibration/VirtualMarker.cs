@@ -4,8 +4,11 @@ namespace Calibration
 {
     public class VirtualMarker : MonoBehaviour
     {
-        [SerializeField] private string _id; 
-        
-        public string Id => _id;
+        public string Id { get; private set; }
+
+        public void Initialize(string id)
+        {
+            Id = id;
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace Calibration
     public class TriadMarker : MonoBehaviour
     {
         [SerializeField] private Triad _triad;
+        [SerializeField] private string _name;
 
         private Matrix3x3 _h;
         private Matrix3x3 _u;
@@ -26,15 +27,16 @@ namespace Calibration
 
         public Triad Triad => _triad;
 
-        
-        private void Start ()
+
+        public void Initialize()
         {
+            _triad.Initialize(_name);
+            
             transform.parent = null;
             var wrongInitPosition = _triad.Anchor.transform.position;
             _initPosition = new UnityEngine.Vector3(-wrongInitPosition.x, wrongInitPosition.z, wrongInitPosition.y);
-            _initRotation = _triad.Anchor.transform.rotation;        
+            _initRotation = _triad.Anchor.transform.rotation;
         }
-        
         
         public void ApplyTransformation(
             Transform target1StMarkerTransform, 
@@ -80,7 +82,7 @@ namespace Calibration
             _triad.Anchor.transform.position = _transformationMatrix.MultiplyPoint(_initPosition);
             _triad.Anchor.transform.rotation = Quaternion.LookRotation(_transformationMatrix.GetColumn(1), _transformationMatrix.GetColumn(2))* _initRotation;
         }
-    
+
         private Matrix3x3 CovarianceMatrixStep( Accord.Math.Vector3 difSetA, Accord.Math.Vector3 difSetB )
         {
             Matrix3x3 M;

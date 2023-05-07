@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins;
@@ -40,9 +43,22 @@ namespace Helpers
             return value == 1;
         }
         
-        public static Vector3 YtoZ(this Vector3 original)
+        /// <summary>
+        /// Determines whether the collection is null or contains no elements.
+        /// </summary>
+        /// <typeparam name="T">The IEnumerable type.</typeparam>
+        /// <param name="enumerable">The enumerable, which may be null or empty.</param>
+        /// <returns>
+        ///     <c>true</c> if the IEnumerable is null or empty; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> enumerable)
         {
-            return new Vector3(original.x, original.z);
+            return enumerable switch
+            {
+                null => true,
+                ICollection<T> collection => collection.Count < 1,
+                _ => !enumerable.Any()
+            };
         }
     }
 }
