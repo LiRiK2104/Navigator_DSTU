@@ -12,6 +12,7 @@ public class ARMain : MonoBehaviour
     [SerializeField] private ARTrackedImageManager _trackedImageManager;
     [SerializeField] private ARValidator _validator;
     [SerializeField] private Calibrator _calibrator;
+    [SerializeField] private UserPositionFinder _userPositionFinder;
     [SerializeField] private bool _available;
 
     private IEnumerator _enterRoutine;
@@ -26,8 +27,10 @@ public class ARMain : MonoBehaviour
     public ARTrackedImageManager TrackedImageManager => _trackedImageManager;
     public ARValidator Validator => _validator;
     public Calibrator Calibrator => _calibrator;
+    public UserPositionFinder UserPositionFinder => _userPositionFinder;
     public bool Available => _available;
     public bool Active { get; private set; } = false;
+    public bool ShouldSetWorldspaceView { get; private set; } = true;
     public int UserFloorIndex => _userFloorIndex;
 
 
@@ -47,11 +50,12 @@ public class ARMain : MonoBehaviour
     }
 
 
-    public void Enter()
+    public void Enter(bool shouldSetWorldspaceView = true)
     {
         if (_enterRoutine != null)
             return;
-        
+
+        ShouldSetWorldspaceView = shouldSetWorldspaceView;
         _enterRoutine = EnterRoutine();
         StartCoroutine(_enterRoutine);
     }
@@ -90,6 +94,7 @@ public class ARMain : MonoBehaviour
         Debug.Log("AR session started.");
         Active = true;
         Entered?.Invoke();
+        ShouldSetWorldspaceView = true;
     }
 
     private void EnableSession()

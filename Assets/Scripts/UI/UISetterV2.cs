@@ -35,8 +35,8 @@ namespace UI
             Validator.Failed += ShowError;
             Validator.Completed += HideLoading;
             Calibrator.Started += SetCalibrationView;
-            Calibrator.Completed += SetWorldspaceView;
-            ARMain.Entered += SetWorldspaceView;
+            Calibrator.Completed += SetWorldspaceViewIfCan;
+            ARMain.Entered += SetWorldspaceViewIfCan;
             ARMain.Exited += SetMapView;
         }
 
@@ -47,8 +47,8 @@ namespace UI
             Validator.Failed -= ShowError;
             Validator.Completed -= HideLoading;
             Calibrator.Started -= SetCalibrationView;
-            Calibrator.Completed -= SetWorldspaceView;
-            ARMain.Entered -= SetWorldspaceView;
+            Calibrator.Completed -= SetWorldspaceViewIfCan;
+            ARMain.Entered -= SetWorldspaceViewIfCan;
             ARMain.Exited -= SetMapView;
         }
 
@@ -117,9 +117,12 @@ namespace UI
             SetView(ViewMode.Map);
         }
         
-        private void SetWorldspaceView()
+        private void SetWorldspaceViewIfCan()
         {
-            SetView(ViewMode.Worldspace);
+            if (ARMain.ShouldSetWorldspaceView)
+                SetView(ViewMode.Worldspace);
+            else
+                SetMapView();
         }
 
         private void ShowLoading()
