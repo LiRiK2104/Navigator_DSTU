@@ -33,7 +33,7 @@ namespace UI.StateSystem.States
         private void SetPointer(Point point)
         {
             var pointerSetRequest = new PointerSetRequest(point.transform.position, PointerState.Default);
-            MapPointerSetter.SetPointer(pointerSetRequest);
+            MapPointerSetter.SetPointerAtCurrentFloor(pointerSetRequest);
         }
 
         private void HidePointer()

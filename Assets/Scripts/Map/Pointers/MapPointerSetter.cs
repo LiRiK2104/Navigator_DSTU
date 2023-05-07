@@ -26,14 +26,19 @@ namespace UI
         {
             FloorsSwitcher.FloorSwitched -= UpdatePointers;
         }
-        
-        
-        public void SetPointer(PointerSetRequest request)
+
+
+        public void SetPointerAtCurrentFloor(PointerSetRequest request)
+        {
+            SetPointer(request, FloorsSwitcher.CurrentFloorIndex);
+        }
+
+        public void SetPointer(PointerSetRequest request, int floorIndex)
         {
             if (TryGetPointer(request, out MapPointer pointer) == false)
                 pointer = CreatePointer();
 
-            pointer.SetState(request.PointerState, FloorsSwitcher.CurrentFloorIndex);
+            pointer.SetState(request.PointerState, floorIndex);
             pointer.transform.position = request.TargetPosition;
         }
 

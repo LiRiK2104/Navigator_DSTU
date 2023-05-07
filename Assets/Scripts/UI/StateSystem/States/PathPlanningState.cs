@@ -117,20 +117,27 @@ namespace UI.StateSystem.States
         
         private void UpdatePointer(PathPoint? pathPoint, int currentFloorIndex, PointerState pointerState)
         {
-            if (pathPoint != null && currentFloorIndex == pathPoint.FloorIndex)
-                SetPointer(pathPoint, pointerState);
+            if (pathPoint != null)
+            {
+                SetPointer(pathPoint, pointerState, pathPoint.FloorIndex);
+                
+                if (currentFloorIndex != pathPoint.FloorIndex)
+                    HidePointer(false, pointerState);
+            }
             else
-                HidePointer(pointerState);
+            {
+                HidePointer(true, pointerState);
+            }
         }
         
-        private void SetPointer(PathPoint pathPoint, PointerState pointerState)
+        private void SetPointer(PathPoint pathPoint, PointerState pointerState, int floorIndex)
         { 
-            MapPointerSetter.SetPointer(new PointerSetRequest(pathPoint.Position, pointerState));
+            MapPointerSetter.SetPointer(new PointerSetRequest(pathPoint.Position, pointerState), floorIndex);
         }
         
-        private void HidePointer(PointerState pointerState)
+        private void HidePointer(bool clearFloor, PointerState pointerState)
         { 
-            MapPointerSetter.HidePointers(true, pointerState);
+            MapPointerSetter.HidePointers(clearFloor, pointerState);
         }
     }
 
