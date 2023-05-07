@@ -117,8 +117,8 @@ namespace UI.StateSystem.States
         
         private void UpdatePointer(PathPoint? pathPoint, int currentFloorIndex, PointerState pointerState)
         {
-            if (pathPoint.HasValue && currentFloorIndex == pathPoint.Value.FloorIndex)
-                SetPointer(pathPoint.Value, pointerState);
+            if (pathPoint != null && currentFloorIndex == pathPoint.FloorIndex)
+                SetPointer(pathPoint, pointerState);
             else
                 HidePointer(pointerState);
         }

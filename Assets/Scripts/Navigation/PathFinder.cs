@@ -18,15 +18,14 @@ namespace Navigation
 
         private Vector3 _targetPosition;
 
-        private PathPoint? _pointA;
-        private PathPoint? _pointB;
         private Vector3[][] _floorsPath;
 
         private delegate void FindPathHandler(Vector3[][] pathFloors);
         public event Action PathFound;
 
-        public PathPoint? PointA => _pointA;
-        public PathPoint? PointB => _pointB;
+        public PathPoint PointA { get; private set; }
+        public PathPoint PointB { get; private set; }
+
         public DestinationPoint PriorityPoint { get; set; }
         
         private Calibrator Calibrator => Global.Instance.ArMain.Calibrator;
@@ -37,14 +36,14 @@ namespace Navigation
 
         private void OnEnable()
         {
-            Calibrator.Completed += FindPath;
+            Calibrator.Completed += UpdatePath;
             PathFound += DrawFloorPath;
             FloorsSwitcher.FloorSwitched += DrawFloorPath;
         }
 
         private void OnDisable()
         {
-            Calibrator.Completed -= FindPath;
+            Calibrator.Completed -= UpdatePath;
             PathFound -= DrawFloorPath;
             FloorsSwitcher.FloorSwitched -= DrawFloorPath;
         }
@@ -52,22 +51,22 @@ namespace Navigation
 
         public void SetA(PathPoint pathPoint)
         {
-            _pointA = pathPoint;
+            PointA = pathPoint;
             FindPath();
         }
         
         public void SetB(PathPoint pathPoint)
         {
-            _pointB = pathPoint;
+            PointB = pathPoint;
             FindPath();
         }
         
         public void Swap()
         {
-            PathPoint? pointA = _pointA;
-            PathPoint? pointB = _pointB;
-            _pointA = pointB;
-            _pointB = pointA;
+            var pointA = PointA;
+            var pointB = PointB;
+            PointA = pointB;
+            PointB = pointA;
             
             FindPath();
         }
@@ -118,8 +117,8 @@ namespace Navigation
         
         public void ClearPath()
         {
-            _pointA = null;
-            _pointB = null;
+            PointA = null;
+            PointB = null;
             _floorsPath = null;
             DrawEmptyPath();
         }
@@ -139,13 +138,27 @@ namespace Navigation
             return distance;
         }
 
-        private void FindPath()
+        private void UpdatePathPoints()
         {
-            if (_pointA.HasValue == false || 
-                _pointB.HasValue == false) 
+            if (PointA == null || PointB == null)
                 return;
             
-            StartCoroutine(FindPath(_pointA.Value, _pointB.Value, SetFloorsPath));
+            PointA.UpdatePosition();
+            PointB.UpdatePosition();
+        }
+
+        private void UpdatePath()
+        {
+            UpdatePathPoints();
+            FindPath();
+        }
+
+        private void FindPath()
+        {
+            if (PointA == null || PointB == null) 
+                return;
+            
+            StartCoroutine(FindPath(PointA, PointB, SetFloorsPath));
         }
         
         private IEnumerator FindPath(PathPoint pointA, PathPoint pointB, params FindPathHandler[] callbacks)
@@ -240,15 +253,29 @@ namespace Navigation
         }
     }
 
-    public struct PathPoint
+    public class PathPoint
     {
-        public Vector3 Position { get; }
+        private readonly Vector3 _relativeEnvironmentPosition;
+        private readonly Quaternion _environmentStartRotation;
+        
+        public Vector3 Position { get; private set; }
         public int FloorIndex { get; }
+        private AREnvironment ArEnvironment => Global.Instance.ArEnvironment;
 
         public PathPoint(Vector3 position, int floorIndex)
         {
             Position = position;
             FloorIndex = floorIndex;
+
+            _relativeEnvironmentPosition = Position - ArEnvironment.transform.position;
+            _environmentStartRotation = ArEnvironment.transform.rotation;
+        }
+
+        public void UpdatePosition()
+        {
+            Position = ArEnvironment.transform.position + 
+                       (Quaternion.Inverse(_environmentStartRotation) * ArEnvironment.transform.rotation) * 
+                       _relativeEnvironmentPosition;
         }
     }
     

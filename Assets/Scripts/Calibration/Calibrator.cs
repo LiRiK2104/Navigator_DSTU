@@ -42,14 +42,6 @@ namespace Calibration
             ARMain.Exited -= StopCalibration;
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                UpdateEnvironmentLocation(_anchor);   
-            }
-        }
-
 
         public void StartCalibration()
         {
