@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
-using Calibration;
+using AR;
+using AR.Calibration;
 using Map;
 using UnityEngine;
 using Toggle = UI.Toggles.Toggle;
@@ -49,8 +50,8 @@ namespace UI.FloorsSwitch
         {
             if (_toggleGroup.gameObject.activeInHierarchy)
                 ChangeToggle(floorIndex);
-            else
-                SelectFloor(floorIndex);
+            
+            SelectFloor(floorIndex);
         }
         
         private void SwitchFloorToUser(ViewMode viewMode)
@@ -103,6 +104,9 @@ namespace UI.FloorsSwitch
     
         private void SelectFloor(int floorIndex)
         {
+            if (floorIndex == CurrentFloorIndex)
+                return;
+            
             foreach (var floor in Floors)
                 floor.gameObject.SetActive(false);
         

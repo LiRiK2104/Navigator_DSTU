@@ -5,12 +5,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
-namespace Calibration
+namespace AR.Calibration
 {
     public class Calibrator : MonoBehaviour
     {
-        [SerializeField] private Anchor _anchor;
-        
         private TriadMarker _triadMarker;
         private IEnumerator _calibrationRoutine;
         

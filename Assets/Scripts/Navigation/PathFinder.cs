@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Calibration;
+using AR.Calibration;
 using Plugins.ZenythStudios.Graphway.Assets.Scripts;
 using TargetsSystem.Points;
 using UI.FloorsSwitch;
@@ -77,7 +77,7 @@ namespace Navigation
                 .FirstOrDefault();
         }
         
-        public IEnumerator FindNearestPoint(PathPoint pointA, PointsGroup pointsGroup, Action<Point> callback)
+        public IEnumerator FindNearestPoint(PathPoint startPoint, PointsGroup pointsGroup, Action<Point> callback)
         {
             Point nearestPoint = null;
             float? minDistance = null;
@@ -86,6 +86,7 @@ namespace Navigation
             {
                 groupPoint.TryGetInfo(out PointInfo pointInfo);
                 var pointB = new PathPoint(groupPoint.GraphwayNodePosition, pointInfo.Address.FloorIndex);
+                
                 FindPathHandler findPathCallback = floorsPath =>
                 {
                     var distance = CalculatePathDistance(floorsPath);
@@ -97,7 +98,7 @@ namespace Navigation
                     }
                 };
 
-                yield return FindPath(pointA, pointB, findPathCallback);
+                yield return FindPath(startPoint, pointB, findPathCallback);
             }
 
             if (nearestPoint != null)
@@ -129,7 +130,7 @@ namespace Navigation
 
             for (int i = 0; i < floorsPath.Length; i++)
             {
-                Vector3[] floorPath = _floorsPath[i];
+                Vector3[] floorPath = floorsPath[i];
                 
                 for (int j = 0; j < floorPath.Length - 1; j++)
                     distance += Vector3.Distance(floorPath[j], floorPath[j + 1]);
@@ -174,9 +175,9 @@ namespace Navigation
             };
 
             if (DataBase.TryGetFloorNodesIds(startFloorIndex, out List<int> availableNodeIds))
-                _graphway.PathFind(pointA.Position, pointB.Position, graphwayCallback, availableNodeIds.ToArray());
+                _graphway.PathFind(pointA.Position, pointB.Position, graphwayCallback, availableNodeIds.ToArray(), false);
             else
-                _graphway.PathFind(pointA.Position, pointB.Position, graphwayCallback);
+                _graphway.PathFind(pointA.Position, pointB.Position, graphwayCallback, false);
 
             yield break;
         }

@@ -40,27 +40,32 @@ namespace UI.StateSystem.States
         {
             _pathPlanningView.Initialize(Swap);
         }
-
+        
         public void SetPoint(PointInfo pointInfo, FillingPathFieldType fillingType)
         {
             if (DataBase.TryGetPoint(pointInfo, out Point point) == false)
                 return;
             
-            var pathPoint = new PathPoint(point.GraphwayNodePosition, pointInfo.Address.FloorIndex);
+            SetPoint(point.GraphwayNodePosition, pointInfo.Address.FloorIndex, pointInfo.Name, fillingType);
+        }
+
+        public void SetPoint(Vector3 position, int floorIndex, string name, FillingPathFieldType fillingType)
+        {
+            var pathPoint = new PathPoint(position, floorIndex);
 
             switch (fillingType)
             {
                 case FillingPathFieldType.A:
-                    SetA(pointInfo, pathPoint);
+                    SetA(name, pathPoint);
                     break;
              
                 default:
                 case FillingPathFieldType.B:
-                    SetB(pointInfo, pathPoint);
+                    SetB(name, pathPoint);
                     break;
                 
                 case FillingPathFieldType.Priority:
-                    SetPriority(pointInfo, pathPoint);
+                    SetPriority(name, pathPoint);
                     break;
             }
             
@@ -73,31 +78,31 @@ namespace UI.StateSystem.States
             PathFinder.ClearPath();
         }
 
-        private void SetA(PointInfo pointInfo, PathPoint pathPoint)
+        private void SetA(string pointName, PathPoint pathPoint)
         {
-            _pathPlanningView.SetTextPointAField(pointInfo.Name);
+            _pathPlanningView.SetTextPointAField(pointName);
             PathFinder.SetA(pathPoint);
             UpdatePointer(pathPoint, FloorsSwitcher.CurrentFloorIndex, PointerState.PointA);
         }
         
-        private void SetB(PointInfo pointInfo, PathPoint pathPoint)
+        private void SetB(string pointName, PathPoint pathPoint)
         {
-            _pathPlanningView.SetTextPointBField(pointInfo.Name);
+            _pathPlanningView.SetTextPointBField(pointName);
             PathFinder.SetB(pathPoint);
             UpdatePointer(pathPoint, FloorsSwitcher.CurrentFloorIndex, PointerState.PointB);
         }
         
-        private void SetPriority(PointInfo pointInfo, PathPoint pathPoint)
+        private void SetPriority(string pointName, PathPoint pathPoint)
         {
             switch (PathFinder.PriorityPoint)
             {
                 case DestinationPoint.A:
-                    SetA(pointInfo, pathPoint);
+                    SetA(pointName, pathPoint);
                     break;
                 
                 default:
                 case DestinationPoint.B:
-                    SetB(pointInfo, pathPoint);
+                    SetB(pointName, pathPoint);
                     break;
             }
         }

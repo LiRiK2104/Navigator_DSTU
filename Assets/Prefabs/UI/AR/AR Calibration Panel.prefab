@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8736035541281671777}
   - component: {fileID: 2568866842591113959}
+  - component: {fileID: 1044146867982568234}
   m_Layer: 5
   m_Name: AR Calibration Panel
   m_TagString: Untagged
@@ -52,6 +53,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4955f0b09b11e43bd1d9fad57da32e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &1044146867982568234
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724214089817683585}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3213823836840215833
 GameObject:
   m_ObjectHideFlags: 0

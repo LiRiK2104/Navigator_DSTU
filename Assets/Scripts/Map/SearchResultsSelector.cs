@@ -15,6 +15,7 @@ namespace Map
     {
         [SerializeField] private SearchableDropDown _searchableDropDown;
         
+        public PointsGroup LastPointsGroup { get; private set; }
         private StateSetter StateSetter => Global.Instance.UISetterV2.MapView.StateSetter;
         private MapControl MapControl => Global.Instance.UISetterV2.MapView.MapHandlePanel.MapControl;
         private FloorsSwitcher FloorsSwitcher => Global.Instance.FloorsSwitcher;
@@ -51,10 +52,12 @@ namespace Map
                         MapControl.GoToTarget(point.transform, false, true);
                     
                     SetPointInfoState(pointInfo);
+                    LastPointsGroup = null;
                     break;
                 
                 case PointsGroup pointsGroup:
                     SetSearchResultsState(pointsGroup);
+                    LastPointsGroup = pointsGroup;
                     break;
                 
                 default:

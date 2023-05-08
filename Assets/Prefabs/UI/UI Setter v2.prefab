@@ -769,6 +769,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9176406354541259004}
   - component: {fileID: 6791581534219417830}
+  - component: {fileID: 3887490295872302347}
   m_Layer: 5
   m_Name: Map Content Panel
   m_TagString: Untagged
@@ -828,6 +829,18 @@ MonoBehaviour:
   _searchResultsSelector: {fileID: 5947214110005269100}
   _mapHandlePanel: {fileID: 1146288990947514119}
   _slidingPanelHandler: {fileID: 1146288991256168594}
+--- !u!225 &3887490295872302347
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3042286428419346968}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4012720066508895936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1410,13 +1423,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4641412701709192573, guid: dbad0348056436c49a1c6958379d6623, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4641412701709192573, guid: dbad0348056436c49a1c6958379d6623, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6151936278297918643, guid: dbad0348056436c49a1c6958379d6623, type: 3}
       propertyPath: m_Name
       value: AR Worldspace Panel
       objectReference: {fileID: 0}
     - target: {fileID: 6151936278297918643, guid: dbad0348056436c49a1c6958379d6623, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbad0348056436c49a1c6958379d6623, type: 3}
@@ -2713,13 +2734,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1146288991053234137}
     m_Modifications:
+    - target: {fileID: 1044146867982568234, guid: 2274541e1e4ac094c8be5c3b9c6da408, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1044146867982568234, guid: 2274541e1e4ac094c8be5c3b9c6da408, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1724214089817683585, guid: 2274541e1e4ac094c8be5c3b9c6da408, type: 3}
       propertyPath: m_Name
       value: AR Calibration Panel
       objectReference: {fileID: 0}
     - target: {fileID: 1724214089817683585, guid: 2274541e1e4ac094c8be5c3b9c6da408, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2071121545479770157, guid: 2274541e1e4ac094c8be5c3b9c6da408, type: 3}
       propertyPath: m_Material

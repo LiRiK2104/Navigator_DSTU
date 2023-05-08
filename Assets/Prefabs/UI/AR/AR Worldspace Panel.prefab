@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2788924526396392352}
   - component: {fileID: 418283558959140519}
+  - component: {fileID: 4641412701709192573}
   m_Layer: 5
   m_Name: AR Worldspace Panel
   m_TagString: Untagged
@@ -53,6 +54,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6abe11fb47b63c64f86c7ad9b7f60c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &4641412701709192573
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6151936278297918643}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &537618492703016509
 PrefabInstance:
   m_ObjectHideFlags: 0

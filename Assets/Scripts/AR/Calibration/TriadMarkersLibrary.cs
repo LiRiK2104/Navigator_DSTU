@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using UnityEditor;
 using UnityEngine;
 
-namespace Calibration
+namespace AR.Calibration
 {
     [CreateAssetMenu(menuName = nameof(TriadMarkersLibrary), fileName = nameof(TriadMarkersLibrary), order = 51)]
     public partial class TriadMarkersLibrary : ScriptableObject

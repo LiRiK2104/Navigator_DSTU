@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace UI.Views
 {
-    public class MapView : MonoBehaviour
+    public class MapView : UIView
     {
         [SerializeField] private UIStatesStorage _uiStatesStorage;
         [SerializeField] private StateSetter _stateSetter;

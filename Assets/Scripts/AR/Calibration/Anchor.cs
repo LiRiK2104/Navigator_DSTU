@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Calibration
+namespace AR.Calibration
 {
     public class Anchor : MonoBehaviour
     {

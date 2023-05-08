@@ -23,10 +23,15 @@ public class AREnvironment : MonoBehaviour
     }
 
     
+    public float GetFloorHeight(int floorIndex)
+    {
+        return FirstBuilding.Floors[floorIndex].transform.position.y;
+    }
+    
     private void UpdateBackgroundHeight(int floorIndex)
     {
         var backgroundPosition = _background.transform.position;
-        backgroundPosition.y = FirstBuilding.Floors[floorIndex].transform.position.y;
+        backgroundPosition.y = GetFloorHeight(floorIndex);
         _background.transform.position = backgroundPosition;
     }
 }

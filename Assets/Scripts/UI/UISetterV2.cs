@@ -1,5 +1,6 @@
 using System;
-using Calibration;
+using AR;
+using AR.Calibration;
 using Helpers;
 using UI.AR.Views;
 using UI.Views;
@@ -81,25 +82,25 @@ namespace UI
 
         public void SetView(ViewMode viewMode)
         {
-            _mapView.gameObject.SetActive(false);
-            _worldspaceView.gameObject.SetActive(false);
-            _calibrationView.gameObject.SetActive(false);
+            _mapView.Enable = false;
+            _worldspaceView.Enable = false;
+            _calibrationView.Enable = false;
             
             switch (viewMode)
             {
                 case ViewMode.Map:
                     MapCamera.gameObject.SetActive(true);
-                    _mapView.gameObject.SetActive(true);
+                    _mapView.Enable = true;
                     break;
                 
                 case ViewMode.Worldspace:
                     MapCamera.gameObject.SetActive(false);
-                    _worldspaceView.gameObject.SetActive(true);
+                    _worldspaceView.Enable = true;
                     break;
                 
                 case ViewMode.Calibration:
                     MapCamera.gameObject.SetActive(false);
-                    _calibrationView.gameObject.SetActive(true);
+                    _calibrationView.Enable = true;
                     break;
             }
 

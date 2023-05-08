@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using AR;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace UI.AR.Views
 {
-    public class ARTutorialView : MonoBehaviour
+    public class ARTutorialView : MonoBehaviour, IARContentUI
     {
         [SerializeField] private StoriesHandlePanel _handlePanel;
         [SerializeField] private Button _closeButton;
@@ -14,9 +15,14 @@ namespace UI.AR.Views
 
         private bool _isInitialized;
 
+        public ARMain ARMain => Global.Instance.ArMain;
+
 
         private void OnEnable()
         {
+            if (ValidateArAvailable() == false)
+                return;
+            
             _multislider.AllCompleted += Close;
             _multislider.SliderStarted += SetCard;
             _handlePanel.PointerDown += Pause;
@@ -33,6 +39,12 @@ namespace UI.AR.Views
             _handlePanel.PointerClick -= ProcessClick;
         }
 
+        
+        public bool ValidateArAvailable()
+        {
+            gameObject.SetActive(ARMain.Available);
+            return ARMain.Available;
+        }
 
         private void Initialize()
         {

@@ -1,8 +1,7 @@
-using UnityEngine;
 
 namespace UI.Views
 {
-    public class CalibrationView : MonoBehaviour
+    public class CalibrationView : UIView
     {
         private UISetterV2 UISetterV2 => Global.Instance.UISetterV2;
         

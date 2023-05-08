@@ -1,4 +1,6 @@
 
+using AR;
+
 namespace UI.AR.Buttons
 {
     public class RetryButton : CloseErrorButton

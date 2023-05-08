@@ -4,7 +4,7 @@
 using Accord.Math;
 using UnityEngine;
 
-namespace Calibration
+namespace AR.Calibration
 {
     public class TriadMarker : MonoBehaviour
     {

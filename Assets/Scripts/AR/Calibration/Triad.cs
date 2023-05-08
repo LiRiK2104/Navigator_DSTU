@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
-namespace Calibration
+namespace AR.Calibration
 {
     public class Triad : MonoBehaviour
     {
