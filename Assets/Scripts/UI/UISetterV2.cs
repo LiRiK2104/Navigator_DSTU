@@ -20,8 +20,8 @@ namespace UI
         [SerializeField] private ErrorView _errorView;
 
         public event Action<ViewMode> ViewSet;
-        
-        public ViewMode CurrentViewMode { get; private set; }
+
+        public ViewMode CurrentViewMode { get; private set; } = ViewMode.Map;
         public MapView MapView => _mapView;
         private Camera MapCamera => Global.Instance.CameraContainer.MapCamera;
         private ARMain ARMain => Global.Instance.ArMain;
