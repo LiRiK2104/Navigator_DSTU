@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AR.Calibration;
+using Followers;
+using UI.FloorsSwitch;
 using UI.SlidingPanel;
 using UI.StateSystem;
 using UI.StateSystem.Setters;
@@ -17,17 +19,22 @@ namespace Map
         public const int ZoomMax = 140;
         private const float ZoomSensitivity = 0.03f;
 
+        [SerializeField] private SoftARFollower _softARFollower;
+        
         private IEnumerator _animatedMoveCoroutine;
         private Vector3 _relativePosition;
         private Quaternion _relativeRotation;
 
         public event Action StartedDrag;
-        
-        private Camera Camera => Global.Instance?.CameraContainer.MapCamera;
-        private BordersSetter BordersSetter => Global.Instance?.BordersSetter;
+
+        public SoftARFollower SoftARFollower => _softARFollower; 
+        private Camera Camera => Global.Instance.CameraContainer.MapCamera;
+        private BordersSetter BordersSetter => Global.Instance.BordersSetter;
         private StateSetter StateSetter => Global.Instance.UISetterV2.MapView.StateSetter;
         private Calibrator Calibrator => Global.Instance.ArMain.Calibrator;
         private SlidingPanelHandler SlidingPanelHandler => Global.Instance.UISetterV2.MapView.SlidingPanelHandler;
+        private FloorsSwitcher FloorsSwitcher => Global.Instance.FloorsSwitcher;
+
 
         private void Awake()
         {
@@ -45,9 +52,10 @@ namespace Map
             Calibrator.Completed -= SynchronizeTransform;
         }
 
+        
         private void OnDrawGizmos()
         {
-            if (Camera == null)
+            if (Application.isPlaying == false || Camera == null)
                 return;
         
             var cameraAnglesPoints = new List<Vector3>
@@ -64,6 +72,7 @@ namespace Map
                 Gizmos.DrawSphere(point, radius);
         }
     
+        
         public void OnPointerDown(PointerEventData eventData)
         {
             StartedDrag?.Invoke();
@@ -104,8 +113,9 @@ namespace Map
         }
 
 
-        public void GoToTarget(Transform target, bool needSetRotation, bool instantly, params Action[] callbacks)
+        public void GoToTarget(Transform target, int floorIndex, bool needSetRotation, bool instantly, params Action[] callbacks)
         {
+            FloorsSwitcher.SwitchFloor(floorIndex);
             StartCoroutine(GoToTargetRoutine(target, needSetRotation, instantly, callbacks));
         }
 
@@ -203,6 +213,7 @@ namespace Map
             if (instantly)
             {
                 yield return GoToTargetInstantly(target, needSetRotation);
+                ClampCameraPosition();
             }
             else
             {
@@ -221,6 +232,7 @@ namespace Map
             if (needSetRotation)
                 Camera.transform.rotation = GetTargetRotation(target);
             
+            SetRelativePositionRotation();
             yield return null;
         }
 

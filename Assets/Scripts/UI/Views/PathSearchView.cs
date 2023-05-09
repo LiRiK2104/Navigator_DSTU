@@ -1,4 +1,6 @@
+using Map;
 using Navigation;
+using TargetsSystem.Points;
 using UI.Search;
 using UI.Search.Options;
 using UI.StateSystem.Setters;
@@ -15,6 +17,7 @@ namespace UI.Views
         private PathPointStateSetter _pathPointStateSetter;
         
         private DataBase DataBase => Global.Instance.DataBase;
+        private MapControl MapControl => Global.Instance.UISetterV2.MapView.MapHandlePanel.MapControl;
         
         
         private void Awake()
@@ -54,6 +57,13 @@ namespace UI.Views
         {
             PointInfo pointInfo = optionInfo as PointInfo? ?? default;
             _pathPointStateSetter.SetState(pointInfo, FillingPathFieldType.Priority);
+            FocusToPoint(pointInfo);
+        }
+
+        private void FocusToPoint(PointInfo pointInfo)
+        {
+            if (DataBase.TryGetPoint(pointInfo, out Point point))
+                MapControl.GoToTarget(point.transform, pointInfo.Address.FloorIndex, false, true);
         }
     }
 }

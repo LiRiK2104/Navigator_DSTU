@@ -60,5 +60,13 @@ namespace Helpers
                 _ => !enumerable.Any()
             };
         }
+
+        public static Quaternion ClearDimensions(this Quaternion rotation, bool clearX, bool clearY, bool clearZ)
+        {
+            return Quaternion.Euler(new Vector3(
+                clearX ? 0 : rotation.eulerAngles.x, 
+                clearY ? 0 : rotation.eulerAngles.y, 
+                clearZ ? 0 : rotation.eulerAngles.z));
+        }
     }
 }

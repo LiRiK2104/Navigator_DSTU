@@ -22,7 +22,6 @@ public class Global : Singleton<Global>
     public AREnvironment ArEnvironment => _arEnvironment;
     public Navigator Navigator => _navigator;
     public DataBase DataBase => _dataBase;
-    public UISetter UiSetter => _uiSetter;
     public UISetterV2 UISetterV2 => _uiSetterV2;
     public CameraContainer CameraContainer => _cameraContainer;
     public BordersSetter BordersSetter => _bordersSetter;

@@ -1,15 +1,16 @@
+using Helpers;
 using UnityEngine;
 
 namespace Followers
 {
     public abstract class Follower : MonoBehaviour
     {
-        [SerializeField] protected GameObject Target;
-    
         private Vector3 _differentPosition;
         private Quaternion _differentRotation;
-
-
+        
+        protected abstract GameObject Target { get; }
+        
+        
         protected virtual void Bind()
         {
             BindPosition();
@@ -20,17 +21,11 @@ namespace Followers
         {
             transform.position = Target.transform.position + _differentPosition;
         }
-    
-        protected void FreezeRotation()
-        {
-            var targetRotation = _differentRotation.eulerAngles;
-            transform.rotation = Quaternion.Euler(targetRotation);
-        }
-    
+
         protected void FollowYRotation()
         {
-            var targetRotation = _differentRotation.eulerAngles + new Vector3(0, Target.transform.rotation.eulerAngles.y, 0);
-            transform.rotation = Quaternion.Euler(targetRotation);
+            transform.rotation = Target.transform.rotation.ClearDimensions(true, false,true) * 
+                                 _differentRotation.ClearDimensions(true, false,true);
         }
     
         private void BindPosition()

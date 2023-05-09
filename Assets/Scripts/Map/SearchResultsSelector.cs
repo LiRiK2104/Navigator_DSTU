@@ -49,7 +49,7 @@ namespace Map
                     FloorsSwitcher.SwitchFloor(pointInfo.Address.FloorIndex);
 
                     if (DataBase.TryGetPoint(pointInfo, out Point point))
-                        MapControl.GoToTarget(point.transform, false, true);
+                        MapControl.GoToTarget(point.transform, pointInfo.Address.FloorIndex, false, true);
                     
                     SetPointInfoState(pointInfo);
                     LastPointsGroup = null;

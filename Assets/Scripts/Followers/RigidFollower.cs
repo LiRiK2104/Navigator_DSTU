@@ -4,6 +4,11 @@ namespace Followers
 {
     public class RigidFollower : Follower
     {
+        [SerializeField] protected GameObject _target;
+
+        protected override GameObject Target => _target;
+
+
         private void Start()
         {
             Bind();

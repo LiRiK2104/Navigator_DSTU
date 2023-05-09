@@ -33,6 +33,12 @@ namespace Navigation
         private AREnvironment ArEnvironment => Global.Instance.ArEnvironment;
         private FloorsSwitcher FloorsSwitcher => Global.Instance.FloorsSwitcher;
 
+        
+        private void Awake()
+        {
+            _mapLineRenderer.gameObject.SetActive(false);
+            _worldviewLineRenderer.gameObject.SetActive(false);
+        }
 
         private void OnEnable()
         {
@@ -115,7 +121,7 @@ namespace Navigation
             distance = CalculatePathDistance(_floorsPath);
             return true;
         }
-        
+
         public void ClearPath()
         {
             PointA = null;
@@ -243,6 +249,7 @@ namespace Navigation
         {
             foreach (var lineRenderer in lineRenderers)
             {
+                lineRenderer.gameObject.SetActive(positions.Length > 0);
                 lineRenderer.positionCount = positions.Length;
                 lineRenderer.SetPositions(positions);
             }

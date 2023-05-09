@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fccc471c1e814a44987d1ee84c4d412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _softARFollower: {fileID: 0}
 --- !u!114 &1146288990947514119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3234,6 +3235,10 @@ PrefabInstance:
     - target: {fileID: 6355613586169574949, guid: 4b4f78a1f5be9974cb8634c2c18ff8b2, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355613586281306097, guid: 4b4f78a1f5be9974cb8634c2c18ff8b2, type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6355613586980318973, guid: 4b4f78a1f5be9974cb8634c2c18ff8b2, type: 3}
       propertyPath: _slidingPanelHandler
