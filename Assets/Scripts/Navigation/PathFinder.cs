@@ -77,10 +77,14 @@ namespace Navigation
             FindPath();
         }
 
-        public Vector3 GetNearestPathPoint(PathPoint startPoint)
+        public Vector3 GetGuidingPathPoint(PathPoint startPoint)
         {
-            return _floorsPath[startPoint.FloorIndex].OrderBy(floorPoint => Vector3.Distance(startPoint.Position, floorPoint))
-                .FirstOrDefault();
+            const int maxPointOrder = 7;
+            var floorPathPointsDistances = _floorsPath[startPoint.FloorIndex]
+                .OrderBy(floorPoint => Vector3.Distance(startPoint.Position, floorPoint)).ToArray();
+
+            var pointOrder = Mathf.Min(floorPathPointsDistances.Length, maxPointOrder);
+            return floorPathPointsDistances[pointOrder - 1];
         }
         
         public IEnumerator FindNearestPoint(PathPoint startPoint, PointsGroup pointsGroup, Action<Point> callback)
@@ -147,11 +151,8 @@ namespace Navigation
 
         private void UpdatePathPoints()
         {
-            if (PointA == null || PointB == null)
-                return;
-            
-            PointA.UpdatePosition();
-            PointB.UpdatePosition();
+            PointA?.UpdatePosition();
+            PointB?.UpdatePosition();
         }
 
         private void UpdatePath()
@@ -236,8 +237,8 @@ namespace Navigation
             if (_floorsPath == null || _floorsPath.Length == 0)
                 return;
             
+            const int minPointsCount = 2;
             var floorPath = _floorsPath[floorIndex];
-            var minPointsCount = 2;
 
             if (floorPath.Length < minPointsCount)
                 DrawEmptyPath();
