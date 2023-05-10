@@ -65,8 +65,7 @@ namespace AR
         public void Exit()
         {
             Active = false;
-            _enterRoutine = null;
-            DisableSession();
+            StopEntering();
             Debug.Log("AR session ended.");
             Exited?.Invoke();
         }
@@ -81,7 +80,7 @@ namespace AR
 
             if (Validator.State != ARValidationState.Completed)
             {
-                DisableSession();
+                StopEntering();
                 yield break;   
             }
         
@@ -89,7 +88,7 @@ namespace AR
 
             if (Calibrator.State != CalibrationState.Completed)
             {
-                DisableSession();
+                StopEntering();
                 yield break;   
             }
         
@@ -97,6 +96,12 @@ namespace AR
             Active = true;
             Entered?.Invoke();
             ShouldSetWorldspaceView = true;
+        }
+
+        private void StopEntering()
+        {
+            _enterRoutine = null;
+            DisableSession();
         }
 
         private void EnableSession()
