@@ -14,7 +14,9 @@ namespace Map
     public class SearchResultsSelector : MonoBehaviour
     {
         [SerializeField] private SearchableDropDown _searchableDropDown;
-        
+
+        public event Action<int[]> PointsGroupSelected;
+
         public PointsGroup LastPointsGroup { get; private set; }
         private StateSetter StateSetter => Global.Instance.UISetterV2.MapView.StateSetter;
         private MapControl MapControl => Global.Instance.UISetterV2.MapView.MapHandlePanel.MapControl;
@@ -58,6 +60,7 @@ namespace Map
                 case PointsGroup pointsGroup:
                     SetSearchResultsState(pointsGroup);
                     LastPointsGroup = pointsGroup;
+                    PointsGroupSelected?.Invoke(pointsGroup.GetFloorsIndexes());
                     break;
                 
                 default:

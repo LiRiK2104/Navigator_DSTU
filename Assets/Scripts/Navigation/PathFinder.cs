@@ -22,6 +22,10 @@ namespace Navigation
 
         private delegate void FindPathHandler(Vector3[][] pathFloors);
         public event Action PathFound;
+        public event Action<int> PointASet;
+        public event Action<int> PointBSet;
+        public event Action PointARemoved;
+        public event Action PointBRemoved;
 
         public PathPoint PointA { get; private set; }
         public PathPoint PointB { get; private set; }
@@ -58,12 +62,14 @@ namespace Navigation
         public void SetA(PathPoint pathPoint)
         {
             PointA = pathPoint;
+            PointASet?.Invoke(pathPoint.FloorIndex);
             FindPath();
         }
         
         public void SetB(PathPoint pathPoint)
         {
             PointB = pathPoint;
+            PointBSet?.Invoke(pathPoint.FloorIndex);
             FindPath();
         }
         
@@ -73,6 +79,16 @@ namespace Navigation
             var pointB = PointB;
             PointA = pointB;
             PointB = pointA;
+
+            if (PointA != null)
+                PointASet?.Invoke(PointA.FloorIndex);
+            else 
+                PointARemoved?.Invoke();
+            
+            if (PointB != null)
+                PointBSet?.Invoke(PointB.FloorIndex);
+            else 
+                PointBRemoved?.Invoke();
             
             FindPath();
         }
@@ -130,6 +146,8 @@ namespace Navigation
         {
             PointA = null;
             PointB = null;
+            PointARemoved?.Invoke();
+            PointBRemoved?.Invoke();
             _floorsPath = null;
             DrawEmptyPath();
         }

@@ -1,3 +1,4 @@
+using System;
 using UI.StateSystem.Groups;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ namespace UI.StateSystem.Setters
     {
         private StateType _previousState;
         private StateType _currentState;
+
+        public event Action<StatesGroup> GroupClosed;
 
         public StateType CurrentState => _currentState;
 
@@ -93,6 +96,7 @@ namespace UI.StateSystem.Setters
                     group.States.Contains(currentStateContainer.State) == false)
                 {
                     group.OnClose();
+                    GroupClosed?.Invoke(group);
                 }
             }
         }

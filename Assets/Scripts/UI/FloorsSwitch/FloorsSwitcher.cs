@@ -70,17 +70,17 @@ namespace UI.FloorsSwitch
             for (int i = 0; i < Floors.Count; i++)
             {
                 var number = i + 1;
-                CreateToggle(number);
+                CreateToggle(i, number);
             }
         
             _toggleGroup.Initialize();
             SetFirstFloor();
         }
 
-        private void CreateToggle(int number)
+        private void CreateToggle(int floorIndex, int number)
         {
             var toggle = Instantiate(_toggleTemplate, _toggleGroup.transform);
-            toggle.Initialize(number);
+            toggle.Initialize(floorIndex, number);
         }
 
         private void ChangeToggleToCurrentFloor()

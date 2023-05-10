@@ -16,10 +16,25 @@ namespace TargetsSystem.Points
         public string Name => _name;
         public Sprite Sprite => _sprite;
         public ReadOnlyCollection<Point> Points => _points.AsReadOnly();
-        private PathFinder PathFinder => Global.Instance.Navigator.PathFinder;
         private DataBase DataBase => Global.Instance.DataBase;
-        
 
+
+        public int[] GetFloorsIndexes()
+        {
+            var floorsIndexes = new List<int>();
+            
+            foreach (var point in _points)
+            {
+                if (DataBase.TryGetPointInfo(point, out PointInfo pointInfo) && 
+                    floorsIndexes.Contains(pointInfo.Address.FloorIndex) == false)
+                {
+                    floorsIndexes.Add(pointInfo.Address.FloorIndex);
+                }
+            }
+
+            return floorsIndexes.ToArray();
+        } 
+        
         public bool TryGetPoint(PointInfo myPointInfo, out Point foundPoint)
         {
             foundPoint = null;

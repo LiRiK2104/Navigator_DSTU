@@ -12,6 +12,8 @@ namespace Map.Signs
         [SerializeField] private SearchResultState _searchResultState;
         [SerializeField] private SignCollider _signCollider;
 
+        public bool Selected { get; private set; }
+        
         
         public void Initialize(PointInfo pointInfo, SignPreset signPreset)
         {
@@ -25,12 +27,14 @@ namespace Map.Signs
         {
             _defaultState.gameObject.SetActive(false);
             _searchResultState.gameObject.SetActive(true);
+            Selected = true;
         }
         
         public void Deselect()
         {
             _defaultState.gameObject.SetActive(true);
             _searchResultState.gameObject.SetActive(false);
+            Selected = false;
         }
     }
 }
