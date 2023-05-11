@@ -4,7 +4,6 @@ using UI.StateSystem.Groups;
 using UI.StateSystem.Setters;
 using UI.StateSystem.States;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Map.Signs
 {
@@ -22,7 +21,7 @@ namespace Map.Signs
 
         public void SetPointInfoState()
         {
-            if (StateSetter.CurrentGroup is NavigationGroup navigationGroup)
+            if (StateSetter.CurrentGroup is NavigationGroup)
             {
                 StateSetter.SetState(StateType.PathPointInfo, out StateContainer stateContainer);
 

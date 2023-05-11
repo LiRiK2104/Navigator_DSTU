@@ -33,9 +33,10 @@ public class DataBase : MonoBehaviour
                 {
                     foreach (var block in floor.Blocks)
                     {
-                        foreach (var triadMarker in block.TriadMarkers)
+                        foreach (var point in block.Points)
                         {
-                            _allTriadMarkers.Add(triadMarker);
+                            if (point is TriadMarker triadMarker)
+                                _allTriadMarkers.Add(triadMarker);
                         }
                     }
                 }
@@ -74,9 +75,10 @@ public class DataBase : MonoBehaviour
         {
             foreach (var block in _floors[i].Blocks)
             {
-                foreach (var triadMarker in block.TriadMarkers)
+                foreach (var point in block.Points)
                 {
-                    if (triadMarker.Triad.HasTrackedImage(trackedImages, out image1st, out image2nd, out image3rd))
+                    if (point is TriadMarker triadMarker &&
+                        triadMarker.Triad.HasTrackedImage(trackedImages, out image1st, out image2nd, out image3rd))
                     {
                         foundMarker = triadMarker;
                         floorIndex = i;
@@ -138,7 +140,8 @@ public class DataBase : MonoBehaviour
 
         ids = (
             from block in _floors[floorIndex].Blocks 
-            from point in block.Points 
+            from point in block.Points
+            where point.IsWayPoint
             select point.GraphwayNode.nodeID).ToList();
 
         return ids.Count != 0;
@@ -159,17 +162,22 @@ public class DataBase : MonoBehaviour
         return positions.Count != 0;
     }
 
-    public List<IOptionInfo> GetAllOptionInfos()
+    public List<IOptionInfo> GetAllOptionInfos(bool onlyWayPoints = false)
     {
-        var pointsOptionInfos = GetPointsOptionInfos();
+        var pointsOptionInfos = GetPointsOptionInfos(onlyWayPoints);
         var groupsOptionInfos = GetGroupsOptionInfos();
         
         return pointsOptionInfos.Concat(groupsOptionInfos).ToList();
     }
 
-    public List<IOptionInfo> GetPointsOptionInfos()
+    public List<IOptionInfo> GetPointsOptionInfos(bool onlyWayPoints = false)
     {
-        var optionInfos = GetAllPoints().Select(point =>
+        var points = GetAllPoints().ToList();
+
+        if (onlyWayPoints)
+            points = points.Where(point => point.IsWayPoint).ToList();
+        
+        var optionInfos = points.Select(point =>
         {
             TryGetPointInfo(point, out PointInfo pointInfo);
             return pointInfo as IOptionInfo;
@@ -202,8 +210,8 @@ public class DataBase : MonoBehaviour
         string id = point is AccessibleRoom accessibleRoom ? accessibleRoom.Id : String.Empty;
         var pointType = point.SignCreator.SignPreset.PointType;
 
-        Address address = TryGetPointTypeNumber(point, out int typerNumber) ? 
-            new Address(floorIndex, blockName, id, pointType, typerNumber) : 
+        Address address = TryGetPointTypeNumber(point, out int pointTypeNumber) ? 
+            new Address(floorIndex, blockName, id, pointType, pointTypeNumber) : 
             new Address(floorIndex, blockName, id);
         
         return new PointInfo(point, address);
@@ -219,6 +227,8 @@ public class DataBase : MonoBehaviour
 
         foreach (var floor in _floors)
         {
+            number = 0;
+            
             foreach (var block in floor.Blocks)
             {
                 foreach (var point in block.Points)
@@ -251,7 +261,6 @@ public class DataBase : MonoBehaviour
     {
         public string Name; 
         public List<Point> Points = new List<Point>();
-        public List<TriadMarker> TriadMarkers;
     }
 }
 

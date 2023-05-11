@@ -30381,6 +30381,10 @@ PrefabInstance:
       value: 1-257
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 4180592695935823164}
@@ -30468,6 +30472,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: "1-234\u0431"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -30567,6 +30575,10 @@ PrefabInstance:
       value: "1-257\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 8243374124232104255}
@@ -30654,6 +30666,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: "1-208\u0431"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -30745,6 +30761,10 @@ PrefabInstance:
       value: 1-297
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 1618118440247196829}
@@ -30828,6 +30848,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: "1-267\u0431"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -30919,6 +30943,10 @@ PrefabInstance:
       value: 1-288
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 3649301518222178420}
@@ -31006,6 +31034,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-218
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -31097,6 +31129,10 @@ PrefabInstance:
       value: 1-249
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 6947786930559069369}
@@ -31186,6 +31222,10 @@ PrefabInstance:
       value: 1-293
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 6371235501822790443}
@@ -31269,6 +31309,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: "1-2\u0416\u0421\u04232"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -31364,6 +31408,10 @@ PrefabInstance:
       value: 1-262
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 8390735366487093031}
@@ -31453,6 +31501,10 @@ PrefabInstance:
       value: 1-256
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 7287106584301940021}
@@ -31536,6 +31588,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-267
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -31627,6 +31683,10 @@ PrefabInstance:
       value: 1-238
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 3183590944024128411}
@@ -31714,6 +31774,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-286
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -31829,6 +31893,10 @@ PrefabInstance:
       value: 1-222
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 1347700091307035253}
@@ -31916,6 +31984,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-234
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -32015,6 +32087,10 @@ PrefabInstance:
       value: 1-265
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 2557250405921041216}
@@ -32102,6 +32178,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-276
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -32193,6 +32273,10 @@ PrefabInstance:
       value: 1-253
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 244786791798982835}
@@ -32280,6 +32364,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-287
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -32371,6 +32459,10 @@ PrefabInstance:
       value: "1-234\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 997613554925089600}
@@ -32458,6 +32550,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-261
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -32549,6 +32645,10 @@ PrefabInstance:
       value: 1-289
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 813573907949050740}
@@ -32636,6 +32736,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-243
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -32849,6 +32953,10 @@ PrefabInstance:
       value: 1-211
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 2626605304638425229}
@@ -32936,6 +33044,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-209
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -33027,6 +33139,10 @@ PrefabInstance:
       value: 1-205
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 6917519198785599163}
@@ -33114,6 +33230,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-282
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -33205,6 +33325,10 @@ PrefabInstance:
       value: 1-210
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 3981319808156189834}
@@ -33294,6 +33418,10 @@ PrefabInstance:
       value: "1-219\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 8608968150171082014}
@@ -33381,6 +33509,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: "1-2\u041C\u0421\u04231"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -33474,6 +33606,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-201
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -33587,6 +33723,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-223
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -33722,6 +33862,10 @@ PrefabInstance:
       value: Stairs Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6139345976022265175, guid: 00b9e3fa88ddaac4eb7eee005fb78b35, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6139345976022265175, guid: 00b9e3fa88ddaac4eb7eee005fb78b35, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 7645794304051615654}
@@ -33783,6 +33927,10 @@ PrefabInstance:
       value: Stairs (3)
       objectReference: {fileID: 0}
     - target: {fileID: 6139345976022265175, guid: 00b9e3fa88ddaac4eb7eee005fb78b35, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6139345976022265175, guid: 00b9e3fa88ddaac4eb7eee005fb78b35, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 6400383777127459199}
@@ -33798,6 +33946,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-252
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -33907,6 +34059,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: "1-240\u0430"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -34022,6 +34178,10 @@ PrefabInstance:
       value: 1-283
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 5622520797945210133}
@@ -34111,6 +34271,10 @@ PrefabInstance:
       value: 1-295
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 8076274162236676532}
@@ -34194,6 +34358,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: "1-2\u0416\u0421\u04231"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -34287,6 +34455,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: "1-2\u041C\u0421\u04232"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -34402,6 +34574,10 @@ PrefabInstance:
       value: 1-274
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 3152250638505394860}
@@ -34491,6 +34667,10 @@ PrefabInstance:
       value: "1-228\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 1233293877746260076}
@@ -34578,6 +34758,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-275
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -34693,6 +34877,10 @@ PrefabInstance:
       value: 1-242
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 8651244290136296790}
@@ -34804,6 +34992,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-284
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -34919,6 +35111,10 @@ PrefabInstance:
       value: "1-230\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 1643389076669914736}
@@ -35006,6 +35202,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-219
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -35165,6 +35365,10 @@ PrefabInstance:
       value: Stairs (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6139345976022265175, guid: 00b9e3fa88ddaac4eb7eee005fb78b35, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6139345976022265175, guid: 00b9e3fa88ddaac4eb7eee005fb78b35, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 5776226443110108663}
@@ -35180,6 +35384,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-220
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -35269,6 +35477,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-270
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -35382,6 +35594,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-290
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -35517,6 +35733,10 @@ PrefabInstance:
       value: Stairs (2)
       objectReference: {fileID: 0}
     - target: {fileID: 6139345976022265175, guid: 00b9e3fa88ddaac4eb7eee005fb78b35, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6139345976022265175, guid: 00b9e3fa88ddaac4eb7eee005fb78b35, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 5365774813272011685}
@@ -35578,6 +35798,10 @@ PrefabInstance:
       value: Stairs (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6139345976022265175, guid: 00b9e3fa88ddaac4eb7eee005fb78b35, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6139345976022265175, guid: 00b9e3fa88ddaac4eb7eee005fb78b35, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 2044427304753399703}
@@ -35593,6 +35817,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-215
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -35682,6 +35910,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-236
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -35795,6 +36027,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-281
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -35930,6 +36166,10 @@ PrefabInstance:
       value: Stairs
       objectReference: {fileID: 0}
     - target: {fileID: 6139345976022265175, guid: 00b9e3fa88ddaac4eb7eee005fb78b35, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6139345976022265175, guid: 00b9e3fa88ddaac4eb7eee005fb78b35, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 8316062992944554994}
@@ -35945,6 +36185,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-232
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -36034,6 +36278,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-279
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -36169,6 +36417,10 @@ PrefabInstance:
       value: Elevator (1)
       objectReference: {fileID: 0}
     - target: {fileID: 2616305373051928247, guid: 53616e1450efb7b42885814c1325e0a3, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2616305373051928247, guid: 53616e1450efb7b42885814c1325e0a3, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 5776226443110108663}
@@ -36184,6 +36436,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-240
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -36275,6 +36531,10 @@ PrefabInstance:
       value: 1-235
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 5106062540159463505}
@@ -36362,6 +36622,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-213
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -36453,6 +36717,10 @@ PrefabInstance:
       value: 1-296
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 7865964861145645264}
@@ -36536,6 +36804,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-292
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -36627,6 +36899,10 @@ PrefabInstance:
       value: 1-248
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 6685557726477011079}
@@ -36714,6 +36990,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-230
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -36813,6 +37093,10 @@ PrefabInstance:
       value: 1-241
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 2520576972912225982}
@@ -36897,6 +37181,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3679179726736833567}
     m_Modifications:
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
@@ -36985,6 +37273,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-246
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -37076,6 +37368,10 @@ PrefabInstance:
       value: 1-227
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 4046339409257859762}
@@ -37163,6 +37459,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-299
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -37290,6 +37590,10 @@ PrefabInstance:
       value: "1-283\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 5511091770424390234}
@@ -37377,6 +37681,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-229
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -37490,6 +37798,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-250
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -37611,6 +37923,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-203
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -37746,6 +38062,10 @@ PrefabInstance:
       value: Elevator
       objectReference: {fileID: 0}
     - target: {fileID: 2616305373051928247, guid: 53616e1450efb7b42885814c1325e0a3, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2616305373051928247, guid: 53616e1450efb7b42885814c1325e0a3, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 8316062992944554994}
@@ -37761,6 +38081,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-255
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -37852,6 +38176,10 @@ PrefabInstance:
       value: 1-280
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 5142296906869206454}
@@ -37941,6 +38269,10 @@ PrefabInstance:
       value: "1-208\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 4949687373893853034}
@@ -38028,6 +38360,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: "1-266\u0430"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -38143,6 +38479,10 @@ PrefabInstance:
       value: 1-298
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 4875355227933625770}
@@ -38230,6 +38570,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-208
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -38321,6 +38665,10 @@ PrefabInstance:
       value: 1-202
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 4538097131446651068}
@@ -38408,6 +38756,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-228
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -38499,6 +38851,10 @@ PrefabInstance:
       value: 1-254
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 3888315453086635609}
@@ -38586,6 +38942,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-259
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -38699,6 +39059,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-216
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -38834,6 +39198,10 @@ PrefabInstance:
       value: Stairs (2)
       objectReference: {fileID: 0}
     - target: {fileID: 6139345976022265175, guid: 00b9e3fa88ddaac4eb7eee005fb78b35, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6139345976022265175, guid: 00b9e3fa88ddaac4eb7eee005fb78b35, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 8182900410519848511}
@@ -38849,6 +39217,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-225
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -38940,6 +39312,10 @@ PrefabInstance:
       value: 1-204
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 3816528067151250029}
@@ -39027,6 +39403,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: "1-220\u0430"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -39232,6 +39612,10 @@ PrefabInstance:
       value: 1-294
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 8724877549377497813}
@@ -39315,6 +39699,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-258
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -39406,6 +39794,10 @@ PrefabInstance:
       value: 1-273
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 1081767833481731768}
@@ -39493,6 +39885,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-278
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -39661,6 +40057,10 @@ PrefabInstance:
       value: "1-260\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 8824237009870447053}
@@ -39748,6 +40148,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-271
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -39839,6 +40243,10 @@ PrefabInstance:
       value: "1-229\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 4286227069994667445}
@@ -39926,6 +40334,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-264
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -40017,6 +40429,10 @@ PrefabInstance:
       value: 1-226
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 2970222848854890084}
@@ -40106,6 +40522,10 @@ PrefabInstance:
       value: 1-221
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 1596814827265850521}
@@ -40193,6 +40613,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-277
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -40308,6 +40732,10 @@ PrefabInstance:
       value: 1-247
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 5337295725451504691}
@@ -40395,6 +40823,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-260
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
@@ -40486,6 +40918,10 @@ PrefabInstance:
       value: 1-291
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 9138929199216648394}
@@ -40575,6 +41011,10 @@ PrefabInstance:
       value: "1-284\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode
       value: 
       objectReference: {fileID: 1355841641509205905}
@@ -40662,6 +41102,10 @@ PrefabInstance:
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _id
       value: 1-206
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
+      propertyPath: _isWayPoint
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1975430306335867739, guid: 658415cc1eaed8d4686a304b8bbcc638, type: 3}
       propertyPath: _graphwayNode

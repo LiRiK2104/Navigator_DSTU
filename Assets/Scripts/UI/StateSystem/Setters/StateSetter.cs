@@ -9,6 +9,7 @@ namespace UI.StateSystem.Setters
         private StateType _previousState;
         private StateType _currentState;
 
+        public event Action<StateType> StateSet; 
         public event Action<StatesGroup> GroupClosed;
 
         public StateType CurrentState => _currentState;
@@ -56,6 +57,7 @@ namespace UI.StateSystem.Setters
             CloseGroup();
             InitializeGroup();
             InitializeState(stateContainer);
+            StateSet?.Invoke(stateType);
         }
         
         public void SetPreviousState()

@@ -1,14 +1,18 @@
+using System;
 using Map.Signs;
 using Navigation;
+using UnityEditor;
 using UnityEngine;
 
 namespace TargetsSystem.Points
 {
-    public abstract class Point : MonoBehaviour
+    public abstract partial class Point : MonoBehaviour
     {
+        [SerializeField] private bool _isWayPoint = true;
         [SerializeField] private GraphwayNode _graphwayNode;
         [SerializeField] private SignCreator _signCreator;
 
+        public bool IsWayPoint => _isWayPoint;
         public SignCreator SignCreator => _signCreator;
         public GraphwayNode GraphwayNode
         {
@@ -42,4 +46,49 @@ namespace TargetsSystem.Points
             }
         }
     }
+
+    #region Editor
+    public abstract partial class Point
+    {
+#if UNITY_EDITOR
+        [CustomEditor(typeof(Point), true)]
+        [CanEditMultipleObjects]
+        public class PointEditor : Editor
+        {
+            private Point _origin;
+            private SerializedProperty _isWayPointProperty;
+            private SerializedProperty _graphwayNodeProperty;
+            private SerializedProperty _signCreatorProperty;
+
+            protected void OnEnable()
+            {
+                _origin = target as Point;
+                _isWayPointProperty = serializedObject.FindProperty(nameof(_origin._isWayPoint));
+                _graphwayNodeProperty = serializedObject.FindProperty(nameof(_origin._graphwayNode));
+                _signCreatorProperty = serializedObject.FindProperty(nameof(_origin._signCreator));
+            }
+
+            public override void OnInspectorGUI()
+            {
+                serializedObject.Update();
+
+                EditorGUILayout.PropertyField(_isWayPointProperty);
+
+                if (_origin._isWayPoint)
+                {
+                    EditorGUILayout.PropertyField(_graphwayNodeProperty);
+                    EditorGUILayout.Space();
+                }
+                
+                EditorGUILayout.PropertyField(_signCreatorProperty);
+
+                serializedObject.ApplyModifiedProperties();
+
+                if (GUI.changed)
+                    EditorUtility.SetDirty(target);
+            }
+        }
+#endif
+    }
+    #endregion
 }

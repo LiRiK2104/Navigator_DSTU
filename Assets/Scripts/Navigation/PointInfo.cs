@@ -12,6 +12,7 @@ namespace Navigation
         
         public string Name { get; }
         public Address Address { get; }
+        public bool IsWayPoint { get; }
         public bool NameIsRoomId => Address.HasRoomId && Name == Address.RoomId;
 
         
@@ -25,6 +26,7 @@ namespace Navigation
                 Name = DefaultName;
             
             Address = address;
+            IsWayPoint = point.IsWayPoint;
         }
     }
     
@@ -40,7 +42,8 @@ namespace Navigation
             {PointType.ATM, "банкомат"},
             {PointType.Library, "читальный зал"},
             {PointType.Print, "пункт печати"},
-            {PointType.Buffet, "буфет"}
+            {PointType.Buffet, "буфет"},
+            {PointType.Marker, "маркер"}
         };
 
         public int Floor => FloorIndex + 1;

@@ -148,6 +148,40 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &4917318715597391309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6460024566849036289}
+  m_Layer: 0
+  m_Name: View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6460024566849036289
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4917318715597391309}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8583762419183647431}
+  - {fileID: 5318905399506821216}
+  - {fileID: 3519858375480420953}
+  m_Father: {fileID: 8583762420082533566}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5050793960311316083
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +612,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5153464709902157860}
-  m_Father: {fileID: 8583762420082533566}
+  m_Father: {fileID: 6460024566849036289}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -680,7 +714,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1564637899829926443}
-  m_Father: {fileID: 8583762420082533566}
+  m_Father: {fileID: 6460024566849036289}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1075,7 +1109,7 @@ Transform:
   m_Children:
   - {fileID: 8583762419649667164}
   - {fileID: 8747176708317996026}
-  m_Father: {fileID: 8583762420082533566}
+  m_Father: {fileID: 6460024566849036289}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6389965838749998948
@@ -1325,9 +1359,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8583762419183647431}
-  - {fileID: 5318905399506821216}
-  - {fileID: 3519858375480420953}
+  - {fileID: 6460024566849036289}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1343,6 +1375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bec178cdad50564f836e830f19f03d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _view: {fileID: 4917318715597391309}
   _defaultState: {fileID: 6389965838749998948}
   _searchResultState: {fileID: 3730012135204571782}
   _signCollider: {fileID: 6593438726369735065}

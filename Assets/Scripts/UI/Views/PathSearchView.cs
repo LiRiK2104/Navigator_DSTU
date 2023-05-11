@@ -38,7 +38,7 @@ namespace UI.Views
 
         public void Initialize()
         {
-            _searchableDropDown.Initialize(DataBase.GetPointsOptionInfos());
+            _searchableDropDown.Initialize(DataBase.GetPointsOptionInfos(true));
         }
         
         public void Activate()

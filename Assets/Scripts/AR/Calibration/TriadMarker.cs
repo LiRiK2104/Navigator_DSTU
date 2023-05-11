@@ -2,11 +2,13 @@
 // Rigid Transform implementation using explanation in http://nghiaho.com/?page_id=671
 
 using Accord.Math;
+using TargetsSystem.Points;
+using UnityEditor;
 using UnityEngine;
 
 namespace AR.Calibration
 {
-    public class TriadMarker : MonoBehaviour
+    public partial class TriadMarker : Subject
     {
         [SerializeField] private Triad _triad;
         [SerializeField] private string _name;
@@ -177,4 +179,42 @@ namespace AR.Calibration
             return UnityM;
         }
     }
+    
+    #region Editor
+    public partial class TriadMarker
+    {
+#if UNITY_EDITOR
+        [CustomEditor(typeof(TriadMarker))]
+        [CanEditMultipleObjects]
+        public class TriadMarkerEditor : PointEditor
+        {
+            private TriadMarker _triadMarkerOrigin;
+            private SerializedProperty _triadProperty;
+            private SerializedProperty _nameProperty;
+
+            private new void OnEnable()
+            {
+                base.OnEnable();
+                _triadMarkerOrigin = target as TriadMarker;
+                _triadProperty = serializedObject.FindProperty(nameof(_triadMarkerOrigin._triad));
+                _nameProperty = serializedObject.FindProperty(nameof(_triadMarkerOrigin._name));
+            }
+
+            public override void OnInspectorGUI()
+            {
+                base.OnInspectorGUI();
+                serializedObject.Update();
+                
+                EditorGUILayout.PropertyField(_triadProperty);
+                EditorGUILayout.PropertyField(_nameProperty);
+
+                serializedObject.ApplyModifiedProperties();
+
+                if (GUI.changed)
+                    EditorUtility.SetDirty(target);
+            }
+        }
+#endif
+    }
+    #endregion
 }

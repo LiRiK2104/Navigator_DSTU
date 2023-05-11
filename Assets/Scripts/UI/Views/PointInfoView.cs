@@ -14,7 +14,7 @@ namespace UI.Views
         [SerializeField] private Image _icon;
         [SerializeField] private Image _defaultIcon;
         [SerializeField] private PathPointButtonStateSetter _pathPointStateSetter;
-        
+
         private DataBase DataBase => Global.Instance.DataBase;
         
         
@@ -29,8 +29,16 @@ namespace UI.Views
             if (DataBase.TryGetPoint(pointInfo, out Point point) == false) 
                 return;
 
-            _pathPointStateSetter.Initialize(pointInfo);
-            
+            if (pointInfo.IsWayPoint)
+            {
+                _pathPointStateSetter.gameObject.SetActive(true);
+                _pathPointStateSetter.Initialize(pointInfo);   
+            }
+            else
+            {
+                _pathPointStateSetter.gameObject.SetActive(false);
+            }
+
             if (point.SignCreator.SignPreset.HasIcon)
             {
                 _defaultIcon.gameObject.SetActive(false);

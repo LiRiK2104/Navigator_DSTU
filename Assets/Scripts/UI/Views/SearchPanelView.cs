@@ -12,7 +12,7 @@ namespace UI.Views
 
         public void Initialize()
         {
-            _searchableDropDown.Initialize(DataBase.GetAllOptionInfos());
+            _searchableDropDown.Initialize(DataBase.GetAllOptionInfos(true));
         }
 
         public void Activate()

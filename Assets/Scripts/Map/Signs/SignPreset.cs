@@ -30,7 +30,8 @@ namespace Map.Signs
         ATM,
         Print,
         Library,
-        Buffet
+        Buffet,
+        Marker
     }
 
     #region Editor
@@ -72,7 +73,7 @@ namespace Map.Signs
                     EditorGUILayout.Space(interval);
                 }
 
-                _origin.pointType = (PointType)EditorGUILayout.EnumPopup("Transit type", _origin.pointType);
+                _origin.pointType = (PointType)EditorGUILayout.EnumPopup("Point type", _origin.pointType);
                 EditorGUILayout.Space(interval);
 
                 serializedObject.ApplyModifiedProperties();
