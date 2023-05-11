@@ -228,7 +228,7 @@ public class DataBase : MonoBehaviour
         foreach (var floor in _floors)
         {
             number = 0;
-            
+
             foreach (var block in floor.Blocks)
             {
                 foreach (var point in block.Points)

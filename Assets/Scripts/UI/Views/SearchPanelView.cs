@@ -1,3 +1,4 @@
+using UI.CarouselData;
 using UI.Search;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace UI.Views
     public class SearchPanelView : MonoBehaviour
     {
         [SerializeField] private SearchableDropDown _searchableDropDown;
+        [SerializeField] private Carousel _carousel;
         
         private DataBase DataBase => Global.Instance.DataBase;
         
@@ -13,6 +15,7 @@ namespace UI.Views
         public void Initialize()
         {
             _searchableDropDown.Initialize(DataBase.GetAllOptionInfos(true));
+            _carousel.Initialize();
         }
 
         public void Activate()

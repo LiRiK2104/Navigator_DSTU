@@ -42,8 +42,8 @@ namespace Map
             if (state.State is PointInfoState pointInfoState)
                 pointInfoState.Initialize(pointInfo);
         }
-        
-        private void Select(IOptionInfo optionInfo)
+
+        public void Select(IOptionInfo optionInfo)
         {
             switch (optionInfo)
             {
