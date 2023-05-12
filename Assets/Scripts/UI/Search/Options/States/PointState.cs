@@ -13,7 +13,7 @@ namespace UI.Search.Options.States
         private DataBase DataBase => Global.Instance.DataBase;
         
         
-        public void Initialize(PointInfo pointInfo)
+        public void Initialize(PointInfo pointInfo, bool isStoryOption)
         {
             Sprite sprite = null;
             
@@ -23,7 +23,7 @@ namespace UI.Search.Options.States
                 sprite = point.SignCreator.SignPreset.Icon;
             }
             
-            InitializeIcon(sprite);
+            InitializeIcon(isStoryOption, sprite);
             _name.text = pointInfo.Name;
             _address.text = pointInfo.Address.ToString();
         }

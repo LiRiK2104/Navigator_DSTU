@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Navigation;
@@ -17,9 +16,8 @@ namespace UI.Search
         [SerializeField] private Button _cleanButton;
 
         public delegate void OnValueChangedDel(string input);
-        public delegate void OnOptionSelectedDel(IOptionInfo optionInfo);
-    
-        public event OnOptionSelectedDel OptionSelected;
+
+        public event OptionsList.OnOptionSelectedDel OptionSelected;
         public event OnValueChangedDel ValueChanged;
 
         private DataBase DataBase => Global.Instance.DataBase;
@@ -40,14 +38,30 @@ namespace UI.Search
                     _inputField.DeactivateInputField();
             }
         }
-        
-        
+
+
+        private void OnEnable()
+        {
+            _optionsList.OptionSelected += NotifyOptionSelected;
+        }
+
+        private void OnDisable()
+        {
+            _optionsList.OptionSelected -= NotifyOptionSelected;
+        }
+
+
         public void Initialize(List<IOptionInfo> optionInfos)
         {
             _cleanButton.onClick.AddListener(Reset);
             _inputField.onValueChanged.AddListener(OnInputValueChange);
 
-            _optionsList.Initialize(optionInfos, OnOptionClick);
+            _optionsList.Initialize(optionInfos, SetTextToInputField);
+        }
+        
+        public void SetTextToInputField(IOptionInfo optionInfo)
+        {
+            _inputField.text = optionInfo.Name;
         }
         
         public void Reset()
@@ -55,6 +69,11 @@ namespace UI.Search
             ResetDropDown();
             _optionsList.HideScroll();
             _cleanButton.gameObject.SetActive(false);
+        }
+
+        private void NotifyOptionSelected(IOptionInfo optionInfo)
+        {
+            OptionSelected?.Invoke(optionInfo);
         }
 
         private List<IOptionInfo> GetOptionInfos()
@@ -75,13 +94,6 @@ namespace UI.Search
             _inputField.text = string.Empty;
         }
 
-        private IEnumerator SelectOption(IOptionInfo optionInfo)
-        {
-            float delay = 1;
-            yield return new WaitForSeconds(delay);
-            OptionSelected?.Invoke(optionInfo);
-        }
-    
         private void OnInputValueChange(string arg0)
         {
             _cleanButton.gameObject.SetActive(arg0 != String.Empty);
@@ -90,17 +102,6 @@ namespace UI.Search
                 _optionsList.Filter(arg0);
         
             ValueChanged?.Invoke(arg0);
-        }
-    
-        private void OnOptionClick(IOptionInfo optionInfo)
-        {
-            _inputField.text = optionInfo.Name;
-        
-            _optionsList.ActivateAllOptions();
-            _optionsList.HideScroll();
-
-            StopAllCoroutines();
-            StartCoroutine(SelectOption(optionInfo));
         }
     }
 }

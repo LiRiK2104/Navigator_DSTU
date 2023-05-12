@@ -1,21 +1,18 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Navigation;
+using Newtonsoft.Json;
+using TargetsSystem.Points;
+using UI.Search.Options;
 using UnityEngine;
-using UnityEngine.XR.ARFoundation;
 
 namespace Helpers.Tests
 {
     public class Test : MonoBehaviour
     {
-        public event Action TestEvent;
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                TestEvent?.Invoke();
-            }
-        }
+        
     }
 }
 

@@ -6,15 +6,21 @@ namespace UI.Search.Options.States
     public abstract class OptionState : MonoBehaviour
     {
         [SerializeField] private GameObject _defaultIcon;
+        [SerializeField] private GameObject _storyIcon;
         [SerializeField] private Image _icon;
         
 
-        protected void InitializeIcon(Sprite sprite = null)
+        protected void InitializeIcon(bool isStoryOption, Sprite sprite = null)
         {
+            _storyIcon.SetActive(false);
             _defaultIcon.SetActive(false);
             _icon.gameObject.SetActive(false);
 
-            if (sprite == null)
+            if (isStoryOption)
+            {
+                _storyIcon.SetActive(true);
+            }
+            else if (sprite == null)
             {
                 _defaultIcon.SetActive(true);
             }

@@ -45,8 +45,8 @@ public class DataBase : MonoBehaviour
             return _allTriadMarkers.AsReadOnly();
         }
     }
-    
-    
+
+
     public void Initialize()
     {
         FillPointInfos();
@@ -145,6 +145,22 @@ public class DataBase : MonoBehaviour
             select point.GraphwayNode.nodeID).ToList();
 
         return ids.Count != 0;
+    }
+    
+    public bool TryGetPointsGroup(string name, out PointsGroup foundGroup)
+    {
+        foundGroup = null;
+
+        foreach (var group in _pointsGroups)
+        {
+            if (group.Name == name)
+            {
+                foundGroup = group;
+                return true;
+            }
+        }
+
+        return false;
     }
         
     public bool TryGetFloorNodesPositions(int floorIndex, out List<Vector3> positions)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Map.Signs;
+using Newtonsoft.Json;
 using TargetsSystem.Points;
 using UI.Search.Options;
 
@@ -10,10 +11,10 @@ namespace Navigation
     {
         private const string DefaultName = "Объект";
         
-        public string Name { get; }
-        public Address Address { get; }
-        public bool IsWayPoint { get; }
-        public bool NameIsRoomId => Address.HasRoomId && Name == Address.RoomId;
+        [JsonProperty("n")] public string Name { get; private set; }
+        [JsonProperty("a")] public Address Address { get; private set; }
+        [JsonProperty("iwp")] public bool IsWayPoint { get; private set; }
+        [JsonIgnore] public bool NameIsRoomId => Address.HasRoomId && Name == Address.RoomId;
 
         
         public PointInfo(Point point, Address address)
@@ -46,14 +47,14 @@ namespace Navigation
             {PointType.Marker, "маркер"}
         };
 
-        public int Floor => FloorIndex + 1;
-        public int FloorIndex { get; }
-        public string BlockName { get; }
-        public string RoomId { get; }
-        public PointType PointType { get; }
-        public int PointNumber { get; }
+        [JsonProperty("fi")] public int FloorIndex { get; private set; }
+        [JsonProperty("bn")] public string BlockName { get; private set;}
+        [JsonProperty("r")] public string RoomId { get; private set;}
+        [JsonProperty("t")] public PointType PointType { get; private set;}
+        [JsonProperty("pn")] public int PointNumber { get; private set;}
 
-        public bool HasRoomId => RoomId != String.Empty;
+        [JsonIgnore] public int Floor => FloorIndex + 1;
+        [JsonIgnore] public bool HasRoomId => RoomId != String.Empty;
 
 
         public Address(int floorIndex, string blockName)

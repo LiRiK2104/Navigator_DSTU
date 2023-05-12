@@ -29,16 +29,16 @@ namespace UI.Search.Options
             return _keyWords.Any(keyWord => keyWord.ToLower().Contains(arg.ToLower()));
         }
         
-        public void Initialize(IOptionInfo optionInfo, OptionsList.OptionCallback callback)
+        public void Initialize(IOptionInfo optionInfo, OptionsList.OnOptionSelectedDel callback, bool isStoryOption = false)
         {
             switch (optionInfo)
             {
                 case PointInfo pointInfo:
-                    Initialize(pointInfo);
+                    Initialize(pointInfo, isStoryOption);
                     break;
                 
                 case PointsGroup pointsGroup:
-                    Initialize(pointsGroup);
+                    Initialize(pointsGroup, isStoryOption);
                     break;
 
                 default:
@@ -48,13 +48,13 @@ namespace UI.Search.Options
             InitializeButton(optionInfo, callback);
         }
         
-        private void Initialize(PointInfo pointInfo)
+        private void Initialize(PointInfo pointInfo, bool isStoryOption)
         {
             ContentType = OptionType.Point;
             _groupState.gameObject.SetActive(false);
             _pointState.gameObject.SetActive(true);
 
-            _pointState.Initialize(pointInfo);
+            _pointState.Initialize(pointInfo, isStoryOption);
 
             _keyWords.Add(pointInfo.Name);
 
@@ -62,17 +62,17 @@ namespace UI.Search.Options
                 _keyWords.Add(pointInfo.Address.RoomId);
         }
         
-        private void Initialize(PointsGroup group)
+        private void Initialize(PointsGroup group, bool isStoryOption)
         {
             ContentType = OptionType.Group;
             _groupState.gameObject.SetActive(true);
             _pointState.gameObject.SetActive(false);
             
-            _groupState.Initialize(group);
+            _groupState.Initialize(group, isStoryOption);
             _keyWords.Add(group.Name);
         }
 
-        private void InitializeButton(IOptionInfo optionInfo, OptionsList.OptionCallback callback)
+        private void InitializeButton(IOptionInfo optionInfo, OptionsList.OnOptionSelectedDel callback)
         {
             _button.onClick.AddListener(delegate { callback.Invoke(optionInfo); });
         }

@@ -15,7 +15,7 @@ namespace Map
     {
         [SerializeField] private SearchableDropDown _searchableDropDown;
 
-        public event Action<int[]> PointsGroupSelected;
+        public event OptionsList.OnOptionSelectedDel OptionSelected;
 
         public PointsGroup LastPointsGroup { get; private set; }
         private StateSetter StateSetter => Global.Instance.UISetterV2.MapView.StateSetter;
@@ -60,7 +60,7 @@ namespace Map
                 case PointsGroup pointsGroup:
                     SetSearchResultsState(pointsGroup);
                     LastPointsGroup = pointsGroup;
-                    PointsGroupSelected?.Invoke(pointsGroup.GetFloorsIndexes());
+                    OptionSelected?.Invoke(pointsGroup);
                     break;
                 
                 default:

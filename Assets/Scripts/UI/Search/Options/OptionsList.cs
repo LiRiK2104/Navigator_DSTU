@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Navigation;
@@ -14,9 +15,10 @@ namespace UI.Search.Options
         [SerializeField] private Option _optionPrefab;
 
         private Transform _content;
-        private List<Option> _initializedOptions = new List<Option>();
-    
-        public delegate void OptionCallback(IOptionInfo optionInfo);
+        private List<Option> _createdOptions = new List<Option>();
+        
+        public delegate void OnOptionSelectedDel(IOptionInfo optionInfo);
+        public event OnOptionSelectedDel OptionSelected;
 
 
         private void Awake()
@@ -26,32 +28,20 @@ namespace UI.Search.Options
         }
 
 
-        public void Initialize(List<IOptionInfo> optionInfos, OptionCallback callback)
+        public void Initialize(List<IOptionInfo> optionInfos, OnOptionSelectedDel callback, bool isStoryList = false)
         {
             _scrollRect = GetComponentInChildren<ScrollRect>();
             _content = _scrollRect.content;
         
             optionInfos = Sort(optionInfos);
-            Add(optionInfos, callback);
-        }
-
-        public void Add(List<IOptionInfo> optionInfos, OptionCallback callback)
-        {
-            foreach (var optionInfo in optionInfos)
-            {
-                var optionObject = Instantiate(_optionPrefab, _content);
-                optionObject.Initialize(optionInfo, callback);
-                _initializedOptions.Add(optionObject);
-            }
-            
-            HideScroll();
+            Add(optionInfos, callback, isStoryList);
         }
 
         public void Filter(string input)
         {
             if (string.IsNullOrEmpty(input))
             {
-                foreach (var option in _initializedOptions)
+                foreach (var option in _createdOptions)
                     option.gameObject.SetActive(true);
             
                 _scrollRect.gameObject.SetActive(false);
@@ -60,7 +50,7 @@ namespace UI.Search.Options
 
             var count = 0;
         
-            foreach (var option in _initializedOptions)
+            foreach (var option in _createdOptions)
             {
                 if (option.HasInKeyWords(input))
                 {
@@ -78,12 +68,12 @@ namespace UI.Search.Options
         
         public bool Contains(string input)
         {
-            return _initializedOptions.Any(option => option.HasKeyWord(input));
+            return _createdOptions.Any(option => option.HasKeyWord(input));
         }
 
         public void ActivateAllOptions()
         {
-            foreach (var button in _initializedOptions)
+            foreach (var button in _createdOptions)
                 button.gameObject.SetActive(true);
         }
     
@@ -93,13 +83,48 @@ namespace UI.Search.Options
             var length = _optionPrefab.GetComponent<RectTransform>().sizeDelta.y * count;
             return length;
         }
+        
+        private IEnumerator SelectOption(IOptionInfo optionInfo)
+        {
+            float delay = 1;
+            yield return new WaitForSeconds(delay);
+            OptionSelected?.Invoke(optionInfo);
+        }
+        
+        private void OnOptionClick(IOptionInfo optionInfo)
+        {
+            ActivateAllOptions();
+            HideScroll();
+
+            StopAllCoroutines();
+            StartCoroutine(SelectOption(optionInfo));
+        }
+        
+        private void Add(List<IOptionInfo> optionInfos, OnOptionSelectedDel callback, bool isStoryList)
+        {
+            Queue<Option> createdNotInitializedOptions = new Queue<Option>(_createdOptions);
+            _createdOptions.Clear();
+
+            foreach (var optionInfo in optionInfos)
+            {
+                var optionObject = createdNotInitializedOptions.Count > 0 ? 
+                    createdNotInitializedOptions.Dequeue() : 
+                    Instantiate(_optionPrefab, _content);
+
+                callback += OnOptionClick;
+                optionObject.Initialize(optionInfo, callback, isStoryList);
+                _createdOptions.Add(optionObject);
+            }
+            
+            HideScroll();
+        }
 
         private void Clear()
         {
-            foreach (var button in _initializedOptions)
+            foreach (var button in _createdOptions)
                 Destroy(button.gameObject);
         
-            _initializedOptions.Clear();
+            _createdOptions.Clear();
         }
 
         private List<IOptionInfo> Sort(List<IOptionInfo> optionsInfo)
@@ -108,10 +133,10 @@ namespace UI.Search.Options
             {
                 switch (optionInfo)
                 {
-                    case PointInfo pointInfo:
+                    case PointInfo:
                         return 0;
 
-                    case PointsGroup pointsGroup:
+                    case PointsGroup:
                         return 1;
 
                     default:

@@ -8,9 +8,9 @@ namespace UI.Search.Options.States
     {
         [SerializeField] private TextMeshProUGUI _name;
 
-        public void Initialize(PointsGroup group)
+        public void Initialize(PointsGroup group, bool isStoryOption)
         {
-            InitializeIcon(group.Sprite);
+            InitializeIcon(isStoryOption, group.Sprite);
             _name.text = group.Name;
         }
     }

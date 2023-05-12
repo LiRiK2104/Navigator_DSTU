@@ -16,6 +16,8 @@ namespace UI.Views
         
         private PathPointStateSetter _pathPointStateSetter;
         
+        public event OptionsList.OnOptionSelectedDel OptionSelected;
+        
         private DataBase DataBase => Global.Instance.DataBase;
         private MapControl MapControl => Global.Instance.UISetterV2.MapView.MapHandlePanel.MapControl;
         
@@ -27,11 +29,13 @@ namespace UI.Views
 
         private void OnEnable()
         {
+            _searchableDropDown.OptionSelected += NotifyOptionSelected;
             _searchableDropDown.OptionSelected += SetPathPoint;
         }
 
         private void OnDisable()
         {
+            _searchableDropDown.OptionSelected -= NotifyOptionSelected;
             _searchableDropDown.OptionSelected -= SetPathPoint;
         }
 
@@ -51,6 +55,11 @@ namespace UI.Views
             _searchableDropDown.InputFieldValue = string.Empty;
             _searchableDropDown.Reset();
             _searchableDropDown.InputFieldIsActive = false;
+        }
+
+        private void NotifyOptionSelected(IOptionInfo optionInfo)
+        {
+            OptionSelected?.Invoke(optionInfo);
         }
         
         private void SetPathPoint(IOptionInfo optionInfo)

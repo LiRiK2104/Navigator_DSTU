@@ -2,7 +2,9 @@ using System;
 using System.Linq;
 using Map;
 using Navigation;
+using TargetsSystem.Points;
 using TMPro;
+using UI.Search.Options;
 using UI.StateSystem.Groups;
 using UI.StateSystem.Setters;
 using UnityEngine;
@@ -36,7 +38,7 @@ namespace UI.FloorsSwitch
             PathFinder.PointBSet += UpdatePathPointBMark;
             PathFinder.PointARemoved += HidePathPointAMark;
             PathFinder.PointBRemoved += HidePathPointBMark;
-            SearchResultsSelector.PointsGroupSelected += UpdateSearchResultPointsGroup;
+            SearchResultsSelector.OptionSelected += UpdateSearchResultOption;
             StateSetter.GroupClosed += HideSearchResultMark;
         }
 
@@ -46,7 +48,7 @@ namespace UI.FloorsSwitch
             PathFinder.PointBSet -= UpdatePathPointBMark;
             PathFinder.PointARemoved -= HidePathPointAMark;
             PathFinder.PointBRemoved -= HidePathPointBMark;
-            SearchResultsSelector.PointsGroupSelected -= UpdateSearchResultPointsGroup;
+            SearchResultsSelector.OptionSelected -= UpdateSearchResultOption;
             StateSetter.GroupClosed -= HideSearchResultMark;
         }
 
@@ -143,8 +145,12 @@ namespace UI.FloorsSwitch
             _pointBMark.SetActive(false);
         }
 
-        private void UpdateSearchResultPointsGroup(int[] floorsIndexes)
+        private void UpdateSearchResultOption(IOptionInfo optionInfo)
         {
+            if (optionInfo is not PointsGroup pointsGroup)
+                return;
+
+            int[] floorsIndexes = pointsGroup.GetFloorsIndexes();
             bool show = floorsIndexes.Contains(_floorIndex);
             UpdateMark(FloorToggleMark.SearchResult, show);
         }
