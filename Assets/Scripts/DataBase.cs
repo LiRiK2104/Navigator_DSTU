@@ -28,7 +28,7 @@ public class DataBase : MonoBehaviour
             if (_allTriadMarkers.IsNullOrEmpty())
             {
                 _allTriadMarkers = new List<TriadMarker>();
-                
+
                 foreach (var floor in _floors)
                 {
                     foreach (var block in floor.Blocks)
@@ -50,18 +50,18 @@ public class DataBase : MonoBehaviour
     public void Initialize()
     {
         FillPointInfos();
-        
+
         foreach (var point in GetAllPoints())
             point.Initialize();
 
         foreach (var triadMarker in AllTriadMarkers)
             triadMarker.Initialize();
     }
-    
-    public bool TryGetVirtualMarker(List<ARTrackedImage> trackedImages, 
+
+    public bool TryGetVirtualMarker(List<ARTrackedImage> trackedImages,
         out TriadMarker foundMarker,
-        out ARTrackedImage image1st, 
-        out ARTrackedImage image2nd, 
+        out ARTrackedImage image1st,
+        out ARTrackedImage image2nd,
         out ARTrackedImage image3rd,
         out int floorIndex)
     {
@@ -90,12 +90,12 @@ public class DataBase : MonoBehaviour
 
         return false;
     }
-    
+
 
     public List<Point> GetAllPoints()
     {
         var allPoints = new List<Point>();
-            
+
         foreach (var floor in _floors)
         {
             foreach (var block in floor.Blocks)
@@ -109,11 +109,11 @@ public class DataBase : MonoBehaviour
 
         return allPoints;
     }
-    
+
     public bool TryGetPoint(PointInfo pointInfo, out Point point)
     {
         point = null;
-        
+
         foreach (var localPointInfo in _pointInfos)
         {
             if (localPointInfo.Value.Equals(pointInfo))
@@ -130,23 +130,23 @@ public class DataBase : MonoBehaviour
     {
         return _pointInfos.TryGetValue(targetPoint, out pointInfo);
     }
-    
+
     public bool TryGetFloorNodesIds(int floorIndex, out List<int> ids)
     {
         ids = null;
-        
+
         if (floorIndex < 0 || floorIndex >= _floors.Count)
             return false;
 
         ids = (
-            from block in _floors[floorIndex].Blocks 
+            from block in _floors[floorIndex].Blocks
             from point in block.Points
             where point.IsWayPoint
             select point.GraphwayNode.nodeID).ToList();
 
         return ids.Count != 0;
     }
-    
+
     public bool TryGetPointsGroup(string name, out PointsGroup foundGroup)
     {
         foundGroup = null;
@@ -162,17 +162,17 @@ public class DataBase : MonoBehaviour
 
         return false;
     }
-        
+
     public bool TryGetFloorNodesPositions(int floorIndex, out List<Vector3> positions)
     {
         positions = null;
-            
+
         if (floorIndex < 0 || floorIndex >= _floors.Count)
             return false;
 
         positions = (
-            from block in _floors[floorIndex].Blocks 
-            from point in block.Points 
+            from block in _floors[floorIndex].Blocks
+            from point in block.Points
             select point.GraphwayNodePosition).ToList();
 
         return positions.Count != 0;
@@ -182,7 +182,7 @@ public class DataBase : MonoBehaviour
     {
         var pointsOptionInfos = GetPointsOptionInfos(onlyWayPoints);
         var groupsOptionInfos = GetGroupsOptionInfos();
-        
+
         return pointsOptionInfos.Concat(groupsOptionInfos).ToList();
     }
 
@@ -192,7 +192,7 @@ public class DataBase : MonoBehaviour
 
         if (onlyWayPoints)
             points = points.Where(point => point.IsWayPoint).ToList();
-        
+
         var optionInfos = points.Select(point =>
         {
             TryGetPointInfo(point, out PointInfo pointInfo);
@@ -201,7 +201,7 @@ public class DataBase : MonoBehaviour
 
         return optionInfos;
     }
-    
+
     public List<IOptionInfo> GetGroupsOptionInfos()
     {
         return PointsGroups.Select(group => group as IOptionInfo).ToList();
@@ -220,16 +220,16 @@ public class DataBase : MonoBehaviour
             }
         }
     }
-    
+
     private PointInfo CreatePointInfo(Point point, int floorIndex, string blockName)
     {
         string id = point is AccessibleRoom accessibleRoom ? accessibleRoom.Id : String.Empty;
         var pointType = point.SignCreator.SignPreset.PointType;
 
-        Address address = TryGetPointTypeNumber(point, out int pointTypeNumber) ? 
-            new Address(floorIndex, blockName, id, pointType, pointTypeNumber) : 
+        Address address = TryGetPointTypeNumber(point, out int pointTypeNumber) ?
+            new Address(floorIndex, blockName, id, pointType, pointTypeNumber) :
             new Address(floorIndex, blockName, id);
-        
+
         return new PointInfo(point, address);
     }
 
@@ -254,7 +254,7 @@ public class DataBase : MonoBehaviour
                     if (pointType == myPointType)
                     {
                         number++;
-                        
+
                         if (point == myPoint)
                             return true;
                     }
@@ -264,18 +264,18 @@ public class DataBase : MonoBehaviour
 
         return false;
     }
-    
+
 
     [Serializable]
     public class Floor
     {
         public List<Block> Blocks = new List<Block>();
     }
-    
+
     [Serializable]
     public class Block
     {
-        public string Name; 
+        public string Name;
         public List<Point> Points = new List<Point>();
     }
 }

@@ -19,7 +19,7 @@ namespace UI
         private const int MaxStoryLength = 10;
         private const string PointsInfosKey = "POINTS_INFOS";
         private const string PointsGroupsKey = "POINTS_GROUPS";
-        
+
         private List<PointsGroup> _groups = new List<PointsGroup>();
         private List<PointInfo> _pointsInfos = new List<PointInfo>();
         private PathSearchState _pathSearchState;
@@ -32,7 +32,7 @@ namespace UI
                 return _pointsInfos.Count > 0 || _groups.Count > 0;
             }
         }
-        
+
         public ReadOnlyCollection<PointsGroup> Groups
         {
             get
@@ -91,11 +91,11 @@ namespace UI
                 case PointInfo pointInfo:
                     AddPointInfo(pointInfo);
                     break;
-                
+
                 case PointsGroup pointsGroup:
                     AddPointsGroup(pointsGroup);
                     break;
-                
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(optionInfo));
             }
@@ -108,12 +108,12 @@ namespace UI
                 int index = _pointsInfos.IndexOf(pointInfo);
                 _pointsInfos.RemoveAt(index);
             }
-            
+
             _pointsInfos.Add(pointInfo);
             RemoveOld();
             SavePointsInfos();
         }
-        
+
         private void AddPointsGroup(PointsGroup pointsGroup)
         {
             if (_groups.Contains(pointsGroup))
@@ -121,7 +121,7 @@ namespace UI
                 int index = _groups.Select(group => group.Name).ToList().IndexOf(pointsGroup.Name);
                 _groups.RemoveAt(index);
             }
-            
+
             _groups.Add(pointsGroup);
             RemoveOld();
             SavePointsGroups();
@@ -129,9 +129,9 @@ namespace UI
 
         private void RemoveOld()
         {
-            if (_pointsInfos.Count + _groups.Count <= MaxStoryLength) 
+            if (_pointsInfos.Count + _groups.Count <= MaxStoryLength)
                 return;
-            
+
             if (_pointsInfos.Count > _groups.Count)
                 _pointsInfos.RemoveAt(0);
             else
@@ -143,7 +143,7 @@ namespace UI
             string json = JsonConvert.SerializeObject(_pointsInfos);
             PlayerPrefs.SetString(PointsInfosKey, json);
         }
-        
+
         private void SavePointsGroups()
         {
             string[] names = _groups.Select(group => group.Name).ToArray();
@@ -156,25 +156,25 @@ namespace UI
             LoadPointsInfos();
             LoadPointsGroups();
         }
-        
+
         private void LoadPointsInfos()
         {
-            _pointsInfos = ExtendedPlayerPrefs.TryGetString(PointsInfosKey, out string json) ? 
-                JsonConvert.DeserializeObject<List<PointInfo>>(json) : 
+            _pointsInfos = ExtendedPlayerPrefs.TryGetString(PointsInfosKey, out string json) ?
+                JsonConvert.DeserializeObject<List<PointInfo>>(json) :
                 new List<PointInfo>();
         }
-        
+
         private void LoadPointsGroups()
         {
-            string[] names = ExtendedPlayerPrefs.TryGetString(PointsGroupsKey, out string json) ? 
-                JsonConvert.DeserializeObject<string[]>(json) : 
+            string[] names = ExtendedPlayerPrefs.TryGetString(PointsGroupsKey, out string json) ?
+                JsonConvert.DeserializeObject<string[]>(json) :
                 Array.Empty<string>();
 
             _groups = new List<PointsGroup>();
 
             foreach (var name in names)
             {
-                if (DataBase.TryGetPointsGroup(name, out PointsGroup group)) 
+                if (DataBase.TryGetPointsGroup(name, out PointsGroup group))
                     _groups.Add(group);
             }
         }

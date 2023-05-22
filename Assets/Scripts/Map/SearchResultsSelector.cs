@@ -33,12 +33,12 @@ namespace Map
         {
             _searchableDropDown.OptionSelected -= Select;
         }
-        
+
 
         public void SetPointInfoState(PointInfo pointInfo)
         {
             StateSetter.SetState(StateType.PointInfo, out StateContainer state);
-                    
+
             if (state.State is PointInfoState pointInfoState)
                 pointInfoState.Initialize(pointInfo);
         }
@@ -52,17 +52,18 @@ namespace Map
 
                     if (DataBase.TryGetPoint(pointInfo, out Point point))
                         MapControl.GoToTarget(point.transform, pointInfo.Address.FloorIndex, false, true);
-                    
+
                     SetPointInfoState(pointInfo);
                     LastPointsGroup = null;
+                    OptionSelected?.Invoke(pointInfo);
                     break;
-                
+
                 case PointsGroup pointsGroup:
                     SetSearchResultsState(pointsGroup);
                     LastPointsGroup = pointsGroup;
                     OptionSelected?.Invoke(pointsGroup);
                     break;
-                
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(optionInfo));
             }
@@ -71,7 +72,7 @@ namespace Map
         private void SetSearchResultsState(PointsGroup pointsGroup)
         {
             StateSetter.SetState(StateType.SearchResults, out StateContainer state);
-                    
+
             if (state.State is SearchResultsState searchResultsState)
                 searchResultsState.Initialize(pointsGroup.Name, pointsGroup);
         }

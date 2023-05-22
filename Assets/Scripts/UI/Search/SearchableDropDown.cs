@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Navigation;
 using TMPro;
 using UI.Search.Options;
 using UnityEngine;
@@ -9,99 +7,99 @@ using Button = UnityEngine.UI.Button;
 
 namespace UI.Search
 {
-    public class SearchableDropDown : MonoBehaviour
-    {
-        [SerializeField] private TMP_InputField _inputField;
-        [SerializeField] private OptionsList _optionsList;
-        [SerializeField] private Button _cleanButton;
+	public class SearchableDropDown : MonoBehaviour
+	{
+		[SerializeField] private TMP_InputField _inputField;
+		[SerializeField] private Button _cleanButton;
+		[SerializeField] private SearchPanelsSwitcher _searchPanelsSwitcher;
+		[SerializeField] private bool _displayPointsGroups;
 
-        public delegate void OnValueChangedDel(string input);
+		public delegate void OnValueChangedDel(string input);
 
-        public event OptionsList.OnOptionSelectedDel OptionSelected;
-        public event OnValueChangedDel ValueChanged;
+		public event OptionsList.OnOptionSelectedDel OptionSelected;
+		public event OnValueChangedDel ValueChanged;
 
-        private DataBase DataBase => Global.Instance.DataBase;
+		
+		public string InputFieldValue
+		{
+			get => _inputField.text;
+			set => _inputField.text = value;
+		}
 
-        public string InputFieldValue
-        {
-            get => _inputField.text;
-            set => _inputField.text = value;
-        }
-        
-        public bool InputFieldIsActive
-        {
-            set
-            {
-                if (value)
-                    _inputField.ActivateInputField();
-                else 
-                    _inputField.DeactivateInputField();
-            }
-        }
-
-
-        private void OnEnable()
-        {
-            _optionsList.OptionSelected += NotifyOptionSelected;
-        }
-
-        private void OnDisable()
-        {
-            _optionsList.OptionSelected -= NotifyOptionSelected;
-        }
+		public bool InputFieldIsActive
+		{
+			set
+			{
+				if (value)
+				{
+					_inputField.ActivateInputField();
+					_searchPanelsSwitcher.SetHistoryPanel();
+				}
+				else
+				{
+					_inputField.DeactivateInputField();
+					_searchPanelsSwitcher.SetDefaultPanel();
+				}
+			}
+		}
 
 
-        public void Initialize(List<IOptionInfo> optionInfos)
-        {
-            _cleanButton.onClick.AddListener(Reset);
-            _inputField.onValueChanged.AddListener(OnInputValueChange);
+		private void OnEnable()
+		{
+			_searchPanelsSwitcher.SearchOptionsList.OptionSelected += OnOptionSelected;
+			_searchPanelsSwitcher.HistoryOptionsList.OptionSelected += OnOptionSelected;
+		}
 
-            _optionsList.Initialize(optionInfos, SetTextToInputField);
-        }
-        
-        public void SetTextToInputField(IOptionInfo optionInfo)
-        {
-            _inputField.text = optionInfo.Name;
-        }
-        
-        public void Reset()
-        {
-            ResetDropDown();
-            _optionsList.HideScroll();
-            _cleanButton.gameObject.SetActive(false);
-        }
+		private void OnDisable()
+		{
+			_searchPanelsSwitcher.SearchOptionsList.OptionSelected -= OnOptionSelected;
+			_searchPanelsSwitcher.HistoryOptionsList.OptionSelected -= OnOptionSelected;
+		}
 
-        private void NotifyOptionSelected(IOptionInfo optionInfo)
-        {
-            OptionSelected?.Invoke(optionInfo);
-        }
 
-        private List<IOptionInfo> GetOptionInfos()
-        {
-            var optionInfos = DataBase.GetAllPoints().Select(point =>
-            {
-                DataBase.TryGetPointInfo(point, out PointInfo pointInfo);
-                return pointInfo as IOptionInfo;
-            }).ToList();
+		public void Initialize(List<IOptionInfo> optionInfos)
+		{
+			_searchPanelsSwitcher.Initialize(optionInfos, _displayPointsGroups, SetTextToInputField);
+			_cleanButton.onClick.AddListener(Reset);
+			_inputField.onValueChanged.AddListener(OnInputValueChange);
+			
+			_searchPanelsSwitcher.SetDefaultPanel();
+		}
 
-            optionInfos.AddRange(DataBase.PointsGroups.Select(group => group as IOptionInfo).ToArray());
+		public void SetTextToInputField(IOptionInfo optionInfo)
+		{
+			_inputField.text = optionInfo.Name;
+		}
 
-            return optionInfos;
-        }
+		public void Reset()
+		{
+			ResetDropDown();
+			_searchPanelsSwitcher.SearchOptionsList.HideScroll();
+			_cleanButton.gameObject.SetActive(false);
+		}
 
-        private void ResetDropDown()
-        {
-            _inputField.text = string.Empty;
-        }
+		private void OnOptionSelected(IOptionInfo optionInfo)
+		{
+			_searchPanelsSwitcher.SetHistoryPanel();
+			OptionSelected?.Invoke(optionInfo);
+		}
 
-        private void OnInputValueChange(string arg0)
-        {
-            _cleanButton.gameObject.SetActive(arg0 != String.Empty);
-        
-            if (_optionsList.Contains(arg0) == false)
-                _optionsList.Filter(arg0);
-        
-            ValueChanged?.Invoke(arg0);
-        }
-    }
+		private void ResetDropDown()
+		{
+			_inputField.text = string.Empty;
+		}
+
+		private void OnInputValueChange(string arg0)
+		{
+			var optionsList = _searchPanelsSwitcher.SearchOptionsList;
+
+			_cleanButton.gameObject.SetActive(arg0 != String.Empty);
+
+			if (optionsList.Contains(arg0) == false)
+				optionsList.Filter(arg0);
+
+			_searchPanelsSwitcher.SetPanel(arg0);
+			ValueChanged?.Invoke(arg0);
+		}
+	}
 }

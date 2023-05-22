@@ -17,7 +17,7 @@ namespace UI.SlidingPanel.Setters
             _slidingPanelHandler.SwitchPosition(_index, null, _instantlySet);
         }
     }
-    
+
     #region Editor
     public partial class SlidingPanelSwitchObject
     {
@@ -26,7 +26,7 @@ namespace UI.SlidingPanel.Setters
         public class SlidingPanelSwitchObjectEditor : Editor
         {
             private SlidingPanelSwitchObject _origin;
-            
+
             private void OnEnable()
             {
                 _origin = target as SlidingPanelSwitchObject;
@@ -36,25 +36,25 @@ namespace UI.SlidingPanel.Setters
             {
                 serializedObject.Update();
                 DrawScriptLink();
-                
+
                 _origin._slidingPanelHandler = EditorGUILayout.ObjectField("Sliding Panel Handler", _origin._slidingPanelHandler, typeof(SlidingPanelHandler)) as SlidingPanelHandler;
 
                 if (_origin._slidingPanelHandler != null)
                 {
-                    _origin._index = 
-                        EditorGUILayout.Popup("Target Point", _origin._index, 
-                            _origin._slidingPanelHandler.TargetPoints.Select(targetPoint => targetPoint.gameObject.name).ToArray(), 
+                    _origin._index =
+                        EditorGUILayout.Popup("Target Point", _origin._index,
+                            _origin._slidingPanelHandler.TargetPoints.Select(targetPoint => targetPoint.gameObject.name).ToArray(),
                             EditorStyles.popup);
-                    
+
                     _origin._instantlySet = EditorGUILayout.Toggle("Set instantly", _origin._instantlySet);
                 }
-                
+
                 serializedObject.ApplyModifiedProperties();
-                
+
                 if (GUI.changed)
                     EditorUtility.SetDirty(_origin);
             }
-            
+
             private void DrawScriptLink()
             {
                 GUI.enabled = false;

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Navigation;
@@ -16,23 +15,22 @@ namespace UI.Search.Options
 
         private Transform _content;
         private List<Option> _createdOptions = new List<Option>();
-        
+
         public delegate void OnOptionSelectedDel(IOptionInfo optionInfo);
         public event OnOptionSelectedDel OptionSelected;
 
-
-        private void Awake()
+        
+        private void OnEnable()
         {
-            _scrollRect = GetComponentInChildren<ScrollRect>();
-            _content = _scrollRect.content;
+            ShowScroll();
         }
 
 
         public void Initialize(List<IOptionInfo> optionInfos, OnOptionSelectedDel callback, bool isStoryList = false)
         {
-            _scrollRect = GetComponentInChildren<ScrollRect>();
+            _scrollRect = GetComponentInChildren<ScrollRect>(true);
             _content = _scrollRect.content;
-        
+
             optionInfos = Sort(optionInfos);
             Add(optionInfos, callback, isStoryList);
         }
@@ -43,13 +41,13 @@ namespace UI.Search.Options
             {
                 foreach (var option in _createdOptions)
                     option.gameObject.SetActive(true);
-            
-                _scrollRect.gameObject.SetActive(false);
+
+                HideScroll();
                 return;
             }
 
             var count = 0;
-        
+
             foreach (var option in _createdOptions)
             {
                 if (option.HasInKeyWords(input))
@@ -65,7 +63,7 @@ namespace UI.Search.Options
 
             SetScrollActive(count > 0);
         }
-        
+
         public bool Contains(string input)
         {
             return _createdOptions.Any(option => option.HasKeyWord(input));
@@ -76,30 +74,22 @@ namespace UI.Search.Options
             foreach (var button in _createdOptions)
                 button.gameObject.SetActive(true);
         }
-    
+
         public float GetActiveButtonsYLength()
         {
             var count = _content.transform.Cast<Transform>().Count(child => child.gameObject.activeSelf);
             var length = _optionPrefab.GetComponent<RectTransform>().sizeDelta.y * count;
             return length;
         }
-        
-        private IEnumerator SelectOption(IOptionInfo optionInfo)
-        {
-            float delay = 1;
-            yield return new WaitForSeconds(delay);
-            OptionSelected?.Invoke(optionInfo);
-        }
-        
+
         private void OnOptionClick(IOptionInfo optionInfo)
         {
             ActivateAllOptions();
             HideScroll();
 
-            StopAllCoroutines();
-            StartCoroutine(SelectOption(optionInfo));
+            OptionSelected?.Invoke(optionInfo);
         }
-        
+
         private void Add(List<IOptionInfo> optionInfos, OnOptionSelectedDel callback, bool isStoryList)
         {
             Queue<Option> createdNotInitializedOptions = new Queue<Option>(_createdOptions);
@@ -107,23 +97,21 @@ namespace UI.Search.Options
 
             foreach (var optionInfo in optionInfos)
             {
-                var optionObject = createdNotInitializedOptions.Count > 0 ? 
-                    createdNotInitializedOptions.Dequeue() : 
+                var optionObject = createdNotInitializedOptions.Count > 0 ?
+                    createdNotInitializedOptions.Dequeue() :
                     Instantiate(_optionPrefab, _content);
 
                 callback += OnOptionClick;
                 optionObject.Initialize(optionInfo, callback, isStoryList);
                 _createdOptions.Add(optionObject);
             }
-            
-            HideScroll();
         }
 
         private void Clear()
         {
             foreach (var button in _createdOptions)
                 Destroy(button.gameObject);
-        
+
             _createdOptions.Clear();
         }
 
@@ -144,7 +132,7 @@ namespace UI.Search.Options
                 }
             }).ToList();
         }
-    
+
         private void SetScrollActive(bool status)
         {
             if (status)
@@ -152,16 +140,15 @@ namespace UI.Search.Options
             else
                 HideScroll();
         }
-    
+
         public void HideScroll()
         {
-            _scrollRect.gameObject.SetActive(false);    
+            _scrollRect.gameObject.SetActive(false);
         }
-    
+
         private void ShowScroll()
         {
-            _scrollRect.gameObject.SetActive(true);    
+            _scrollRect.gameObject.SetActive(true);
         }
-    
     }
 }

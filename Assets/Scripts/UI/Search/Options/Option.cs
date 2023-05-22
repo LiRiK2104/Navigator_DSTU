@@ -74,6 +74,7 @@ namespace UI.Search.Options
 
         private void InitializeButton(IOptionInfo optionInfo, OptionsList.OnOptionSelectedDel callback)
         {
+            _button.onClick.RemoveAllListeners();
             _button.onClick.AddListener(delegate { callback.Invoke(optionInfo); });
         }
     }
