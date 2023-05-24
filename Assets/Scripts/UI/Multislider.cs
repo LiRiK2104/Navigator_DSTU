@@ -153,7 +153,7 @@ namespace UI
             SliderStarted?.Invoke(_currentSliderIndex);
             
             const float minTime = 0;
-            const float maxTime = 5;
+            const float maxTime = 8;
             float time = minTime;
 
             while (time < maxTime)
