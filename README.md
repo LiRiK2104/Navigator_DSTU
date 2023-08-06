@@ -1,6 +1,8 @@
 # Navigator_DSTU
 This application is my graduation project during my higher education for a bachelor's degree at the **Don State Technical University (DSTU)**.
 
+---
+
 ### 📃 Description:
 This application was developed to perform 2 tasks:
 - Assistance in navigation inside the 1st building of the DSTU;
@@ -12,6 +14,8 @@ In AR mode, the application is able to determine the user's location in space. T
 - Displaying virtual 3D content on top of the real environment;
 - Ability to find the shortest route relative to your location.
 
+---
+
 ### ▶️ Video Demonstration:
 [![Demonstration](https://img.youtube.com/vi/BakuDsjcYLs/0.jpg)](https://www.youtube.com/watch?v=BakuDsjcYLs)
 
@@ -21,6 +25,8 @@ In AR mode, the application is able to determine the user's location in space. T
   <img src="https://github.com/LiRiK2104/Navigator_DSTU/assets/60710094/e31ae891-45ed-4a46-8255-4d162caa5a1e" width="33%" />
   <img src="https://github.com/LiRiK2104/Navigator_DSTU/assets/60710094/9556f124-bb65-4322-9892-bfb0569bb0ac" width="33%" />
 </p>
+
+---
 
 ### 📂 Files:
 - [Markers for test AR mode](https://github.com/LiRiK2104/Navigator_DSTU/files/12270627/Markers.pdf)
