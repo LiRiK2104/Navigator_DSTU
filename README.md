@@ -16,3 +16,14 @@ In AR mode, the application is able to determine the user's location in space. T
 [![Demonstration](https://img.youtube.com/vi/BakuDsjcYLs/0.jpg)](https://www.youtube.com/watch?v=BakuDsjcYLs)
 
 ### 🖼️ Gallery:
+<p float="left">
+  <img src="https://github.com/LiRiK2104/Navigator_DSTU/assets/60710094/06eaa507-2a34-41b5-8c3e-6d48b2cfcc8a" width="33%" />
+  <img src="https://github.com/LiRiK2104/Navigator_DSTU/assets/60710094/e31ae891-45ed-4a46-8255-4d162caa5a1e" width="33%" />
+  <img src="https://github.com/LiRiK2104/Navigator_DSTU/assets/60710094/9556f124-bb65-4322-9892-bfb0569bb0ac" width="33%" />
+</p>
+
+### Files:
+- [Markers for test AR mode](https://github.com/LiRiK2104/Navigator_DSTU/files/12270627/Markers.pdf)
+- [My Graduation Work (in Russian)](https://github.com/LiRiK2104/Navigator_DSTU/files/12270629/_09.03.02_._2023_.pdf)
+
+
