@@ -22,7 +22,7 @@ In AR mode, the application is able to determine the user's location in space. T
   <img src="https://github.com/LiRiK2104/Navigator_DSTU/assets/60710094/9556f124-bb65-4322-9892-bfb0569bb0ac" width="33%" />
 </p>
 
-### Files:
+### 📂 Files:
 - [Markers for test AR mode](https://github.com/LiRiK2104/Navigator_DSTU/files/12270627/Markers.pdf)
 - [My Graduation Work (in Russian)](https://github.com/LiRiK2104/Navigator_DSTU/files/12270629/_09.03.02_._2023_.pdf)
 
